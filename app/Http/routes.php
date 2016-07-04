@@ -15,7 +15,16 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
+//laravel预定义的两个进行用户认证的controller
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+//登录页面路由
+Route::get('index', 'AuthController@index')
+
+//负责用户登录的路由
+Route::get('login', 'AuthController@login');
+
+
