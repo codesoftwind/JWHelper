@@ -23,7 +23,7 @@ class AuthController extends Controller {
 		$userID = $request->get('userID');
 		$password = $request->get('password');
 
-		//在users表中进行身份认证，然后再根据users表中的字段确定登录的用户的身份
+		//在users表中进行身份认证，然后再根据users表中的字段确定登录的用户的身份，而跳转是在前端完成
 		if(Auth::attempt(['userID' => $userID, 'password' => $password]))
 		{
 			if(Auth::user()->isAdmin)
@@ -50,7 +50,7 @@ class AuthController extends Controller {
 
 	public function check()
 	{
-		return redirect->route('firstpage');
+		return redirect()->route('firstpage');
 	}
 
 	/**
