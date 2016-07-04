@@ -22,7 +22,7 @@ Route::controllers([
 ]);
 
 //登录页面路由
-Route::get('index', 'AuthController@index')
+Route::get('index', 'AuthController@index');
 
 //负责用户登录的路由
 Route::get('login', 'AuthController@login');
