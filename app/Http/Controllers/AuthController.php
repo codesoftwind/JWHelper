@@ -16,7 +16,7 @@ class AuthController extends Controller {
 	//返回firstpage(首页)，即登录页面
 	public function firstpage()
 	{
-		return view('view.firstpage')->with('title', 'login');
+		return view('login');
 	}
 
 	//登录的身份认证

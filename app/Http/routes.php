@@ -28,10 +28,10 @@ Route::post('login', 'AuthController@login');
 
 //教务路由
 Route::get('admin/index', 'Admin/IndexController@index');
-Roure::get('admin/uploadTeacher','Admin/UploadController@uploadTeacher');
-Roure::get('admin/uploadStudent','Admin/UploadController@uploadStudent');
-Roure::get('admin/uploadTeach','Admin/UploadController@uploadTeach');
-Roure::get('admin/uploadChoose','Admin/UploadController@uploadChoose');
+Route::get('admin/uploadTeacher','Admin/UploadController@uploadTeacher');
+Route::get('admin/uploadStudent','Admin/UploadController@uploadStudent');
+Route::get('admin/uploadTeach','Admin/UploadController@uploadTeach');
+Route::get('admin/uploadChoose','Admin/UploadController@uploadChoose');
 
 
 
