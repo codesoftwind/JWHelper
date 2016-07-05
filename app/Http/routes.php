@@ -20,11 +20,10 @@ Route::controllers([
 ]);
 
 //登录页面路由
-Route::get('index', 'AuthController@index');
-Route::get('firstpage', 'AuthController@firstpage');
+Route::get('login', 'AuthController@login');
 
-//负责用户登录的路由
-Route::post('login', 'AuthController@login');
+//认证用户登录的路由
+Route::post('authLogin', 'AuthController@authLogin');
 
 //教务路由
 Route::get('admin/index', 'Admin/IndexController@index');
@@ -53,4 +52,4 @@ Route::get('teacher/stuHomeworkRate', 'Teacher/StuHomeworkController@stuHomework
 
 //学生路由
 Route::get('student/index', 'StudentController@index');
-Route::get('student/lessons', 'StudentController@lessonlist');
+Route::get('student/lessonsList', 'StudentController@lessonsList');
