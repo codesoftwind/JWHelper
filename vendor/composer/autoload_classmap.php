@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddHomeworkNameToPubhomework' => $baseDir . '/database/migrations/2016_07_05_102639_add_homeworkName_to_pubhomework.php',
     'CreateAdminsTable' => $baseDir . '/database/migrations/2016_07_04_024339_create_admins_table.php',
     'CreateHomeworksTable' => $baseDir . '/database/migrations/2016_07_04_080230_create_homeworks_table.php',
     'CreateLessonsTable' => $baseDir . '/database/migrations/2016_07_04_074333_create_lessons_table.php',

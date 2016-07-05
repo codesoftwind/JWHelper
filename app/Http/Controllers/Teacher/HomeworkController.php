@@ -16,7 +16,20 @@ class HomeworkController extends Controller {
 	 */
 	public function homeworksList(Request $request)
 	{
-		
+		if(!Auth::check())
+			return redirect('login');
+
+		$lessonID = $request->get('lessonID');
+		$teacherID = Auth::user()->userID;
+
+		$tmpresult = DB::table('pubhomework')
+									->where('teacherID', $teacherID)
+									->where('lessonID', $lessonID)
+									->select('homeworkID', 'homeworkName')
+									->get();
+
+		$result = ['title'=>'布置作业列表', 'lessonID'=>$lessonID, 'result'=>$tmpresult];
+		return view()->with($result);
 	}
 
 	/**
