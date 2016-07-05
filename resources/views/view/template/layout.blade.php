@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+
+    <title>JWHelper - {{ $title }}</title>
+
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    @yield('headjs')
+  </head>
+
+  <body>
+    <br /><br /><br />
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">JiaoWu Helper</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">{{ $username }} {{ $role }}，欢迎您！</a></li>
+            <li><a href="#">注销</a></li>
+            <li><a href="#">帮助</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            @section('sidebar')
+                Sidebar
+            @show
+            @section('main_panel')
+                Main Panel
+            @show
+        </div>
+    </div>
+
+  </body>
+
+  <footer>
+    <hr />
+    <p align="center">
+        JWHelper v1.0 &copy; 2016 All Rights Reserved.
+  </footer>
+</html>

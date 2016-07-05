@@ -1,0 +1,1 @@
+@extends('view.template.teacher_layout')

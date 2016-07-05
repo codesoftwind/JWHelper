@@ -20,6 +20,7 @@ Route::controllers([
 ]);
 
 //登录页面路由
+Route::get('index', 'AuthController@index');
 Route::get('firstpage', 'AuthController@firstpage');
 
 //负责用户登录的路由
