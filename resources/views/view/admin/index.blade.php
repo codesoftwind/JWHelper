@@ -14,16 +14,14 @@
   </tr>
 
         <?php 
-          
-          //$lesson = $result;
-          //$lesson['lessonName']
+          $lessons = $result;
         ?>
 
-       @foreach ($lesson as $lesson)
-           <tr> <td>{{  $lesson[0] }}
+       @foreach ($lessons as $lesson)
+           <tr> <td>{{  $lesson->lessonName }}
            </td>
 
-           <td>{{  $lesson[1] }}</td>      
+           <td>{{  $lesson->teacherName }}</td>      
 <td>
   <div class="btn-group" role="group" aria-label="...">
   <button type="button" class="btn btn-primary" >修改</button>

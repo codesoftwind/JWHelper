@@ -13,7 +13,7 @@ class UploadController extends Controller {
 	public function uploadTeacher(Request $request)
 	{
 		if(!Auth::check())
-			reuturn redirect('login');
+			return redirect('login');
 		if($request->hasFile('teacher'))
 		{
 			$file = $request->file('teacher');
@@ -37,10 +37,10 @@ class UploadController extends Controller {
 		}
 	}
 
-	public function uploadStudent()
+	public function uploadStudent(Request $request)
 	{
 		if(!Auth::check())
-			reuturn redirect('login');
+			return redirect('login');
 		if($request->hasFile('student'))
 		{
 			$file = $request->file('student');
@@ -66,10 +66,10 @@ class UploadController extends Controller {
 
 	}
 
-	public function uploadTeach()
+	public function uploadTeach(Request $request)
 	{
 		if(!Auth::check())
-			reuturn redirect('login');
+			return redirect('login');
 		if($request->hasFile('teach'))
 		{
 			$file = $request->file('teach');
@@ -81,7 +81,7 @@ class UploadController extends Controller {
 			$result=Excel::load($newFilePath)->get();
 			foreach ($result as $rows) {
 				foreach ($rows as $data) {
-					DB::insert("insert into tleasons (teacherID,lessonID,semesterID)
+					DB::insert("insert into tlessons (teacherID,lessonID,semesterID)
                          values(?,?,?)",[$data->teacherID,$data->lessonID,$data->semesterID]);
 				}
 			}
@@ -95,10 +95,10 @@ class UploadController extends Controller {
 
 	}
 
-	public function uploadChoose()
+	public function uploadChoose(Request $request)
 	{
 		if(!Auth::check())
-			reuturn redirect('login');
+			return redirect('login');
 		if($request->hasFile('choose'))
 		{
 			$file = $request->file('choose');
@@ -110,7 +110,7 @@ class UploadController extends Controller {
 			$result=Excel::load($newFilePath)->get();
 			foreach ($result as $rows) {
 				foreach ($rows as $data) {
-					DB::insert("insert into sleasons (studentID,teacherID,lessonID,semesterID)
+					DB::insert("insert into slessons (studentID,teacherID,lessonID,semesterID)
            values(?,?,?,?)",[$data->studentID,$data->teacherID,$data->lessonID,$data->semesterID]);
 				}
 			}
@@ -123,10 +123,10 @@ class UploadController extends Controller {
 
 	}
 
-	public function uploadLesson()
+	public function uploadLesson(Request $request)
 	{
 		if(!Auth::check())
-			reuturn redirect('login');
+			return redirect('login');
 		if($request->hasFile('lesson'))
 		{
 			$file = $request->file('lesson');
@@ -155,31 +155,31 @@ class UploadController extends Controller {
 	function uploadTeacherPage()
 	{
 		if(!Auth::check())
-			reuturn redirect('login');
+			return redirect('login');
 		return view('view.admin.teacherimport');
 	}
 	function uploadStudentPage()
 	{
 		if(!Auth::check())
-			reuturn redirect('login');
+			return redirect('login');
 		return view('view.admin.studentimport');
 	}
 	function uploadTeachPage()
 	{
 		if(!Auth::check())
-			reuturn redirect('login');
+			return redirect('login');
 		return view('view.admin.teachimport');
 	}
 	function uploadLessonPage()
 	{
 		if(!Auth::check())
-			reuturn redirect('login');
+			return redirect('login');
 		return view('view.admin.lessonimport');
 	}
 	function uploadChoosePage()
 	{
 		if(!Auth::check())
-			reuturn redirect('login');
+			return redirect('login');
 		return view('view.admin.chooseimport');
 	}
 	
