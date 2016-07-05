@@ -15,6 +15,10 @@ body, html {
     padding: 40px 40px;
 }
 
+h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
 .btn {
     font-weight: 700;
     height: 36px;
