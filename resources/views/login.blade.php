@@ -3,20 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>JW Helper</title>
-	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
+	<script src="{{asset('js/jquery.min.js')}}"></script>
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="{{asset('css/bootstrap-3.3.6.min.css')}}">
 
 	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<link rel="stylesheet" href="{{asset('css/bootstrap-theme-3.3.6.min.css')}}">
 
 	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="{{asset('js/bootstrap.min.js')}}"></script>
 
 	<!-- Bootstrap Dialog -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css">
+	<link rel="stylesheet" href="{{asset('css/bootstrap-dialog.min.css')}}">
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
+	<script src="{{asset('js/bootstrap-dialog.min.js')}}"></script>
 
 	<link rel="stylesheet" type="text/css" href="{{asset('css/login.css')}}">
 </head>
@@ -48,8 +48,43 @@
 
 				//To do. 处理不同的登录结果
 				function successHandler(data) {
+					// 登录失败，用户名或密码错误
 					if (data['status'] == 0) {
-						BootstrapDialog.alert('Hello');
+						BootstrapDialog.show({
+							type: BootstrapDialog.TYPE_WARNING,
+							title: '用户名或者密码错误',
+							message: '请重新输入正确的用户名和密码',
+							buttons: [
+								{
+									label: '好的',
+									action: function(dialogItself){
+                    					dialogItself.close();
+                					}
+								}
+							]
+						});
+					} else { // 登录成功
+						var url = basicURL + data['role'] + '/index';
+						function redirect() {
+							window.location.href = url;
+						}
+						var timeoutID = window.setTimeout(redirect, 2000);
+						BootstrapDialog.show({
+							type: BootstrapDialog.TYPE_SUCCESS,
+							title: '登录成功',
+							message: '两秒后将跳转到主界面',
+							buttons : [
+								{
+									label: '立即跳转',
+									action: function(dialogItself) {
+										dialogItself.close();
+										window.clearTimeout(timeoutID);
+										window.location.href = url;
+									}
+								}
+							]
+						});
+
 					}
 				}
 
