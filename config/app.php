@@ -107,7 +107,9 @@ return [
 	| this array to grant expanded functionality to your applications.
 	|
 	*/
+'Maatwebsite\Excel\ExcelServiceProvider',
 
+'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
 	'providers' => [
 
 		/*
