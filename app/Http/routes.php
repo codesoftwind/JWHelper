@@ -41,6 +41,7 @@ Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
 
 Route::get('admin/index', function(){return view('view.admin.index',['title'=>'title','role'=>'role','username'=>'user']);});
 
+
 //教师路由
 Route::get('teacher/index', 'Teacher\IndexController@index');
 Route::get('teacher/lessonsList', 'Teacher\LessonController@lessonsList');
