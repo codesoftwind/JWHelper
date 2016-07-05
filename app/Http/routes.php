@@ -31,6 +31,12 @@ Route::get('admin/uploadTeacher','Admin\UploadController@uploadTeacher');
 Route::get('admin/uploadStudent','Admin\UploadController@uploadStudent');
 Route::get('admin/uploadTeach','Admin\UploadController@uploadTeach');
 Route::get('admin/uploadChoose','Admin\UploadController@uploadChoose');
+Route::get('admin/uploadLesson', 'Admin\UploadController@uploadLesson');
+Route::get('admin/uploadTeacherPage', 'Admin\UploadController@uploadTeacherPage');
+Route::get('admin/uploadStudentPage', 'Admin\UploadController@uploadStudentPage');
+Route::get('admin/uploadTeachPage', 'Admin\UploadController@uploadTeachPage');
+Route::get('admin/uploadChoosePage', 'Admin\UploadController@uploadChoosePage');
+Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
 
 
 
