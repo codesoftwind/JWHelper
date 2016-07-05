@@ -12,9 +12,7 @@
 */
 
 Route::get('/', 'WelcomeController@index');
-
 Route::get('home', 'HomeController@index');
-
 //laravel预定义的两个进行用户认证的controller
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -29,3 +27,28 @@ Route::post('login', 'AuthController@login');
 
 Route::get('index', 'AuthController@check');
 
+//教务路由
+Route::get('admin/index', 'AdminController@index');
+
+
+//教师路由
+Route::get('teacher/index', 'TeacherController@index');
+Route::get('teacher/lessonslist', 'TeacherController@lessonslist');
+Route::get('teacher/lesson', 'TeacherController@lesson');
+Route::get('teacher/resourceslist', 'TeacherController@resourceslist');
+Route::get('teacher/resourcesclassify', 'TeacherController@resourcesclassify');
+Route::get('teacher/resourceupload', 'TeacherController@resourceupload');
+Route::get('teacher/resourcedownload', 'TeacherController@resourcedownload');
+Route::get('teacher/homeworkslist', 'TeacherController@homeworkslist');
+Route::get('teacher/homeworkpublish', 'TeacherController@homeworkpublish');
+Route::get('teacher/homework', 'TeacherController@homework');
+Route::get('teacher/stuhomework', 'TeacherController@stuhomework');
+Route::get('teacher/stuhomeworkdownload', 'TeacherController@stuhomeworkdownload');
+Route::get('teacher/stuhomeworkrate', 'TeacherController@stuhomeworkrate');
+Route::get('teacher/groupverify', 'TeacherController@groupverify');
+
+
+
+//学生路由
+Route::get('student/index', 'StudentController@index');
+Route::get('student/lessons', 'StudentController@lessonlist');
