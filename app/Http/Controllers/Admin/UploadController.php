@@ -5,30 +5,31 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-
+use Excel;
+use Hash;
+use Auth;
 class UploadController extends Controller {
 
 	public function uploadTeacher(Request $request)
 	{
+		if(!Auth::check())
+			reuturn redirect('login');
 		if($request->hasFile('teacher'))
 		{
 			$file = $request->file('teacher');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
 			$newName=md5(date('ymdhis').$clientName).".".$extension;
-			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
-			Excel::load($newFilePath, function($reader) {
-        		$dataInfo=$reader->all();
-
-        		foreach ($dataInfo as $data) 
-        		{
-        			DB::insert("insert into teachers (teacherID,teacherName,password,basicInfo)
-                         values(?,?,?,?)",[$data->id,$data->name,$data->password,$data->info]);
-        		}
-        		
-    		});
-    		return redirct('admin/index');
+			$result=Excel::load($newFilePath)->get();
+			foreach ($result as $rows) {
+				foreach ($rows as $data) {
+					DB::insert("insert into teachers (teacherID,teacherName,password,basicInfo)
+                         values(?,?,?,?)",[$data->id,$data->name,Hash::make($data->pass),$data->info]);
+				}
+			}
+			
+    		return redirect('admin/index');
 		}
 		else
 		{
@@ -38,6 +39,8 @@ class UploadController extends Controller {
 
 	public function uploadStudent()
 	{
+		if(!Auth::check())
+			reuturn redirect('login');
 		if($request->hasFile('student'))
 		{
 			$file = $request->file('student');
@@ -46,17 +49,15 @@ class UploadController extends Controller {
 			$newName=md5(date('ymdhis').$clientName).".".$extension;
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
-			Excel::load($newFilePath, function($reader) {
-        		$dataInfo=$reader->all();
-
-        		foreach ($dataInfo as $data) 
-        		{
-        			DB::insert("insert into students (studentID,studentName,password,department)
-                         values(?,?,?,?)",[$data->id,$data->name,$data->password,$data->depart]);
-        		}
-        		
-    		});
-    		return redirct('admin/index');
+			$result=Excel::load($newFilePath)->get();
+			foreach ($result as $rows) {
+				foreach ($rows as $data) {
+					DB::insert("insert into students (studentID,studentName,password,department)
+                         values(?,?,?,?)",[$data->id,$data->name,Hash::make($data->password),$data->depart]);
+				}
+			}
+			
+    		return redirect('admin/index');
 		}
 		else
 		{
@@ -67,6 +68,8 @@ class UploadController extends Controller {
 
 	public function uploadTeach()
 	{
+		if(!Auth::check())
+			reuturn redirect('login');
 		if($request->hasFile('teach'))
 		{
 			$file = $request->file('teach');
@@ -75,17 +78,15 @@ class UploadController extends Controller {
 			$newName=md5(date('ymdhis').$clientName).".".$extension;
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
-			Excel::load($newFilePath, function($reader) {
-        		$dataInfo=$reader->all();
-
-        		foreach ($dataInfo as $data) 
-        		{
-        			DB::insert("insert into tleasons (teacherID,lessonID,semesterID)
+			$result=Excel::load($newFilePath)->get();
+			foreach ($result as $rows) {
+				foreach ($rows as $data) {
+					DB::insert("insert into tleasons (teacherID,lessonID,semesterID)
                          values(?,?,?)",[$data->teacherID,$data->lessonID,$data->semesterID]);
-        		}
-        		
-    		});
-    		return redirct('admin/index');
+				}
+			}
+			
+    		return redirect('admin/index');
 		}
 		else
 		{
@@ -96,6 +97,8 @@ class UploadController extends Controller {
 
 	public function uploadChoose()
 	{
+		if(!Auth::check())
+			reuturn redirect('login');
 		if($request->hasFile('choose'))
 		{
 			$file = $request->file('choose');
@@ -104,17 +107,14 @@ class UploadController extends Controller {
 			$newName=md5(date('ymdhis').$clientName).".".$extension;
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
-			Excel::load($newFilePath, function($reader) {
-        		$dataInfo=$reader->all();
-
-        		foreach ($dataInfo as $data) 
-        		{
-        			DB::insert("insert into teachers (studentID,teacherID,lessonID,semesterID)
+			$result=Excel::load($newFilePath)->get();
+			foreach ($result as $rows) {
+				foreach ($rows as $data) {
+					DB::insert("insert into sleasons (studentID,teacherID,lessonID,semesterID)
            values(?,?,?,?)",[$data->studentID,$data->teacherID,$data->lessonID,$data->semesterID]);
-        		}
-        		
-    		});
-    		return redirct('admin/index');
+				}
+			}
+    		return redirect('admin/index');
 		}
 		else
 		{
@@ -125,6 +125,8 @@ class UploadController extends Controller {
 
 	public function uploadLesson()
 	{
+		if(!Auth::check())
+			reuturn redirect('login');
 		if($request->hasFile('lesson'))
 		{
 			$file = $request->file('lesson');
@@ -133,17 +135,15 @@ class UploadController extends Controller {
 			$newName=md5(date('ymdhis').$clientName).".".$extension;
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
-			Excel::load($newFilePath, function($reader) {
-        		$dataInfo=$reader->all();
-
-        		foreach ($dataInfo as $data) 
-        		{
-        			DB::insert("insert into lessons (lessonID,lessonName,semesterID)
+			$result=Excel::load($newFilePath)->get();
+			foreach ($result as $rows) {
+				foreach ($rows as $data) {
+					DB::insert("insert into lessons (lessonID,lessonName,semesterID)
            values(?,?,?)",[$data->id,$data->name,$data->seme]);
-        		}
-        		
-    		});
-    		return redirct('admin/index');
+				}
+			}
+			
+    		return redirect('admin/index');
 		}
 		else
 		{
@@ -154,23 +154,33 @@ class UploadController extends Controller {
 
 	function uploadTeacherPage()
 	{
-		return view('admin.teacherimport');
+		if(!Auth::check())
+			reuturn redirect('login');
+		return view('view.admin.teacherimport');
 	}
 	function uploadStudentPage()
 	{
-		return view('admin.studentimport');
+		if(!Auth::check())
+			reuturn redirect('login');
+		return view('view.admin.studentimport');
 	}
 	function uploadTeachPage()
 	{
-		return view('admin.teachimport');
+		if(!Auth::check())
+			reuturn redirect('login');
+		return view('view.admin.teachimport');
 	}
 	function uploadLessonPage()
 	{
-		return view('admin.lessonimport');
+		if(!Auth::check())
+			reuturn redirect('login');
+		return view('view.admin.lessonimport');
 	}
 	function uploadChoosePage()
 	{
-		return view('admin.chooseimport');
+		if(!Auth::check())
+			reuturn redirect('login');
+		return view('view.admin.chooseimport');
 	}
 	
 

@@ -107,9 +107,7 @@ return [
 	| this array to grant expanded functionality to your applications.
 	|
 	*/
-'Maatwebsite\Excel\ExcelServiceProvider',
 
-'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
 	'providers' => [
 
 		/*
@@ -146,6 +144,9 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider',
+
+
 
 	],
 
@@ -194,6 +195,7 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+		'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
 
 	],
 
