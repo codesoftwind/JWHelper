@@ -13,6 +13,11 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+	<!-- Bootstrap Dialog -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="{{asset('css/login.css')}}">
 </head>
 <body>
@@ -36,15 +41,15 @@
 			$("#submit").click(function() {
 				var username = $("#inputUsername").val();
 				var password = $("#inputPassword").val();
-				var data = {'username': username, 'password': password};
+				var data = {'userID': username, 'password': password};
 				console.log(data);
 
-				var url = basicURL + "login";
+				var url = basicURL + "authLogin";
 
 				//To do. 处理不同的登录结果
 				function successHandler(data) {
 					if (data['status'] == 0) {
-						alert(data['status']);
+						BootstrapDialog.alert('Hello');
 					}
 				}
 
