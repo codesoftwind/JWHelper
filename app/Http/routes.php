@@ -38,6 +38,7 @@ Route::get('admin/uploadTeachPage', 'Admin\UploadController@uploadTeachPage');
 Route::get('admin/uploadChoosePage', 'Admin\UploadController@uploadChoosePage');
 Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
 
+
 //教师路由
 Route::get('teacher/index', 'Teacher\IndexController@index');
 Route::get('teacher/lessonsList', 'Teacher\LessonController@lessonsList');

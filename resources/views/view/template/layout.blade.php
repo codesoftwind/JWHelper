@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" href="">
 
-    <title>JWHelper - {{ $title }}</title>
+    <title>JWHelper - {{ $title or "undefined" }}</title>
 
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <script src="{{asset('js/jquery.min.js')}}"></script>
@@ -29,11 +29,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">JiaoWu Helper</a>
+          <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-education" aria-hidden="true"></span> JiaoWu Helper</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">{{ $username }} {{ $role }}，欢迎您！</a></li>
+            <li><a href="#">{{ $username or "undefined" }} {{ $role or "undefined" }}，欢迎您！</a></li>
             <li><a href="#">注销</a></li>
             <li><a href="#">帮助</a></li>
           </ul>
@@ -48,7 +48,7 @@
                 
             @show
           </div>
-          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div class="col-sm-9 col-md-10 main">
             @section('main_panel')
                 
             @show

@@ -1,7 +1,6 @@
 @extends('view.template.layout')
 
 @section('sidebar')
-	@parent
     <ul class="nav nav-sidebar">
       <li class="active"><a href="#">课程列表 <span class="sr-only">(current)</span></a></li>
       <li><a href="">导入课程</a></li>
@@ -15,5 +14,4 @@
       <li><a href="">导入教师信息</a></li>
       <li><a href="">导入学生信息</a></li>
     </ul>
-  </div>
 @endsection
