@@ -20,11 +20,8 @@ Route::controllers([
 ]);
 
 //登录页面路由
-<<<<<<< HEAD
 Route::get('index', 'AuthController@index');
-=======
 Route::get('firstpage', 'AuthController@firstpage');
->>>>>>> origin/devolop
 
 //负责用户登录的路由
 Route::post('login', 'AuthController@login');
