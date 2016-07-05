@@ -14,13 +14,13 @@ use App\Teacher;
 class AuthController extends Controller {
 
 	//返回firstpage(首页)，即登录页面
-	public function firstpage()
+	public function login()
 	{
 		return view('login');
 	}
 
 	//登录的身份认证
-	public function login(Request $request)
+	public function authLogin(Request $request)
 	{
 		$userID = $request->get('userID');
 		$password = $request->get('password');
@@ -48,11 +48,6 @@ class AuthController extends Controller {
 		{
 			return response()->json(['status'=>0, 'role'=>'', 'userID'=>'']);
 		}
-	}
-
-	public function check()
-	{
-		return redirect('firstpage');
 	}
 
 }

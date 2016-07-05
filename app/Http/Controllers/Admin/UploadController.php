@@ -151,6 +151,7 @@ class UploadController extends Controller {
 		}
 
 	}
+
 	function uploadTeacherPage()
 	{
 		return view('admin.teacherimport');
@@ -172,5 +173,6 @@ class UploadController extends Controller {
 		return view('admin.chooseimport');
 	}
 	
+
 
 }
