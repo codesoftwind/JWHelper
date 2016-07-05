@@ -25,28 +25,29 @@ Route::get('firstpage', 'AuthController@firstpage');
 //负责用户登录的路由
 Route::post('login', 'AuthController@login');
 
-Route::get('index', 'AuthController@check');
-
 //教务路由
-Route::get('admin/index', 'AdminController@index');
+Route::get('admin/index', 'Admin/IndexController@index');
+Roure::get('admin/uploadTeacher','Admin/UploadController@uploadTeacher');
+Roure::get('admin/uploadStudent','Admin/UploadController@uploadStudent');
+Roure::get('admin/uploadTeach','Admin/UploadController@uploadTeach');
+Roure::get('admin/uploadChoose','Admin/UploadController@uploadChoose');
+
 
 
 //教师路由
-Route::get('teacher/index', 'TeacherController@index');
-Route::get('teacher/lessonslist', 'TeacherController@lessonslist');
-Route::get('teacher/lesson', 'TeacherController@lesson');
-Route::get('teacher/resourceslist', 'TeacherController@resourceslist');
-Route::get('teacher/resourcesclassify', 'TeacherController@resourcesclassify');
-Route::get('teacher/resourceupload', 'TeacherController@resourceupload');
-Route::get('teacher/resourcedownload', 'TeacherController@resourcedownload');
-Route::get('teacher/homeworkslist', 'TeacherController@homeworkslist');
-Route::get('teacher/homeworkpublish', 'TeacherController@homeworkpublish');
-Route::get('teacher/homework', 'TeacherController@homework');
-Route::get('teacher/stuhomework', 'TeacherController@stuhomework');
-Route::get('teacher/stuhomeworkdownload', 'TeacherController@stuhomeworkdownload');
-Route::get('teacher/stuhomeworkrate', 'TeacherController@stuhomeworkrate');
-Route::get('teacher/groupverify', 'TeacherController@groupverify');
-
+Route::get('teacher/index', 'Teacher/IndexController@index');
+Route::get('teacher/lessonsList', 'Teacher/LessonController@lessonsList');
+Route::get('teacher/lesson', 'Teacher/LessonController@lesson');
+Route::get('teacher/resourcesList', 'Teacher/ResourceController@resourcesList');
+Route::get('teacher/resourcesClassify', 'Teacher/ResourceController@resourcesClassify');
+Route::get('teacher/resourceUpload', 'Teacher/ResourceController@resourceUpload');
+Route::get('teacher/resourceDownload', 'Teacher/ResourceController@resourceDownload');
+Route::get('teacher/homeworksList', 'Teacher/HomeworkController@homeworksList');
+Route::get('teacher/homeworkPublish', 'Teacher/HomeworkController@homeworkPublish');
+Route::get('teacher/homework', 'Teacher/HomeworkController@homework');
+Route::get('teacher/stuHomework', 'Teacher/StuHomeworkController@stuHomework');
+Route::get('teacher/stuHomeworkDownload', 'Teacher/StuHomweorkController@stuHomeworkDownload');
+Route::get('teacher/stuHomeworkRate', 'Teacher/StuHomeworkController@stuHomeworkRate');
 
 
 //学生路由
