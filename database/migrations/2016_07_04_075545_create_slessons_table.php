@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateSlessonsTable extends Migration {
+
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('slessons', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->string('studentID', 10);
+			$table->string('teacherID', 10);
+			$table->string('lessonID', 10);
+			$table->string('semesterID', 10);
+			$table->timestamps();
+		});
+	}
+
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::drop('slessons');
+	}
+
+}
