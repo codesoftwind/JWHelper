@@ -1,8 +1,6 @@
 @extends('view.template.admin_layout')
 
 @section('main_panel')
-	<div class="container">
-	<div class="row">
 	<div class="page-header">
 	  <h1>学期基本信息</h1>
 	</div>
@@ -30,7 +28,5 @@
 	    </div>
 	  </div>
 	</div>
-</div>
-</div>
 
 @endsection
