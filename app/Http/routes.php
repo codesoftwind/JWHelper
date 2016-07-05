@@ -26,6 +26,7 @@ Route::get('login', 'AuthController@login');
 Route::post('authLogin', 'AuthController@authLogin');
 
 //教务路由
+
 Route::get('admin/index', 'Admin\IndexController@index');
 Route::get('admin/uploadTeacher','Admin\UploadController@uploadTeacher');
 Route::get('admin/uploadStudent','Admin\UploadController@uploadStudent');
@@ -38,7 +39,7 @@ Route::get('admin/uploadTeachPage', 'Admin\UploadController@uploadTeachPage');
 Route::get('admin/uploadChoosePage', 'Admin\UploadController@uploadChoosePage');
 Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
 
-
+Route::get('admin/index', function(){return view('view.admin.index',['title'=>'title','role'=>'role','username'=>'user']);});
 
 //教师路由
 Route::get('teacher/index', 'Teacher\IndexController@index');
