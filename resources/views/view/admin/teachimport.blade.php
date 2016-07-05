@@ -4,7 +4,7 @@
 <div class="col-md-12 page-header">
 	授课信息导入
 </div>
-<form action="admin/uploadTeach">
+<form action="http://localhost/JWHelper/public/admin/uploadTeach"  method="post" enctype="multipart/form-data">
   <div class="form-group">
     <input class="form-control" type="file" name="teach" id="InputFile">
     <p class="help-block">请选择授课信息Excel文件并上传。</p>

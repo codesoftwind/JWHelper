@@ -4,7 +4,7 @@
 <div class="col-md-12 page-header">
 	教师信息导入
 </div>
-<form action="admin/uploadTeacher">
+<form action="http://localhost/JWHelper/public/admin/uploadTeacher"  method="post" enctype="multipart/form-data">
   <div class="form-group">
     <input class="form-control" type="file" name="teacher" id="InputFile">
     <p class="help-block">请选择教师信息Excel文件并上传。</p>
