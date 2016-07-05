@@ -4,24 +4,51 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 class HomeworkController extends Controller {
 
 	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
+	 * 教师查看作业列表
 	 */
-	public function homeworksList()
+	public function homeworksList(Request $request)
 	{
-		//
+		
 	}
 
-	public function homeworkPublish()
+	/**
+	 * 教师布置作业
+	 */
+	public function homeworkPublish(Request $request)
 	{
+		if(!Auth::check())
+			return redirect('login');
+
+		$teacherID = Auth::user()->userID;
+		$lessonID = $request->get('lessonID');
+		//$semesterID = $request->get('semesterID');
+		$description = $request->get('description');
+		$startTime = $request->get('startTime');
+		$endTime = $request->get('endTime');
+		$team = $request->get('team');
+
+		$success = DB::table('pubhomework')->insert(
+			array('teacherID'=>$teacherID, 'lessonID'=>$lessonID, 'description'=>$description,
+				'startTime'=>$startTime, 'endTime'=>$endTime, 'team'=>$team));
+
+		if($success)
+			return response()->json(['status'=>1]);
+		else
+			return response()->json(['status'=>0]);
 
 	}
 
+	/**
+	 * 教师查看自己布置的作业的详情
+	 */
 	public function homework()
 	{
 

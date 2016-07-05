@@ -10,6 +10,7 @@ use Auth;
 use App\User;
 use App\Admin;
 use App\Teacher;
+use App\Student;
 
 class AuthController extends Controller {
 

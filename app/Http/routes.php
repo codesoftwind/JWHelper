@@ -26,32 +26,29 @@ Route::get('login', 'AuthController@login');
 Route::post('authLogin', 'AuthController@authLogin');
 
 //教务路由
-
 Route::get('admin/index', 'Admin\IndexController@index');
-Route::get('admin/uploadTeacher','Admin\UploadController@uploadTeacher');
-Route::get('admin/uploadStudent','Admin\UploadController@uploadStudent');
-Route::get('admin/uploadTeach','Admin\UploadController@uploadTeach');
-Route::get('admin/uploadChoose','Admin\UploadController@uploadChoose');
-Route::get('admin/uploadLesson', 'Admin\UploadController@uploadLesson');
+Route::post('admin/uploadTeacher','Admin\UploadController@uploadTeacher');
+Route::post('admin/uploadStudent','Admin\UploadController@uploadStudent');
+Route::post('admin/uploadTeach','Admin\UploadController@uploadTeach');
+Route::post('admin/uploadChoose','Admin\UploadController@uploadChoose');
+Route::post('admin/uploadLesson', 'Admin\UploadController@uploadLesson');
 Route::get('admin/uploadTeacherPage', 'Admin\UploadController@uploadTeacherPage');
 Route::get('admin/uploadStudentPage', 'Admin\UploadController@uploadStudentPage');
 Route::get('admin/uploadTeachPage', 'Admin\UploadController@uploadTeachPage');
 Route::get('admin/uploadChoosePage', 'Admin\UploadController@uploadChoosePage');
 Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
 
-Route::get('admin/index', function(){return view('view.admin.index',['title'=>'title','role'=>'role','username'=>'user']);});
-
 
 //教师路由
 Route::get('teacher/index', 'Teacher\IndexController@index');
 Route::get('teacher/lessonsList', 'Teacher\LessonController@lessonsList');
 Route::get('teacher/lesson', 'Teacher\LessonController@lesson');
-Route::get('teacher/resourcesList', 'Teacher\ResourceController@resourcesList');
+Route::post('teacher/resourcesList', 'Teacher\ResourceController@resourcesList');
 Route::get('teacher/resourcesClassify', 'Teacher\ResourceController@resourcesClassify');
 Route::get('teacher/resourceUpload', 'Teacher\ResourceController@resourceUpload');
 Route::get('teacher/resourceDownload', 'Teacher\ResourceController@resourceDownload');
-Route::get('teacher/homeworksList', 'Teacher\HomeworkController@homeworksList');
-Route::get('teacher/homeworkPublish', 'Teacher\HomeworkController@homeworkPublish');
+Route::post('teacher/homeworksList', 'Teacher\HomeworkController@homeworksList');
+Route::post('teacher/homeworkPublish', 'Teacher\HomeworkController@homeworkPublish');
 Route::get('teacher/homework', 'Teacher\HomeworkController@homework');
 Route::get('teacher/stuHomework', 'Teacher\StuHomeworkController@stuHomework');
 Route::get('teacher/stuHomeworkDownload', 'Teacher\StuHomweorkController@stuHomeworkDownload');

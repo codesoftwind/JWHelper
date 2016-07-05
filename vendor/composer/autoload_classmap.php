@@ -10,6 +10,7 @@ return array(
     'CreateHomeworksTable' => $baseDir . '/database/migrations/2016_07_04_080230_create_homeworks_table.php',
     'CreateLessonsTable' => $baseDir . '/database/migrations/2016_07_04_074333_create_lessons_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreatePubhomeworkTable' => $baseDir . '/database/migrations/2016_07_05_091443_create_pubhomework_table.php',
     'CreateResourcesTable' => $baseDir . '/database/migrations/2016_07_04_075853_create_resources_table.php',
     'CreateSemestersTable' => $baseDir . '/database/migrations/2016_07_05_012711_create_semesters_table.php',
     'CreateSlessonsTable' => $baseDir . '/database/migrations/2016_07_04_075545_create_slessons_table.php',
