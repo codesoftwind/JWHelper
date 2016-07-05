@@ -2,9 +2,9 @@
 
 @section('sidebar')
 	@parent
-	<div class="col-sm-3 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
       <li class="active"><a href="#">课程列表 <span class="sr-only">(current)</span></a></li>
+      <li><a href="">导入课程</a></li>
       <li><a href="">导入选课表</a></li>
       <li><a href="">导入授课表</a></li>
       <li><a href="#">学期信息设置</a></li>

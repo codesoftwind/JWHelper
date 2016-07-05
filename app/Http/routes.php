@@ -29,8 +29,10 @@ Route::post('login', 'AuthController@login');
 Route::get('index', 'AuthController@check');
 
 //教务路由
-Route::get('admin/index', 'AdminController@index');
-
+//Route::get('admin/index', 'AdminController@index');
+Route::get('admin/index', function(){
+	return view('view.admin.index',['title'=>'admin','role'=>'admin','username'=>'admin']);
+});
 
 //教师路由
 Route::get('teacher/index', 'TeacherController@index');
