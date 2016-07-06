@@ -46,10 +46,10 @@
 	  <h3>学期基本信息</h3>
 	</div>
 	<div class="well">
-		<p>学期ID：{{ $semesterID or "undefined" }}</p>
-		<p>学年：{{ $semesterYear or "undefined" }}</p>
-		<p>本学期共{{ $semesterWeek or "undefined" }}周</p>
-		<p>{{ $basicInfo or "undefined" }}</p>
+		<p>学期ID：{{ $semester->semesterID or "undefined" }}</p>
+		<p>学年：{{ $semester->semesterYear or "undefined" }}</p>
+		<p>本学期共{{ $semester->semesterWeek or "undefined" }}周</p>
+		<p>{{ $semester->basicInfo or "undefined" }}</p>
 	</div>	
 	<button align="right" class="btn btn-primary btn-md" data-toggle="modal" data-target="#modify-modal">修改</button>
 	<div class="modal fade" id="modify-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
