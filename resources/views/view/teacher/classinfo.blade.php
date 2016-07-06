@@ -9,13 +9,16 @@
       <th width="200">课程id</th>
       <th>课程名称</th>
     </tr>
-    
+    <?php
+    $lesson = $result[0];
+    ?>
+
     <tr>
       <td> 
-        {{ $lessonID }}
+        {{ $lesson->lessonID }}
       </td>
       <td>
-        {{ $lessonName }}
+        {{ $lesson->lessonName }}
       </td>
     </tr>
 
@@ -24,7 +27,7 @@
     </tr>
     <tr>
       <td>
-        {{ $lessonIntroduction }}
+        {{ $lesson->introduction }}
       </td>
     </tr>
   </table>
