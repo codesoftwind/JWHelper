@@ -24,8 +24,11 @@ class UploadController extends Controller {
 			$result=Excel::load($newFilePath)->get();
 			foreach ($result as $rows) {
 				foreach ($rows as $data) {
+					$pass=Hash::make($data->pass);
 					DB::insert("insert into teachers (teacherID,teacherName,password,basicInfo)
-                         values(?,?,?,?)",[$data->id,$data->name,Hash::make($data->pass),$data->info]);
+                         values(?,?,?,?)",[$data->id,$data->name,$pass,$data->info]);
+					DB::insert("insert into users (userID,password,isTeacher)
+                         values(?,?,?,?)",[$data->id,$pass,1]);
 				}
 			}
 			
@@ -52,8 +55,11 @@ class UploadController extends Controller {
 			$result=Excel::load($newFilePath)->get();
 			foreach ($result as $rows) {
 				foreach ($rows as $data) {					
+					$pass=Hash::make($data->password);
 					DB::insert("insert into students (studentID,studentName,password,department)
-                         values(?,?,?,?)",[$data->id,$data->name,Hash::make($data->password),$data->depart]);
+                         values(?,?,?,?)",[$data->id,$data->name,$pass,$data->depart]);
+					DB::insert("insert into users (userID,password,isStudent)
+                         values(?,?,?,?)",[$data->id,$pass,1]);
 				}
 			}
 			
