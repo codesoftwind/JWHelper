@@ -72,3 +72,4 @@ Route::get('student/index', 'Student\IndexController@index');
 Route::get('student/lessonsList', 'Student\LessonController@lessonsList');
 Route::get('student/teamsList', 'Student\TeamController@teamsList');
 Route::get('student/teamForm', 'Student\TeamController@teamForm');
+

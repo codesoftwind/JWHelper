@@ -29,11 +29,11 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return redirect('admin/index');
+    		return  view('view.admin.teacherimport');
 		}
 		else
 		{
-			return 'upload error';
+			return 'error';
 		}
 	}
 
@@ -51,17 +51,17 @@ class UploadController extends Controller {
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();
 			foreach ($result as $rows) {
-				foreach ($rows as $data) {
+				foreach ($rows as $data) {					
 					DB::insert("insert into students (studentID,studentName,password,department)
                          values(?,?,?,?)",[$data->id,$data->name,Hash::make($data->password),$data->depart]);
 				}
 			}
 			
-    		return redirect('admin/index');
+    		return  view('view.admin.studentimport');
 		}
 		else
 		{
-			return 'upload error';
+			return 'error';
 		}
 
 	}
@@ -82,21 +82,22 @@ class UploadController extends Controller {
 			foreach ($result as $rows) {
 				foreach ($rows as $data) {
 					DB::insert("insert into tlessons (teacherID,lessonID,semesterID)
-                         values(?,?,?)",[$data->teacherID,$data->lessonID,$data->semesterID]);
+                         values(?,?,?)",[$data->teacherid,$data->lessonid,$data->semesterid]);
 				}
 			}
 			
-    		return redirect('admin/index');
+    		return  view('view.admin.teachimport');
 		}
 		else
 		{
-			return 'upload error';
+			return 'error';
 		}
 
 	}
 
 	public function uploadChoose(Request $request)
 	{
+
 		if(!Auth::check())
 			return redirect('login');
 		if($request->hasFile('choose'))
@@ -110,15 +111,16 @@ class UploadController extends Controller {
 			$result=Excel::load($newFilePath)->get();
 			foreach ($result as $rows) {
 				foreach ($rows as $data) {
+
 					DB::insert("insert into slessons (studentID,teacherID,lessonID,semesterID)
-           values(?,?,?,?)",[$data->studentID,$data->teacherID,$data->lessonID,$data->semesterID]);
+           values(?,?,?,?)",[$data->studentid,$data->teacherid,$data->lessonid,$data->semesterid]);
 				}
 			}
-    		return redirect('admin/index');
+    		return view('view.admin.chooseimport')->with('result', '上传成功');
 		}
 		else
 		{
-			return 'upload error';
+			return 'error';
 		}
 
 	}
@@ -143,11 +145,11 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return redirect('admin/index');
+    		return  view('view.admin.lessonimport');
 		}
 		else
 		{
-			return 'upload error';
+			return 'error';
 		}
 
 	}
