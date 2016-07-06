@@ -1,70 +1,60 @@
 @extends('view.template.teacher_layout')
 
-@section('headjs')
-<script type="text/javascript">
-    $(document).ready(function () {
-        //$('#hospital').addClass('active');
-        $('#submit-change').click(function(){
-        	$.ajax({
-        		type : "POST" ,
-				url : "http://localhost/JWHelper/public/admin/setSemester" ,
-				data : {
-					semesterID : $('#semesterID').val()
-					semesterYear : $('#semesterYear').val()
-					semesterWeek : $('#semesterWeek').val()
-					basicInfo : $('#basicInfo').val()
-				},			
-				success : function(data){
-					if (data['status'] == 1)
-						$('#success-alert').show().fadein()
-						setTimeout(function(){
-							window.location = "http://localhost/JWHelper/public/admin/semester_info"
-						},2000)
-					else
-						$('#fail-alert').show().fadein()
-				}
-        	});
-        });
-    });
-</script>
-@endsection
 
 @section('main_panel')
-	<div id="success-alert" class="col-md-12">
-		<div class="alert alert-success alert-dismissible" role="alert" hidden="hidden">
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  修改成功
-		</div>
-	</div>
-	<div id="fail-alert" class="col-md-12">
-		<div class="alert alert-danger alert-dismissible" role="alert" hidden="hidden">
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  修改失败
-		</div>
-	</div>
-	<div class="page-header">
-	  <h3>学期基本信息</h3>
-	</div>
-	<div class="well">
-		<p>学期ID：{{ $semesterID or "undefined" }}</p>
-		<p>学年：{{ $semesterYear or "undefined" }}</p>
-		<p>本学期共{{ $semesterWeek or "undefined" }}周</p>
-		<p>{{ $basicInfo or "undefined" }}</p>
-	</div>	
-	<button align="right" class="btn btn-primary btn-md" data-toggle="modal" data-target="#modify-modal">修改</button>
+
+<div class="page-header">
+  <h3>作业列表</h3>
+</div>
+<div class="table-responsive">
+<table class="table table-striped">
+ <tr>
+    <th>课程号</th>
+    <th>作业名称</th>
+    <th>开始时间</th>
+    <th>结束时间</th>
+    <th></th>
+  </tr>
+
+        <?php 
+           //$lessons=[["1","大","7.1","7.2"],["2","小","7.5","7.6"]];
+          $lessons = $result;
+        ?>
+
+       @foreach ($lessons as $lesson)
+           <tr> 
+           <td>{{  $lesson->lessonID }}</td>
+           <td>{{  $lesson->homeworkName }}</td>  
+           <td>{{  $lesson->startTime }}</td> 
+           <td>{{  $lesson->endTime }}</td> 
+
+<td>
+  <div class="btn-group" role="group" aria-label="...">
+  <button type="button" class="btn btn-primary" >查看详情</button>
+</div>
+</td>    
+           </tr>  
+       @endforeach
+</table>
+</div>
+<button align="right" class="btn btn-default btn-md" data-toggle="modal" data-target="#modify-modal">上传作业</button>
+
 	<div class="modal fade" id="modify-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">修改学期信息</h4>
+
+	        <h4 class="modal-title" id="myModalLabel">作业信息</h4>
 	      </div>
 	      <div class="modal-body">
-	        	<label for="semesterID">学期ID</label>
+	        	<label for="semesterID">课程ID</label>
 	        	<input class="form-control" id="semesterID"/>
-	        	<label for="semesterYear">学年</label>
+	        	<label for="semesterYear">课程名称</label>
 	        	<input class="form-control" id="semesterYear"/>
-	        	<label for="semesterWeek">学期周数</label>
+	        	<label for="semesterWeek">开始时间</label>
+	        	<input class="form-control" id="semesterWeek"/>
+	        	<label for="semesterWeek">结束时间</label>
 	        	<input class="form-control" id="semesterWeek"/>
 	        	<label for="basicInfo">基本信息</label>
 	        	<textarea class="form-control" id="basicInfo"></textarea>

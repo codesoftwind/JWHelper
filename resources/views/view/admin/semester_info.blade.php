@@ -4,24 +4,28 @@
 <script type="text/javascript">
     $(document).ready(function () {
         //$('#hospital').addClass('active');
+        $('#success-alert').hide()
+        $('#fail-alert').hide()
         $('#submit-change').click(function(){
         	$.ajax({
+        		
         		type : "POST" ,
 				url : "http://localhost/JWHelper/public/admin/setSemester" ,
 				data : {
-					semesterID : $('#semesterID').val()
-					semesterYear : $('#semesterYear').val()
-					semesterWeek : $('#semesterWeek').val()
-					basicInfo : $('#basicInfo').val()
-				},			
+					semesterID : $('#semesterID').val() ,
+					semesterYear : $('#semesterYear').val() ,
+					semesterWeek : $('#semesterWeek').val() ,
+					basicInfo : $('#basicInfo').text()
+				},	
 				success : function(data){
-					if (data['status'] == 1)
-						$('#success-alert').show().fadein()
+					if (data['status'] == 1){
+						$('#success-alert').fadeIn()
 						setTimeout(function(){
 							window.location = "http://localhost/JWHelper/public/admin/semester_info"
 						},2000)
+					}
 					else
-						$('#fail-alert').show().fadein()
+						$('#fail-alert').fadeIn()
 				}
         	});
         });
@@ -31,13 +35,13 @@
 
 @section('main_panel')
 	<div id="success-alert" class="col-md-12">
-		<div class="alert alert-success alert-dismissible" role="alert" hidden="hidden">
+		<div class="alert alert-success alert-dismissible" role="alert">
 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		  修改成功
 		</div>
 	</div>
 	<div id="fail-alert" class="col-md-12">
-		<div class="alert alert-danger alert-dismissible" role="alert" hidden="hidden">
+		<div class="alert alert-danger alert-dismissible" role="alert">
 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		  修改失败
 		</div>

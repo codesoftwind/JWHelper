@@ -35,7 +35,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">{{ $username or "undefined" }} {{ $role or "undefined" }}，欢迎您！</a></li>
-            <li><a href="http://localhost/JWHelper/public/login">注销</a></li>
+            <li><a href="http://localhost/JWHelper/public/logout">注销</a></li>
             <li><a href="http://localhost/JWHelper/public/template/no-page">帮助</a></li>
           </ul>
         </div>
