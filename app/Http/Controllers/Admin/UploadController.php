@@ -29,11 +29,11 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return json_encode(['status'=>'1']);
+    		return  view('view.admin.teacherimport');
 		}
 		else
 		{
-			return json_encode(['status'=>'0']);
+			return 'error';
 		}
 	}
 
@@ -57,11 +57,11 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return json_encode(['status'=>'1']);
+    		return  view('view.admin.studentimport');
 		}
 		else
 		{
-			return json_encode(['status'=>'0']);
+			return 'error';
 		}
 
 	}
@@ -86,17 +86,18 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return json_encode(['status'=>'1']);
+    		return  view('view.admin.teachimport');
 		}
 		else
 		{
-			return json_encode(['status'=>'0']);
+			return 'error';
 		}
 
 	}
 
 	public function uploadChoose(Request $request)
 	{
+
 		if(!Auth::check())
 			return redirect('login');
 		if($request->hasFile('choose'))
@@ -110,15 +111,16 @@ class UploadController extends Controller {
 			$result=Excel::load($newFilePath)->get();
 			foreach ($result as $rows) {
 				foreach ($rows as $data) {
+
 					DB::insert("insert into slessons (studentID,teacherID,lessonID,semesterID)
            values(?,?,?,?)",[$data->studentid,$data->teacherid,$data->lessonid,$data->semesterid]);
 				}
 			}
-    		return json_encode(['status'=>'1']);
+    		return view('view.admin.chooseimport')->with('result', '上传成功');
 		}
 		else
 		{
-			return json_encode(['status'=>'0']);
+			return 'error';
 		}
 
 	}
@@ -143,11 +145,11 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return json_encode(['status'=>'1']);
+    		return  view('view.admin.lessonimport');
 		}
 		else
 		{
-			return json_encode(['status'=>'0']);
+			return 'error';
 		}
 
 	}
