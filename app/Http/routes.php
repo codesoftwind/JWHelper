@@ -21,12 +21,7 @@ Route::controllers([
 
 //登录页面路由
 Route::get('login', 'AuthController@login');
-Route::get('template/no-page',function(){
-	return view('view.template.no-page');
-});
-Route::get('admin/semester_info',function(){
-	return view('view.admin.semester_info');
-});
+
 //认证用户登录的路由
 Route::post('authLogin', 'AuthController@authLogin');
 
@@ -52,8 +47,7 @@ Route::get('admin/uploadStudentPage', 'Admin\UploadController@uploadStudentPage'
 Route::get('admin/uploadTeachPage', 'Admin\UploadController@uploadTeachPage');
 Route::get('admin/uploadChoosePage', 'Admin\UploadController@uploadChoosePage');
 Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
-Route::get('admin/setSemester','SemesterController@semester');
-Route::post('admin/setSemester','SemesterController@update');
+
 
 
 //教师路由
