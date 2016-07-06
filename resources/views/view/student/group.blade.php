@@ -12,15 +12,6 @@
 
 @section('main_panel')
     @parent
-        <?php
-            $groups = [
-                    ['第一个团队', 'Leo', '3'],
-                    ['第二个团队', 'Messi', '4'],
-                    ['第三个团队', 'Leo', '3'],
-                    ['第四个团队', 'Jack', '6'],
-                    ['第五个团队', 'Leo', '8'],
-            ]
-        ?>
         <div>
             <h1 class="page-header">学习团队</h1>
             <button class="btn btn-primary" id="createTeam">创建团队</button>
@@ -33,15 +24,17 @@
                     <th style="color:#55595c;background-color:#eceeef">团队名称</th>
                     <th style="color:#55595c;background-color:#eceeef">团队负责人</th>
                     <th style="color:#55595c;background-color:#eceeef">团队人数上限</th>
+                    <th style="color:#55595c;background-color:#eceeef">团队现有人数</th>
                     <th style="color:#55595c;background-color:#eceeef">操作</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($groups as $group)
+                @foreach($ingroups as $group)
                     <tr>
-                        <th>{{$group[0]}}</th>
-                        <th>{{$group[1]}}</th>
-                        <th>{{$group[2]}}</th>
+                        <th>{{$group->groupName}}</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                         <th><button class="btn btn-danger">退出团队</button></th>
                     </tr>
                 @endforeach
@@ -55,15 +48,17 @@
                 <th style="color:#55595c;background-color:#eceeef">团队名称</th>
                 <th style="color:#55595c;background-color:#eceeef">团队负责人</th>
                 <th style="color:#55595c;background-color:#eceeef">团队人数上限</th>
+                <th style="color:#55595c;background-color:#eceeef">团队现有人数</th>
                 <th style="color:#55595c;background-color:#eceeef">操作</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($groups as $group)
+            @foreach($outgroups as $group)
                 <tr>
-                    <th>{{$group[0]}}</th>
-                    <th>{{$group[1]}}</th>
-                    <th>{{$group[2]}}</th>
+                    <th>{{$group->groupName}}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     <th><button class="btn btn-primary">申请加入</button></th>
                 </tr>
             @endforeach
@@ -116,6 +111,7 @@
                                                     label: '关闭',
                                                     action: function(dialogItself) {
                                                         dialogItself.close();
+                                                        location.reload();
                                                     }
                                                 }
                                             ]
