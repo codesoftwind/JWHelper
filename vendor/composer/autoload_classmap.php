@@ -6,14 +6,17 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddHeadIDToGroups' => $baseDir . '/database/migrations/2016_07_06_051640_add_headID_to_groups.php',
     'AddHomeworkNameToPubhomework' => $baseDir . '/database/migrations/2016_07_05_102639_add_homeworkName_to_pubhomework.php',
     'CreateAdminsTable' => $baseDir . '/database/migrations/2016_07_04_024339_create_admins_table.php',
+    'CreateGroupsTable' => $baseDir . '/database/migrations/2016_07_06_034411_create_groups_table.php',
     'CreateHomeworksTable' => $baseDir . '/database/migrations/2016_07_04_080230_create_homeworks_table.php',
     'CreateLessonsTable' => $baseDir . '/database/migrations/2016_07_04_074333_create_lessons_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePubhomeworkTable' => $baseDir . '/database/migrations/2016_07_05_091443_create_pubhomework_table.php',
     'CreateResourcesTable' => $baseDir . '/database/migrations/2016_07_04_075853_create_resources_table.php',
     'CreateSemestersTable' => $baseDir . '/database/migrations/2016_07_05_012711_create_semesters_table.php',
+    'CreateSgroupsTable' => $baseDir . '/database/migrations/2016_07_06_034549_create_sgroups_table.php',
     'CreateSlessonsTable' => $baseDir . '/database/migrations/2016_07_04_075545_create_slessons_table.php',
     'CreateStudentsTable' => $baseDir . '/database/migrations/2016_07_04_024324_create_students_table.php',
     'CreateTeachersTable' => $baseDir . '/database/migrations/2016_07_04_024308_create_teachers_table.php',
