@@ -69,3 +69,6 @@ Route::get('teacher/stuHomeworkRate', 'Teacher\StuHomeworkController@stuHomework
 //学生路由
 Route::get('student/index', 'Student\IndexController@index');
 Route::get('student/lessonsList', 'Student\LessonController@lessonsList');
+Route::get('student/studentTeam', function() {
+	return view('view.student.team');
+});
