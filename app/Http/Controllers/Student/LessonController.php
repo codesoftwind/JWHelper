@@ -15,9 +15,12 @@ class LessonController extends Controller {
 	{
 		if(!Auth::check())
 			return redirect('login');
-		$datas = DB::select("select * from slessons where studentID = ?",['1']);
+		$datas = DB::select("select * from slessons where studentID = ?",session('userID'));
+	    $studentName = DB::select("select studentName from students where studentID = ?",session('userID'));
+
 		$lessonList = array();
 		foreach ($datas as $data) {
+
 
 		$teacher=DB::select("select teacherName from teachers where teacherID = ?",[$data->teacherID])[0];
 		$lessonID=$data->lessonID;
@@ -32,7 +35,7 @@ class LessonController extends Controller {
 
 			
 		}
-		return view('view.student.index')->with($lessonList);
+		return view('view.student.index',['lessonList'=>$lessonList,'role'=>'学生','username'=>$studentName]);
 	}
 
 }

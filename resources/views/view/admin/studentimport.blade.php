@@ -8,16 +8,18 @@
   <div class="form-group">
     <input class="form-control" type="file" name="student" id="InputFile">
     <p class="help-block">请选择学生信息Excel文件并上传。</p>
+     <p>       <?php 
+                    if(isset($success)) 
+                    	echo "上传成功";
+                    elseif (isset($fail)) {
+                    	echo "上传失败";
+                    }
+                    else 
+                    	echo " ";  
+              ?>
+    </p>
   </div>
   <button type="submit" class="btn btn-default btn-primary" id="upload">上传</button>
 </form>
 
-@endsection
-
-@section('bodyJS')
-<script type="text/javascript">
-	$("#upload").click(function() {
-		alert('上传成功');
-	});
-</script>
 @endsection
