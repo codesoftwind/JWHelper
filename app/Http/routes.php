@@ -21,7 +21,12 @@ Route::controllers([
 
 //登录页面路由
 Route::get('login', 'AuthController@login');
-
+Route::get('template/no-page',function(){
+	return view('view.template.no-page');
+});
+Route::get('admin/semester_info',function(){
+	return view('view.admin.semester_info');
+});
 //认证用户登录的路由
 Route::post('authLogin', 'AuthController@authLogin');
 

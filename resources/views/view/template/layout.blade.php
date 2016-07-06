@@ -29,13 +29,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-education" aria-hidden="true"></span> JiaoWu Helper</a>
+          <a class="navbar-brand" href="http://localhost/JWHelper/public/index"><span class="glyphicon glyphicon-education" aria-hidden="true"></span> JiaoWu Helper</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">{{ $username or "undefined" }} {{ $role or "undefined" }}，欢迎您！</a></li>
-            <li><a href="#">注销</a></li>
-            <li><a href="#">帮助</a></li>
+            <li><a href="http://localhost/JWHelper/public/login">注销</a></li>
+            <li><a href="http://localhost/JWHelper/public/template/no-page">帮助</a></li>
           </ul>
         </div>
       </div>
