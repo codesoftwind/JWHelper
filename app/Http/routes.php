@@ -47,7 +47,8 @@ Route::get('admin/uploadStudentPage', 'Admin\UploadController@uploadStudentPage'
 Route::get('admin/uploadTeachPage', 'Admin\UploadController@uploadTeachPage');
 Route::get('admin/uploadChoosePage', 'Admin\UploadController@uploadChoosePage');
 Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
-
+Route::get('admin/setSemester','SemesterController@semester');
+Route::post('admin/setSemester','SemesterController@update');
 
 
 //教师路由
