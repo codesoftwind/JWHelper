@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class LessonController extends Controller {
 	
 	/**
-	 * 教师查看课程列表，返回给前端该教师所教课程的数组
+	 * 教师查看课程列表，返回view并加上该教师所教课程的数组
 	 */
 	public function lessonsList(Request $request)
 	{
@@ -25,7 +25,7 @@ class LessonController extends Controller {
 								->select('lessons.lessonID', 'lessons.lessonName')
 								->where('tlessons.teacherID', $teacherID)
 								->get();
-		return response()->json($result);
+		return view('view.teacher.index')->with($result);
 	}
 
 	public function lesson()

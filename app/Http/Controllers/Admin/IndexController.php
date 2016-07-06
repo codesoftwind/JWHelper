@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class IndexController extends Controller {
 
 	/**
-	 * 显示教务首页
+	 * 显示教务首页，默认显示课程列表
 	 */
 	public function index()
 	{
@@ -20,17 +20,19 @@ class IndexController extends Controller {
 			return redirect('login');
 
 		$adminID = Auth::user()->userID;
+
+		//需要注意的是select返回的是包含对象的数组，对象的属性就是select的列
 		$admin = DB::table('admins')
-								->where('adminID', $adminID)
-								->select('adminID', 'adminName')
+								->select('adminName')
+								->where('adminID', $adminID)		
 								->get();
 		$tmpresult = DB::table('tlessons')
-								->join('lessons	', 'tlessons.lessonID', '=', 'lessons.lessonID')
+								->join('lessons', 'tlessons.lessonID', '=', 'lessons.lessonID')
 								->join('teachers', 'tlessons.teacherID', '=', 'teachers.teacherID')
 								->select('lessons.lessonID', 'lessons.lessonName', 'teachers.teacherID', 'teachers.teacherName')
 								->get();
-		$result = ['adminID'=>$admin[0]['adminID'], 'adminName'=>$admin[0]['adminName'], 'result'=>$tmpresult];
-		return response()->json($result);
+		$result = ['title'=>'课程列表', 'username'=>$admin[0]->adminName, 'role'=>'教务管理员', 'result'=>$tmpresult];
+		return view('view.admin.index')->with($result);
 	}
 	
 

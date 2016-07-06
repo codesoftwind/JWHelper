@@ -23,7 +23,8 @@
 <body>
 	<div class="container">
 		<div class="card card-container">
-			<img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="" id="profile-img" class="profile-img-card">
+			<h3>北航教务系统</h3>
+			<img src="{{asset('images/avatar_2x.png')}}" alt="" id="profile-img" class="profile-img-card">
 			<p id="profile-name" class="profile-name-card"></p>
 			<form class="form-signin">
 				<span id="reauth-username" class="reauth-username"></span>

@@ -10,6 +10,7 @@ use Auth;
 use App\User;
 use App\Admin;
 use App\Teacher;
+use App\Student;
 
 class AuthController extends Controller {
 
@@ -48,6 +49,15 @@ class AuthController extends Controller {
 		{
 			return response()->json(['status'=>0, 'role'=>'', 'userID'=>'']);
 		}
+	}
+
+	/**
+	 * 注销用户登录
+	 */
+	public function logout()
+	{
+		Auth::logout();
+		return redirect('login');
 	}
 
 }
