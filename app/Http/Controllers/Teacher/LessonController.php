@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use session;
 
 class LessonController extends Controller {
 	
@@ -20,11 +21,12 @@ class LessonController extends Controller {
 			return redirect('login');
 
 		$teacherID = Auth::user()->userID;
-		$result = DB::table('lessons')
+		$tmpresult = DB::table('lessons')
 								->join('tlessons', 'tlessons.lessonID', '=', 'lessons.lessonID')
 								->select('lessons.lessonID', 'lessons.lessonName')
 								->where('tlessons.teacherID', $teacherID)
 								->get();
+		$result = ['title'=>'课程列表', 'userName'=>session('userName'), 'role'=>session('role'), 'result'=>$tmpresult];
 		return view('view.teacher.index')->with($result);
 	}
 

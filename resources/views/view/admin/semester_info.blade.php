@@ -8,20 +8,20 @@
         $('#fail-alert').hide()
         $('#submit-change').click(function(){
         	$.ajax({
-        		
         		type : "POST" ,
 				url : "http://localhost/JWHelper/public/admin/setSemester" ,
+				dataType : 'json',
 				data : {
 					semesterID : $('#semesterID').val() ,
 					semesterYear : $('#semesterYear').val() ,
 					semesterWeek : $('#semesterWeek').val() ,
-					basicInfo : $('#basicInfo').text()
+					basicInfo : $('#basicInfo').val()
 				},	
 				success : function(data){
-					if (data['status'] == 1){
+					if (data.status == 1){
 						$('#success-alert').fadeIn()
 						setTimeout(function(){
-							window.location = "http://localhost/JWHelper/public/admin/semester_info"
+							window.location.href = "http://localhost/JWHelper/public/admin/semester_info"
 						},2000)
 					}
 					else
@@ -34,18 +34,7 @@
 @endsection
 
 @section('main_panel')
-	<div id="success-alert" class="col-md-12">
-		<div class="alert alert-success alert-dismissible" role="alert">
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  修改成功
-		</div>
-	</div>
-	<div id="fail-alert" class="col-md-12">
-		<div class="alert alert-danger alert-dismissible" role="alert">
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  修改失败
-		</div>
-	</div>
+	
 	<div class="page-header">
 	  <h3>学期基本信息</h3>
 	</div>
@@ -64,6 +53,18 @@
 	        <h4 class="modal-title" id="myModalLabel">修改学期信息</h4>
 	      </div>
 	      <div class="modal-body">
+	      	<div id="success-alert" class="col-md-12">
+				<div class="alert alert-success alert-dismissible" role="alert">
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  修改成功
+				</div>
+			</div>
+			<div id="fail-alert" class="col-md-12">
+				<div class="alert alert-danger alert-dismissible" role="alert">
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  修改失败
+				</div>
+			</div>
 	        	<label for="semesterID">学期ID</label>
 	        	<input class="form-control" id="semesterID"/>
 	        	<label for="semesterYear">学年</label>

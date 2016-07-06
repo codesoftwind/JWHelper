@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{asset('css/layout.css')}}">
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/jquery.ajaxfileupload.js')}}"></script>
     @yield('headjs')
   </head>
 

@@ -5,12 +5,15 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use Hash;
 use Auth;
 use App\User;
 use App\Admin;
 use App\Teacher;
 use App\Student;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 class AuthController extends Controller {
 
@@ -30,18 +33,20 @@ class AuthController extends Controller {
 		{
 			if(Auth::user()->isAdmin)
 			{
-				$admin = Admin::where(['adminID' => $userID, 'password' => $password]);
+				$admin = DB::table('admins')->select('adminName')->where('adminID', $userID)->get();
+				session(['userID'=>$userID, 'role'=>'教务管理员', 'userName'=>$admin[0]->adminName]);
 				return response()->json(['status'=>1, 'role'=>'admin', 'userID'=>$userID]);
-				//return json_encode(['status'=>1, 'role'=>'admin', 'userID'=>$userID]);
 			}
 			elseif(Auth::user()->isTeacher)
 			{
-				$teacher = Teacher::where(['teacherID' => $userID, 'password' => $password]);
+				$teacher = DB::table('teachers')->select('teacherName')->where('teacherID', $userID)->get();
+				session(['userID'=>$userID, 'role'=>'教师', 'userName'=>$teacher[0]->teacherName]);
 				return response()->json(['status'=>1, 'role'=>'teacher', 'userID'=>$userID]);
 			}
 			elseif(Auth::user()->isStudent)
 			{
-				$student = Student::where(['studentID' => $userID, 'password' => $password]);
+				$student = DB::table('students')->select('studentName')->where('studentID', $userID)->get();
+				session(['userID'=>$userID, 'role'=>'学生', 'userName'=>$student[0]->studentName]);
 				return response()->json(['status'=>1, 'role'=>'student', 'userID'=>$userID]);
 			}
 		}
@@ -58,6 +63,14 @@ class AuthController extends Controller {
 	{
 		Auth::logout();
 		return redirect('login');
+	}
+
+	public function nopage()
+	{
+		if(!Auth::check())
+			return redirect('login');
+
+		return view('view.template.no-page');
 	}
 
 }
