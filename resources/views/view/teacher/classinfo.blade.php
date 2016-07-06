@@ -4,29 +4,28 @@
   <h1>课程详细信息</h1>
 </div>
 <div class="well">
-  <table>
+  <table >
     <tr>
-    <th width="200">课程id</th>
-    <th width="200">课程名称</th>
+      <th width="200">课程id</th>
+      <th>课程名称</th>
     </tr>
-      
+    
     <tr>
-    <td> 
-      233
-    </td>
-    <td>
-      经管
-    </td>
+      <td> 
+        {{ $lessonID }}
+      </td>
+      <td>
+        {{ $lessonName }}
+      </td>
     </tr>
-  </table>
 
-<div>
-  <table>
     <tr>
       <th>课程详细信息</th>
     </tr>
     <tr>
-      <td>撒大大撒旦实打实大苏打实打实大苏打撒发生方法是</td>
+      <td>
+        {{ $lessonIntroduction }}
+      </td>
     </tr>
   </table>
 </div>
