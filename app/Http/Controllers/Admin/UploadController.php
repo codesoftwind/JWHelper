@@ -28,7 +28,7 @@ class UploadController extends Controller {
 					DB::insert("insert into teachers (teacherID,teacherName,password,basicInfo)
                          values(?,?,?,?)",[$data->id,$data->name,$pass,$data->info]);
 					DB::insert("insert into users (userID,password,isTeacher)
-                         values(?,?,?,?)",[$data->id,$pass,1]);
+                         values(?,?,?)",[$data->id,$pass,1]);
 				}
 			}
 			
@@ -59,7 +59,7 @@ class UploadController extends Controller {
 					DB::insert("insert into students (studentID,studentName,password,department)
                          values(?,?,?,?)",[$data->id,$data->name,$pass,$data->depart]);
 					DB::insert("insert into users (userID,password,isStudent)
-                         values(?,?,?,?)",[$data->id,$pass,1]);
+                         values(?,?,?)",[$data->id,$pass,1]);
 				}
 			}
 			
