@@ -30,6 +30,7 @@ Route::get('logout', 'AuthController@logout');
 
 //教务路由
 Route::get('admin/index', 'Admin\IndexController@index');
+Route::get('admin/semester_info', 'Admin\IndexController@index');
 
 Route::get('admin/uploadTeacher','Admin\UploadController@uploadTeacher');
 Route::get('admin/uploadStudent','Admin\UploadController@uploadStudent');
