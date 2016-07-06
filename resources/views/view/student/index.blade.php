@@ -1,38 +1,34 @@
 @extends('view.template.student_layout')
 
 @section('main_panel')
-<div class="page-header">
-  <h3>课程列表</h3>
-</div>
-<div class="table-responsive">
-<table class="table table-striped">
- <tr>
-    <th>课程</th>
-    <th>教师</th>
-    <th></th>
-  </tr>
-
-        <?php 
-
-          $lessons = $result;
+    @parent
+        <?php
+            $courses = [
+                ['001', '软件工程过程', '林广艳', '3'],
+                ['002', 'C++高级程序设计', '谭火彬', '5'],
+                ['003', '线性代数', 'Leo', '4']
+            ];
         ?>
-
-       @foreach ($lessons as $lesson)
-           <tr> <td>{{  $lesson->lessonName }}
-           </td>
-
-           <td>{{  $lesson->teacherName }}</td>      
-<td>
-  <div class="btn-group" role="group" aria-label="...">
-  <button type="button" class="btn btn-default" >退课</button>
-</div>
-</td>
-           </tr>  
-       @endforeach
-
-
-
-</table>
-</div>
+        <h1 class="page-header">课程列表</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="color:#55595c;background-color:#eceeef">课程编号</th>
+                    <th style="color:#55595c;background-color:#eceeef">课程名称</th>
+                    <th style="color:#55595c;background-color:#eceeef">授课教师</th>
+                    <th style="color:#55595c;background-color:#eceeef">学分</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($courses as $course)
+                    <tr>
+                        <th class="scope">{{$course[0]}}</th>
+                        <td>{{$course[1]}}</td>
+                        <td>{{$course[2]}}</td>
+                        <td>{{$course[3]}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
 @endsection
