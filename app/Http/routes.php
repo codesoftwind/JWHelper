@@ -36,6 +36,14 @@ Route::get('index', 'IndexController@index');
 
 //教务路由
 Route::get('admin/index', 'Admin\IndexController@index');
+Route::get('admin/semester_info', 'Admin\IndexController@index');
+
+Route::get('admin/uploadTeacher','Admin\UploadController@uploadTeacher');
+Route::get('admin/uploadStudent','Admin\UploadController@uploadStudent');
+Route::get('admin/uploadTeach','Admin\UploadController@uploadTeach');
+Route::get('admin/uploadChoose','Admin\UploadController@uploadChoose');
+
+
 Route::post('admin/uploadTeacher','Admin\UploadController@uploadTeacher');
 Route::post('admin/uploadStudent','Admin\UploadController@uploadStudent');
 Route::post('admin/uploadTeach','Admin\UploadController@uploadTeach');
@@ -47,6 +55,7 @@ Route::get('admin/uploadTeachPage', 'Admin\UploadController@uploadTeachPage');
 Route::get('admin/uploadChoosePage', 'Admin\UploadController@uploadChoosePage');
 Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
 Route::post('admin/setSemester', 'Admin\SemesterController@setSemester');
+
 
 
 //教师路由
