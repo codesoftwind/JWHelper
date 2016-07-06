@@ -29,7 +29,7 @@ class HomeworkController extends Controller {
 									->select('homeworkID', 'homeworkName')
 									->get();
 
-		$result = ['title'=>'布置作业列表', 'userName'=>session('userName'), 'role'=>session('role'), 'result'=>$tmpresult];
+		$result = ['title'=>'布置作业列表', 'username'=>session('username'), 'role'=>session('role'), 'result'=>$tmpresult];
 		
 		return view('view.teacher.homework')->with($result);
 	}
