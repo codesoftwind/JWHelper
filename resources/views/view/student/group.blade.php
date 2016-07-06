@@ -101,13 +101,40 @@
                                 'groupName': groupName,
                                 'maxPeople': maxPeople
                             };
-                            console.log(formData);
                             $.ajax({
-                                url: 'http://localhost/JWHelper/public/student/createTeam',
+                                url: 'http://localhost/JWHelper/public/student/groupForm',
                                 type: 'POST',
                                 data: formData,
                                 success: function(data) {
-
+                                    dialogItself.close();
+                                    if (data['status'] == 1) {
+                                        BootstrapDialog.show({
+                                            title: '创建团队成功',
+                                            type: BootstrapDialog.TYPE_SUCCESS,
+                                            buttons: [
+                                                {
+                                                    label: '关闭',
+                                                    action: function(dialogItself) {
+                                                        dialogItself.close();
+                                                    }
+                                                }
+                                            ]
+                                        });
+                                    } else {
+                                        BootstrapDialog.show({
+                                            title: '创建团队失败',
+                                            type: BootstrapDialog.TYPE_WARNING,
+                                            message: '请重新创建团队',
+                                            buttons: [
+                                                {
+                                                    label: '关闭',
+                                                    action: function(dialogItself) {
+                                                        dialogItself.close();
+                                                    }
+                                                }
+                                            ]
+                                        });
+                                    }
                                 },
                                 dataType: 'json'
                             });
