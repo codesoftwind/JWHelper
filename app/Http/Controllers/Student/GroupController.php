@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Session;
 
-class TeamController extends Controller {
+class GroupController extends Controller {
 
 	/**
 	 * 显示学生加入了得团队和所有的团队
 	 */
-	public function teamsList()
+	public function groupsList()
 	{
 		if(!Auth::check())
 			return redirect('login');
@@ -38,13 +38,13 @@ class TeamController extends Controller {
 
 		$result = ['title'=>'参加的团体列表', 'userName'=>session('userName'), 'role'=>session('role'), 'ingroups'=>$ingroups, 'outgroups'=>$outgroups];
 		
-		return view()->with($result);
+		return view('view.student.group')->with($result);
 	}
 
 	/**
 	 * 学生组建一个团体
 	 */
-	public function teamForm(Request $request)
+	public function groupForm(Request $request)
 	{
 		if(!Auth::check())
 			return redirect('login');
