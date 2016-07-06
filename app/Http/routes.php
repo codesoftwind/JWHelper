@@ -28,6 +28,12 @@ Route::post('authLogin', 'AuthController@authLogin');
 //注销用户登录的路由
 Route::get('logout', 'AuthController@logout');
 
+//未开发页面的路由
+Route::get('template/no-page', 'AuthController@no-page');
+
+//统一的index路由
+Route::get('index', 'IndexController@index');
+
 //教务路由
 Route::get('admin/index', 'Admin\IndexController@index');
 Route::post('admin/uploadTeacher','Admin\UploadController@uploadTeacher');
@@ -40,6 +46,7 @@ Route::get('admin/uploadStudentPage', 'Admin\UploadController@uploadStudentPage'
 Route::get('admin/uploadTeachPage', 'Admin\UploadController@uploadTeachPage');
 Route::get('admin/uploadChoosePage', 'Admin\UploadController@uploadChoosePage');
 Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
+Route::post('admin/setSemester', 'Admin\SemesterController@setSemester');
 
 
 //教师路由
@@ -61,3 +68,5 @@ Route::get('teacher/stuHomeworkRate', 'Teacher\StuHomeworkController@stuHomework
 //学生路由
 Route::get('student/index', 'Student\IndexController@index');
 Route::get('student/lessonsList', 'Student\LessonController@lessonsList');
+Route::get('student/teamsList', 'Student\TeamController@teamsList');
+Route::get('student/teamForm', 'Student\TeamController@teamForm');

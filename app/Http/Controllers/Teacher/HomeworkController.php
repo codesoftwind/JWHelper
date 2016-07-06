@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use session;
 
 class HomeworkController extends Controller {
 
@@ -28,8 +29,8 @@ class HomeworkController extends Controller {
 									->select('homeworkID', 'homeworkName')
 									->get();
 
-		$result = ['title'=>'布置作业列表', 'lessonID'=>$lessonID, 'result'=>$tmpresult];
-		return view()->with($result);
+		$result = ['title'=>'布置作业列表', 'userName'=>session('userName'), 'role'=>session('role'), 'result'=>$tmpresult];
+		return view('view.teacher.homework')->with($result);
 	}
 
 	/**
@@ -42,14 +43,14 @@ class HomeworkController extends Controller {
 
 		$teacherID = Auth::user()->userID;
 		$lessonID = $request->get('lessonID');
-		//$semesterID = $request->get('semesterID');
+		$homeworkName = $request->get('homeworkName');
 		$description = $request->get('description');
 		$startTime = $request->get('startTime');
 		$endTime = $request->get('endTime');
 		$team = $request->get('team');
 
 		$success = DB::table('pubhomework')->insert(
-			array('teacherID'=>$teacherID, 'lessonID'=>$lessonID, 'description'=>$description,
+			array('teacherID'=>$teacherID, 'lessonID'=>$lessonID, 'homeworkName'=>$homeworkName, 'description'=>$description,
 				'startTime'=>$startTime, 'endTime'=>$endTime, 'team'=>$team));
 
 		if($success)
