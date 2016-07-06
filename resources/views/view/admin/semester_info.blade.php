@@ -8,20 +8,20 @@
         $('#fail-alert').hide()
         $('#submit-change').click(function(){
         	$.ajax({
-        		
         		type : "POST" ,
 				url : "http://localhost/JWHelper/public/admin/setSemester" ,
+				dataType : 'json',
 				data : {
 					semesterID : $('#semesterID').val() ,
 					semesterYear : $('#semesterYear').val() ,
 					semesterWeek : $('#semesterWeek').val() ,
-					basicInfo : $('#basicInfo').text()
+					basicInfo : $('#basicInfo').val()
 				},	
 				success : function(data){
-					if (data['status'] == 1){
+					if (data.status == 1){
 						$('#success-alert').fadeIn()
 						setTimeout(function(){
-							window.location = "http://localhost/JWHelper/public/admin/semester_info"
+							window.location.href = "http://localhost/JWHelper/public/admin/semester_info"
 						},2000)
 					}
 					else

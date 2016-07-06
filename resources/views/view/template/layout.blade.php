@@ -58,6 +58,7 @@
         </div>
     </div>
 
+    @yield('bodyJS')
   </body>
 
   <footer>
