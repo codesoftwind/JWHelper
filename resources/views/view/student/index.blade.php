@@ -15,10 +15,10 @@
             <tbody>
                 @foreach($lessonList as $lesson)
                     <tr>
-                        <th class="scope">{{$lesson[0]}}</th>
-                        <td>{{$lesson[1]}}</td>
-                        <td>{{$lesson[2]}}</td>
-                        <td>{{$lesson[3]}}</td>
+                        <th class="scope">{{$lesson['lessonID']}}</th>
+                        <td>{{$lesson['lessonName']}}</td>
+                        <td>{{$lesson['teacherName']}}</td>
+                        <td>{{$lesson['semester']}}</td>
                     </tr>
                 @endforeach
             </tbody>
