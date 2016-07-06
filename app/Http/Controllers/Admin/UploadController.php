@@ -29,11 +29,11 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return redirect('admin/index');
+    		return json_encode(['status'=>'1']);
 		}
 		else
 		{
-			return 'upload error';
+			return json_encode(['status'=>'0']);
 		}
 	}
 
@@ -51,17 +51,17 @@ class UploadController extends Controller {
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();
 			foreach ($result as $rows) {
-				foreach ($rows as $data) {
+				foreach ($rows as $data) {					
 					DB::insert("insert into students (studentID,studentName,password,department)
                          values(?,?,?,?)",[$data->id,$data->name,Hash::make($data->password),$data->depart]);
 				}
 			}
 			
-    		return redirect('admin/index');
+    		return json_encode(['status'=>'1']);
 		}
 		else
 		{
-			return 'upload error';
+			return json_encode(['status'=>'0']);
 		}
 
 	}
@@ -82,15 +82,15 @@ class UploadController extends Controller {
 			foreach ($result as $rows) {
 				foreach ($rows as $data) {
 					DB::insert("insert into tlessons (teacherID,lessonID,semesterID)
-                         values(?,?,?)",[$data->teacherID,$data->lessonID,$data->semesterID]);
+                         values(?,?,?)",[$data->teacherid,$data->lessonid,$data->semesterid]);
 				}
 			}
 			
-    		return redirect('admin/index');
+    		return json_encode(['status'=>'1']);
 		}
 		else
 		{
-			return 'upload error';
+			return json_encode(['status'=>'0']);
 		}
 
 	}
@@ -111,14 +111,14 @@ class UploadController extends Controller {
 			foreach ($result as $rows) {
 				foreach ($rows as $data) {
 					DB::insert("insert into slessons (studentID,teacherID,lessonID,semesterID)
-           values(?,?,?,?)",[$data->studentID,$data->teacherID,$data->lessonID,$data->semesterID]);
+           values(?,?,?,?)",[$data->studentid,$data->teacherid,$data->lessonid,$data->semesterid]);
 				}
 			}
-    		return redirect('admin/index');
+    		return json_encode(['status'=>'1']);
 		}
 		else
 		{
-			return 'upload error';
+			return json_encode(['status'=>'0']);
 		}
 
 	}
@@ -143,11 +143,11 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return redirect('admin/index');
+    		return json_encode(['status'=>'1']);
 		}
 		else
 		{
-			return 'upload error';
+			return json_encode(['status'=>'0']);
 		}
 
 	}
