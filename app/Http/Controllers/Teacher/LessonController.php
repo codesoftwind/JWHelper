@@ -26,7 +26,7 @@ class LessonController extends Controller {
 								->select('lessons.lessonID', 'lessons.lessonName')
 								->where('tlessons.teacherID', $teacherID)
 								->get();
-		$result = ['title'=>'课程列表', 'userName'=>session('userName'), 'role'=>session('role'), 'result'=>$tmpresult];
+		$result = ['title'=>'课程列表', 'username'=>session('username'), 'role'=>session('role'), 'result'=>$tmpresult];
 		return view('view.teacher.index')->with($result);
 	}
 

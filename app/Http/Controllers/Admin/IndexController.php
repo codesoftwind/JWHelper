@@ -25,7 +25,7 @@ class IndexController extends Controller {
 								->join('teachers', 'tlessons.teacherID', '=', 'teachers.teacherID')
 								->select('lessons.lessonID', 'lessons.lessonName', 'teachers.teacherID', 'teachers.teacherName')
 								->get();
-		$result = ['title'=>'课程列表', 'username'=>session('userName'), 'role'=>session('role'), 'result'=>$tmpresult];
+		$result = ['title'=>'课程列表', 'username'=>session('username'), 'role'=>session('role'), 'result'=>$tmpresult];
 		return view('view.admin.index')->with($result);
 	}
 	
