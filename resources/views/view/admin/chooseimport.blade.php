@@ -4,37 +4,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-  //   	var files;
-
-		// $('input[type=file]').on('change', function (){
-		// 	files = event.target.files;
-		// });
-		// $('#success-alert').hide();
-  //       $('#fail-alert').hide();
-  //       $('#submit-change').click(function(){
-  //       	var data = new FormData();
-  //       	$.each(files, function(key, value)
-  //   		{
-  //       		data.append(key, value);
-  //   		}); 
-  //       	$.ajax({
-  //       		type : "POST" ,
-		// 		url : "http://localhost/JWHelper/public/admin/uploadChoose" ,
-		// 		data : data,	
-		// 		success : function(data){
-		// 			alert("i");
-		// 			if (data['status'] == 1){
-		// 				$('#success-alert').fadeIn();
-		// 				setTimeout(function(){$("#success-alert").modal("hide")},2000);
-		// 			}
-		// 			else{
-		// 				$('#fail-alert').fadeIn();
-		// 			}
-		// 		}
-  //          	});
-  //       });
-  //   });
-
         $('#success-alert').hide();
         $('#fail-alert').hide();
         $('#submit-change').click(function(){
@@ -47,7 +16,7 @@
         	}   
         	$.ajax({
         		type : "POST" ,
-				url : "http://localhost:8888/admin/uploadChoose",//"http://localhost/JWHelper/public/admin/uploadChoose" ,
+				url : "http://localhost/JWHelper/public/admin/uploadChoose" ,
 				data : formdata, 
 				contentType: false, //必须
     			processData: false, //必须
