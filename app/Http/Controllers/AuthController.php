@@ -51,4 +51,13 @@ class AuthController extends Controller {
 		}
 	}
 
+	/**
+	 * 注销用户登录
+	 */
+	public function logout()
+	{
+		Auth::logout();
+		return redirect('login');
+	}
+
 }

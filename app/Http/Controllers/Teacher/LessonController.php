@@ -25,7 +25,7 @@ class LessonController extends Controller {
 								->select('lessons.lessonID', 'lessons.lessonName')
 								->where('tlessons.teacherID', $teacherID)
 								->get();
-		return response()->json($result);
+		return view('view.teacher.index')->with($result);
 	}
 
 	public function lesson()

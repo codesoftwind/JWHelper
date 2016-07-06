@@ -25,6 +25,9 @@ Route::get('login', 'AuthController@login');
 //认证用户登录的路由
 Route::post('authLogin', 'AuthController@authLogin');
 
+//注销用户登录的路由
+Route::get('logout', 'AuthController@logout');
+
 //教务路由
 Route::get('admin/index', 'Admin\IndexController@index');
 Route::post('admin/uploadTeacher','Admin\UploadController@uploadTeacher');
@@ -56,5 +59,5 @@ Route::get('teacher/stuHomeworkRate', 'Teacher\StuHomeworkController@stuHomework
 
 
 //学生路由
-Route::get('student/index', 'StudentController@index');
-Route::get('student/lessonsList', 'StudentController@lessonsList');
+Route::get('student/index', 'Student\IndexController@index');
+Route::get('student/lessonsList', 'Student\LessonController@lessonsList');

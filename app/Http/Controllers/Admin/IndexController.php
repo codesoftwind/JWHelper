@@ -21,7 +21,7 @@ class IndexController extends Controller {
 
 		$adminID = Auth::user()->userID;
 
-		//需要注意的是select返回的是包含对象的数组，对象的属性就是我们select的列
+		//需要注意的是select返回的是包含对象的数组，对象的属性就是select的列
 		$admin = DB::table('admins')
 								->select('adminName')
 								->where('adminID', $adminID)		
