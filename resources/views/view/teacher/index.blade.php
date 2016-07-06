@@ -7,7 +7,6 @@
 <table class="table table-striped">
 	<tr>
    		<th>课程名</th>
-    	<th>学生人数</th>
     	<th></th>
  	</tr>
 
@@ -20,8 +19,7 @@
            <tr> 
            <td>{{  $lesson->lessonName }}
            </td>
-
-           <td>{{  $lesson->teacherName }}</td>      
+ 
 <td>
   <div class="btn-group" role="group" aria-label="...">
   <button type="button" class="btn btn-primary" >查看</button>
