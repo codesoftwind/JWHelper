@@ -9,6 +9,7 @@ return array(
     'AddHeadIDToGroups' => $baseDir . '/database/migrations/2016_07_06_051640_add_headID_to_groups.php',
     'AddHeadNameToGroups' => $baseDir . '/database/migrations/2016_07_06_083315_add_headName_to_groups.php',
     'AddHomeworkNameToPubhomework' => $baseDir . '/database/migrations/2016_07_05_102639_add_homeworkName_to_pubhomework.php',
+    'AddIntroductionToLessons' => $baseDir . '/database/migrations/2016_07_06_114324_add_introduction_to_lessons.php',
     'CreateAdminsTable' => $baseDir . '/database/migrations/2016_07_04_024339_create_admins_table.php',
     'CreateGroupsTable' => $baseDir . '/database/migrations/2016_07_06_034411_create_groups_table.php',
     'CreateHomeworksTable' => $baseDir . '/database/migrations/2016_07_04_080230_create_homeworks_table.php',
