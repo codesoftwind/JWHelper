@@ -15,8 +15,8 @@ class LessonController extends Controller {
 	{
 		if(!Auth::check())
 			return redirect('login');
-		$datas = DB::select("select * from slessons where studentID = ?",session('userID'));
-	    $studentName = DB::select("select studentName from students where studentID = ?",session('userID'));
+		$datas = DB::select("select * from slessons where studentID = ?",[session('userID')]);
+	    $studentName = DB::select("select studentName from students where studentID = ?",[session('userID')]);
 
 		$lessonList = array();
 		foreach ($datas as $data) {
@@ -35,7 +35,7 @@ class LessonController extends Controller {
 
 			
 		}
-		return view('view.student.index',['lessonList'=>$lessonList,'role'=>'学生','username'=>$studentName]);
+		return view('view.student.index',['lessonList'=>$lessonList,'role'=>'学生','username'=>$studentName[0]->studentName]);
 	}
 
 }
