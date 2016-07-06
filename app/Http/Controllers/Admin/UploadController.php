@@ -29,11 +29,11 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return  view('view.admin.teacherimport');
+    		return  view('view.admin.teacherimport')->with('success','1');
 		}
 		else
 		{
-			return 'error';
+			return view('view.admin.teacherimport')->with('fail','1');
 		}
 	}
 
@@ -57,11 +57,11 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return  view('view.admin.studentimport');
+    		return  view('view.admin.studentimport')->with('success','1');
 		}
 		else
 		{
-			return 'error';
+			return view('view.admin.studentimport')->with('fail','1');
 		}
 
 	}
@@ -86,11 +86,11 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return  view('view.admin.teachimport');
+    		return  view('view.admin.teachimport')->with('success','1');
 		}
 		else
 		{
-			return 'error';
+			return view('view.admin.teachimport')->with('fail','1');
 		}
 
 	}
@@ -116,11 +116,11 @@ class UploadController extends Controller {
            values(?,?,?,?)",[$data->studentid,$data->teacherid,$data->lessonid,$data->semesterid]);
 				}
 			}
-    		return view('view.admin.chooseimport')->with('result', '上传成功');
+    		return view('view.admin.chooseimport')->with('success', '1');
 		}
 		else
 		{
-			return 'error';
+			return view('view.admin.chooseimport')->with('fail','1');
 		}
 
 	}
@@ -145,11 +145,11 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return  view('view.admin.lessonimport');
+    		return  view('view.admin.lessonimport')->with('success','1');
 		}
 		else
 		{
-			return 'error';
+			return view('view.admin.lessonimport')->with('fail','1');
 		}
 
 	}
