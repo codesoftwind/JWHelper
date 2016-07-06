@@ -65,4 +65,12 @@ class AuthController extends Controller {
 		return redirect('login');
 	}
 
+	public function nopage()
+	{
+		if(!Auth::check())
+			return redirect('login');
+
+		return view('view.template.no-page');
+	}
+
 }

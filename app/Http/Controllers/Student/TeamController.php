@@ -13,7 +13,7 @@ use Session;
 class TeamController extends Controller {
 
 	/**
-	 * 学生显示其加入的所有的团队的列表
+	 * 显示学生加入了得团队和所有的团队
 	 */
 	public function teamsList()
 	{
@@ -21,17 +21,28 @@ class TeamController extends Controller {
 			return redirect('login');
 
 		$studentID = session('userID');
-		$group = DB::table('groups')
+
+		//学生已经加入的团队
+		$ingroups = DB::table('groups')
 							->join('sgroups', 'groups.groupID', '=', 'sgroups.groupID')
 							->select('groups.groupID', 'groups.groupName')
 							->where('sgroups.studentID', $studentID)
 							->get();
-		$result = ['title'=>'参加的团体列表', 'userName'=>session('userName'), 'role'=>session('role'), 'result'=>$group];
+
+		//学生还未加入的团队
+		$outgroups = DB::table('groups')
+							->join('sgroups', 'groups.groupID', '=', 'sgroups.groupID')
+							->select('groups.groupID', 'groups.groupName')
+							->where('sgroups.studentID', '!=', $studentID)
+							->get();
+
+		$result = ['title'=>'参加的团体列表', 'userName'=>session('userName'), 'role'=>session('role'), 'ingroups'=>$ingroups, 'outgroups'=>$outgroups];
+		
 		return view()->with($result);
 	}
 
 	/**
-	 * 学生组建团体
+	 * 学生组建一个团体
 	 */
 	public function teamForm(Request $request)
 	{
@@ -40,6 +51,21 @@ class TeamController extends Controller {
 
 		$groupName = $request->get('groupName');
 		$maxPeople = $request->get('maxPeople');
+		$headID = session('userID');
+
+		//insertGetId()返回刚刚插入的记录的自增字段的值
+		$groupID = DB::table('groups')
+								->insertGetId(array('groupName'=>$groupName, 'maxPeople'=>$maxPeople, 'headID'=>$headID));
 		
+		if($groupID)
+		{
+			//insert()返回一个bool值，表示是否插入成功
+			$insertsgroups = DB::table('sgroups')
+								->insert(array('groupID'=>$groupID, 'studentID'=>session('userID')));
+			if($insertsgroups)
+				return response()->json(['status'=>1]);
+		}
+
+		return response()->json(['status'=>0]);
 	}
 }

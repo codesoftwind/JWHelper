@@ -8,7 +8,7 @@ use Illuminate\Http\Response;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
-use session;
+use Session;
 
 class HomeworkController extends Controller {
 
@@ -21,7 +21,7 @@ class HomeworkController extends Controller {
 			return redirect('login');
 
 		$lessonID = $request->get('lessonID');
-		$teacherID = Auth::user()->userID;
+		$teacherID = session('userID');
 
 		$tmpresult = DB::table('pubhomework')
 									->where('teacherID', $teacherID)
@@ -30,6 +30,7 @@ class HomeworkController extends Controller {
 									->get();
 
 		$result = ['title'=>'布置作业列表', 'userName'=>session('userName'), 'role'=>session('role'), 'result'=>$tmpresult];
+		
 		return view('view.teacher.homework')->with($result);
 	}
 
