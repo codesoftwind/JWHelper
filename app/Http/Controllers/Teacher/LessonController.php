@@ -8,7 +8,7 @@ use Illuminate\Http\Response;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
-use session;
+use Session;
 
 class LessonController extends Controller {
 	
