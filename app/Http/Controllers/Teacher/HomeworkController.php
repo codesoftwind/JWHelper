@@ -24,9 +24,10 @@ class HomeworkController extends Controller {
 		$teacherID = session('userID');
 
 		$tmpresult = DB::table('pubhomework')
+									->join('lessons', 'lessons.lessonID', '=', 'pubhomework.lessonID')
 									->where('teacherID', $teacherID)
 									->where('lessonID', $lessonID)
-									->select('homeworkID', 'homeworkName')
+									->select('pubhomework.homeworkID', 'pubhomework.homeworkName', 'lessons.lessonName', 'pubhomework.startTime', 'pubhomework.endTime')
 									->get();
 
 		$result = ['title'=>'布置作业列表', 'username'=>session('username'), 'role'=>session('role'), 'result'=>$tmpresult];

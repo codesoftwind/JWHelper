@@ -47,7 +47,7 @@ class LessonController extends Controller {
 
 		$result = ['title'=>'课程详情', 'username'=>session('username'), 'role'=>session('role'), 'result'=>$tmpresult];
 		
-		return view('view.teacher.classInfo')->with($result);
+		return view('view.teacher.classinfo')->with($result);
 	}
 
 	
