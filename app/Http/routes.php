@@ -59,12 +59,13 @@ Route::post('teacher/resourcesList', 'Teacher\ResourceController@resourcesList')
 Route::get('teacher/resourcesClassify', 'Teacher\ResourceController@resourcesClassify');
 Route::get('teacher/resourceUpload', 'Teacher\ResourceController@resourceUpload');
 Route::get('teacher/resourceDownload', 'Teacher\ResourceController@resourceDownload');
-Route::post('teacher/homeworksList', 'Teacher\HomeworkController@homeworksList');
-Route::post('teacher/homeworkPublish', 'Teacher\HomeworkController@homeworkPublish');
-Route::get('teacher/homework', 'Teacher\HomeworkController@homework');
-Route::get('teacher/stuHomework', 'Teacher\StuHomeworkController@stuHomework');
-Route::get('teacher/stuHomeworkDownload', 'Teacher\StuHomweorkController@stuHomeworkDownload');
-Route::get('teacher/stuHomeworkRate', 'Teacher\StuHomeworkController@stuHomeworkRate');
+Route::post('teacher/thomeworksList', 'Teacher\THomeworkController@thomeworksList');
+Route::post('teacher/thomeworkPublish', 'Teacher\THomeworkController@thomeworkPublish');
+Route::post('teacher/thomework', 'Teacher\THomeworkController@thomework');
+Route::post('teacher/shomework', 'Teacher\SHomeworkController@shomework');
+Route::get('teacher/shomeworkDownload', 'Teacher\SHomweorkController@shomeworkDownload');
+Route::post('teacher/shomeworkRate', 'Teacher\SHomeworkController@shomeworkRate');
+Route::post('teacher/groupCheck', 'Teacher\GroupController@groupCheck');
 
 
 //学生路由
