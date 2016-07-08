@@ -73,3 +73,18 @@ Route::get('student/lessonsList', 'Student\LessonController@lessonsList');
 Route::get('student/groupsList', 'Student\GroupController@groupsList');
 Route::post('student/groupForm', 'Student\GroupController@groupForm');
 
+Route::get('student/myGroup', function () {
+	return view('view.student.myGroup');
+});
+
+Route::get('student/inGroup', function () {
+	return view('view.student.inGroup');
+});
+
+Route::get('student/outGroup', function () {
+	return view('view.student.outGroup');
+});
+
+Route::get('student/checkGroup', function () {
+	return view('view.student.checkGroup');
+});
