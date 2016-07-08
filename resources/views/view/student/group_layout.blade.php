@@ -28,14 +28,11 @@
     @parent
     <script>
         $(function() {
-            // 更改sidebar的样式, 使当前页面显示为active
-            $(".nav-sidebar>li").removeClass("active");
-            $("#team").addClass("active");
 
             // 显示团队列表下的标签
-            $("#myTeam").removeClass("displayNone");
-            $("#inTeam").removeClass("displayNone");
-            $("#outTeam").removeClass("displayNone");
+            $("#myGroup").removeClass("displayNone");
+            $("#inGroup").removeClass("displayNone");
+            $("#outGroup").removeClass("displayNone");
 
             // 创建团队表单
             $("#createTeam").click(function () {

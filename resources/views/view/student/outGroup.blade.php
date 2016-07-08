@@ -45,6 +45,10 @@
 @section('bodyJS')
     @parent
     <script>
+        // 更改sidebar的样式, 使当前页面显示为active
+        $(".nav-sidebar>li").removeClass("active");
+        $("#outGroup").addClass("active");
+
         $(function () {
             // To do
             $(".apply").click(function () {

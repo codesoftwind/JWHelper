@@ -11,10 +11,10 @@
       </ul>
       <ul class="nav nav-sidebar">
           <li id="resource"><a href="#"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 课程资源</a></li>
-          <li id="team"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 学生团队</a></li>
-          <li id="myTeam" class="displayNone"><a href="{{$baseURL. '/myGroup'}}">我的团队</a><li>
-          <li id="inTeam" class="displayNone"><a href="{{$baseURL. '/inGroup'}}">已加入的团队</a><li>
-          <li id="outTeam" class="displayNone"><a href="{{$baseURL. '/outGroup'}}">可加入的团队</a><li>
+          <li id="group"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 学生团队</a></li>
+          <li id="myGroup" class="displayNone"><a href="{{$baseURL. '/myGroup'}}">我的团队</a><li>
+          <li id="inGroup" class="displayNone"><a href="{{$baseURL. '/inGroup'}}">已加入的团队</a><li>
+          <li id="outGroup" class="displayNone"><a href="{{$baseURL. '/outGroup'}}">可加入的团队</a><li>
           <li id="homework"><a href="#"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> 作业</a></li>
           <li id="communication"><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 在线交流</a></li>
       </ul>
@@ -24,10 +24,10 @@
     @parent
     <script>
         $(function () {
-            $("#team").click(function () {
-                $("#myTeam").toggleClass("displayNone");
-                $("#inTeam").toggleClass("displayNone");
-                $("#outTeam").toggleClass("displayNone");
+            $("#group").click(function () {
+                $("#myGroup").toggleClass("displayNone");
+                $("#inGroup").toggleClass("displayNone");
+                $("#outGroup").toggleClass("displayNone");
             });
         });
     </script>
