@@ -50,7 +50,7 @@ class SHomeworkController extends Controller {
 						->get(); 
 		}
 
-		$result = ['title'=>'学生作业', 'username'=>session('username'), 'role'=>session('role'), '$shomework'=>$shomework, 'thomework'=>$thomework];
+		$result = ['title'=>'学生作业', 'username'=>session('username'), 'role'=>session('role'), 'group'=>$group, '$shomework'=>$shomework, 'thomework'=>$thomework];
 	
 		return view()->with($result);
 	}
