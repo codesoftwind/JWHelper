@@ -71,6 +71,12 @@ Route::post('teacher/groupCheck', 'Teacher\GroupController@groupCheck');
 //学生路由
 Route::get('student/index', 'Student\IndexController@index');
 Route::get('student/lessonsList', 'Student\LessonController@lessonsList');
-Route::get('student/groupsList', 'Student\GroupController@groupsList');
-Route::post('student/groupForm', 'Student\GroupController@groupForm');
 
+Route::get('student/myGroups', 'Student\GroupController@myGroup');
+Route::get('student/groupList', 'Student\GroupController@groupList');
+Route::get('student/toApply', 'Student\GroupController@toApply');
+Route::get('student/checkList', 'Student\GroupController@checkList');
+
+Route::post('student/apply', 'Student\GroupController@apply');
+Route::post('student/check', 'Student\GroupController@check');
+Route::post('student/groupForm', 'Student\GroupController@groupForm');

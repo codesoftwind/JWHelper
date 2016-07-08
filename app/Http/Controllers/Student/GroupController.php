@@ -14,12 +14,12 @@ class GroupController extends Controller {
 
 	/**
 	 * 显示学生加入了得团队和所有的团队
-	 */
-	public function groupsList()
+	public function groupsList()	 */
 	{
+
 		if(!Auth::check())
 			return redirect('login');
-
+ 	
 		$studentID = session('userID');
 
 		//学生已经加入的团队
@@ -37,6 +37,7 @@ class GroupController extends Controller {
 							->get();
 
 		$result = ['title'=>'参加的团体列表', 'username'=>session('username'), 'role'=>session('role'), 'ingroups'=>$ingroups, 'outgroups'=>$outgroups];
+		
 		
 		return view('view.student.group')->with($result);
 	}
@@ -69,4 +70,82 @@ class GroupController extends Controller {
 
 		return response()->json(['status'=>0]);
 	}
+
+	public function myGroups(Request $request)
+	{
+		if(!Auth::check())
+			return redirect('login');
+		$res=DB::select('select * from groups where headID =?',[session('userID')]);
+		$myGroups=array();
+		foreach($res as $data)
+		{
+			$count = DB::table('sapply')
+			         ->where('groupID','=',$data->groupID)
+			         ->distinct()
+			         ->count();
+			array_push($myGroups, ['group'=>$data,'applyCount'=>$count]);
+		}
+
+	    $result = ['title'=>'我的团队', 'username'=>session('username'), 'myGroups'=>$myGroups,'role'=>session('role')];
+
+	}
+
+
+
+	public function toApply(Request $request)
+	{
+		if(!Auth::check())
+			return redirect('login');
+        $res=DB:table('groups')->join('sgroups','groups.groupID','=','sgroups.groupID')
+        	->select('groups.groupID', 'groups.groupName', 'groups.headID', 'groups.headName', 'groups.maxPeople', 'groups.occupied')
+      		->where('sgroups.studentID','!=',session('userID'))
+      		->distinct();  	
+        $toApply=array();
+        foreach($res as $data)
+        {
+        	$status=DB::select("select * from scheck where studentID=? and groupID =? and status=?",
+        		[session('userID'),$data->groupID,0]);
+        	$has=0;
+        	if(count($status)!=0)
+        		$has=1;
+         	array_push($toApply, ['apply'=>$data,'status'=>$has]);
+        }
+
+        $result = ['title'=>'可申请的团队列表', 'username'=>session('username'), 'toApply'=>$toApply,'role'=>session('role')];
+
+
+	}
+
+
+	public function apply(Request $request)
+	{
+		if(!Auth::check())
+			return redirect("login");
+		DB::insert("insert into sapply values(?,?)",[session('userID'),$request->groupID]);
+
+        $headID=DB::select("select headID from groups where groupID = ?",[$request->groupID])[0]->headID;
+		DB::insert("insert into scheck values(?,?,?,?,?)",
+			[session('userID'),session('username'),$request->groupID,$headID,0]);
+
+		return view('',['title'=>'可加入的团队','username'=>session('username'),'role'=>session('role')
+			,'']);
+	}
+
+	public function checkList(Request $request)
+	{
+
+		if(Auth::check())
+			return redirect('login');
+		DB::select("select * from scheck where headID =? and status =0",[session('userID')]);
+
+	}
+	public function check(Request $request)
+	{
+		if(!Auth::check())
+			return redirect('login');
+
+		DB::update("update scheck set status = 1 where studentID =? and groupID =?",
+			[$request->studentID,$request->groupID]);
+	}
+
 }
