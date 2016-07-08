@@ -30,11 +30,24 @@ class LessonController extends Controller {
 		return view('view.teacher.index')->with($result);
 	}
 
-	public function lesson()
+	/**
+	 * 显示课程的详情信息
+	 */
+	public function lesson(Request $request)
 	{
+		if(!Auth::check())
+			return redirect('login');
 		
+		$lessonID = $request->get('lessonID');
+
+		$tmpresult = DB::table('lessons')
+								->select('lessonID', 'lessonName', 'introduction')
+								->where('lessonID', $lessonID)
+								->get();
+
+		$result = ['title'=>'课程详情', 'username'=>session('username'), 'role'=>session('role'), 'result'=>$tmpresult];
+
+		return view('view.teacher.classinfo')->with($result);
 	}
-
 	
-
 }

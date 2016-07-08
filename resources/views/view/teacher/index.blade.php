@@ -1,4 +1,5 @@
 @extends('view.template.teacher_layout')
+
 @section('main_panel')
 <div class="page-header">
   <h3>课程列表</h3>
@@ -22,7 +23,11 @@
  
 <td>
   <div class="btn-group" role="group" aria-label="...">
-  <button type="button" class="btn btn-primary" >查看</button>
+  <form action='http://localhost/JWHelper/public/teacher/lesson' method="post" enctype="multipart/form-data">
+    <input type="hidden" name="lessonID" value="{{ $lesson->lessonID}}">
+    <button type="submit" class="btn btn-primary">查看</button>
+  </form>
+  
 </div>
 </td>
 
@@ -33,5 +38,4 @@
 
 </table>
 </div>
-
 @endsection

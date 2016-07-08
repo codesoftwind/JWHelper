@@ -3,15 +3,6 @@
 @section('header', '已加入的团队')
 
 @section('main_content')
-    <?php
-        $ingroups = [
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2'],
-        ];
-    ?>
     <table class="table">
         <thead>
         <tr>

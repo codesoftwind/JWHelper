@@ -3,15 +3,6 @@
 @section('header', '我的团队')
 
 @section('main_content')
-    <?php
-        $ingroups = [
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2'],
-        ];
-    ?>
     <table class="table">
         <thead>
         <tr>
@@ -24,13 +15,13 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($ingroups as $group)
+        @foreach($myGroups as $group)
             <tr>
-                <th>{{$group->groupName}}</th>
-                <th>{{$group->headName}}</th>
-                <th>{{$group->maxPeople}}</th>
-                <th>{{$group->occupied}}</th>
-                <th><button class="btn btn-primary check">审核<span> ( {{$group->applyPeople}} ) </span></button></th>
+                <th>{{$group['group']->groupName}}</th>
+                <th>{{$group['group']->headName}}</th>
+                <th>{{$group['group']->maxPeople}}</th>
+                <th>{{$group['group']->occupied}}</th>
+                <th><button class="btn btn-primary check">审核<span> ( {{$group['applyCount']}} ) </span></button></th>
                 <th><button class="btn btn-danger exit">退出团队</button></th>
             </tr>
         @endforeach
@@ -47,7 +38,7 @@
             $("#myGroup").addClass("active");
 
             $(".check").click(function () {
-                window.location.href = "http://localhost/JWHelper/public/student/checkGroup";
+                window.location.href = "http://localhost/JWHelper/public/student/checkList";
             });
 
             //To do 退出团队

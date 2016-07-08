@@ -3,15 +3,6 @@
 @section('header', '可加入的团队')
 
 @section('main_content')
-    <?php
-        $ingroups = [
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2', 'applyFlag' => '1'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2', 'applyFlag' => '1'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2', 'applyFlag' => '0'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2', 'applyFlag' => '0'],
-                (object)['groupName' => 'Exciting', 'headName' => 'Leo', 'maxPeople' => '5', 'occupied' => '4', 'applyPeople' => '2', 'applyFlag' => '1'],
-        ];
-    ?>
     <table class="table">
         <thead>
         <tr>
@@ -24,15 +15,17 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($ingroups as $group)
+        @foreach($toApply as $group)
             <tr>
-                <th>{{$group->groupName}}</th>
-                <th>{{$group->headName}}</th>
-                <th>{{$group->maxPeople}}</th>
-                <th>{{$group->occupied}}</th>
+                <th>{{$group['apply']->groupName}}</th>
+                <th>{{$group['apply']->headName}}</th>
+                <th>{{$group['apply']->maxPeople}}</th>
+                <th>{{$group['apply']->occupied}}</th>
                 <th>
-                    @if ($group->applyFlag)
-                        {{'已申请'}}
+                    @if ($group['status'] == 0)
+                        {{'已申请待审核'}}
+                    @elseif ($group['status'] == 1)
+                        {{'审核未通过'}}
                     @endif
                 </th>
                 <th><button class="btn btn-primary apply">申请加入</button></th>
