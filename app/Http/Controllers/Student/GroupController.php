@@ -14,12 +14,12 @@ class GroupController extends Controller {
 
 	/**
 	 * 显示学生加入了得团队和所有的团队
-	 */
-	public function groupsList()
+	public function groupsList()	 */
 	{
+
 		if(!Auth::check())
 			return redirect('login');
-
+ 	
 		$studentID = session('userID');
 
 		//学生已经加入的团队
@@ -29,14 +29,9 @@ class GroupController extends Controller {
 							->where('sgroups.studentID', $studentID)
 							->get();
 
-		//学生还未加入的团队
-		$outgroups = DB::table('groups')
-							->join('sgroups', 'groups.groupID', '=', 'sgroups.groupID')
-							->select('groups.groupID', 'groups.groupName', 'groups.headID', 'groups.headName', 'groups.maxPeople', 'groups.occupied')
-							->where('sgroups.studentID', '!=', $studentID)
-							->get();
-
-		$result = ['title'=>'参加的团体列表', 'username'=>session('username'), 'role'=>session('role'), 'ingroups'=>$ingroups, 'outgroups'=>$outgroups];
+		$result = ['title'=>'参加的团体列表', 'username'=>session('username'), 'role'=>session('role'), 'ingroups'=>$ingroups
+		];
+		
 		
 		return view('view.student.group')->with($result);
 	}
@@ -69,4 +64,98 @@ class GroupController extends Controller {
 
 		return response()->json(['status'=>0]);
 	}
+
+	public function myGroups(Request $request)
+	{
+		if(!Auth::check())
+			return redirect('login');
+		$res=DB::select('select * from groups where headID =?',[session('userID')]);
+		$myGroups=array();
+		foreach($res as $data)
+		{
+			$count = DB::table('schecks')
+			         ->where('groupID','=',$data->groupID)
+			         ->where('status','=',0)
+			         ->distinct()
+			         ->count();
+			array_push($myGroups, ['group'=>$data,'applyCount'=>$count]);
+		}
+
+	    $result = ['title'=>'我的团队', 'username'=>session('username'), 'myGroups'=>$myGroups,'role'=>session('role')];
+
+	}
+
+
+
+	public function toApply(Request $request)
+	{
+		if(!Auth::check())
+			return redirect('login');
+        $res=DB:table('groups')->join('sgroups','groups.groupID','=','sgroups.groupID')
+        	->select('groups.groupID', 'groups.groupName', 'groups.headID', 'groups.headName', 'groups.maxPeople', 'groups.occupied')
+      		->where('sgroups.studentID','!=',session('userID'))
+      		->distinct();  	
+        $toApply=array();
+        foreach($res as $data)
+        {
+        	$status=DB::select("select * from schecks where studentID=? and groupID =? and status!=?",
+        		[session('userID'),$data->groupID,2]);
+        	if(count($status)!=0)
+        	{
+        		array_push($toApply, ['apply'=>$data,'status'=>$status->status]);
+        	}
+         	
+        }
+
+        $result = ['title'=>'可申请的团队列表', 'username'=>session('username'), 'toApply'=>$toApply,'role'=>session('role')];
+        return view('',$result);
+	}
+
+
+	public function apply(Request $request)
+	{
+		if(!Auth::check())
+			return redirect("login");
+		DB::insert("insert into sapplys values(?,?)",[session('userID'),$request->groupID]);
+
+        $headID=DB::select("select headID from groups where groupID = ?",[$request->groupID])[0]->headID;
+		DB::insert("insert into schecks values(?,?,?,?,?)",
+			[session('userID'),session('username'),$request->groupID,$headID,0]);
+
+		return ['status'=>1];
+	}
+
+	public function checkList(Request $request)
+	{
+
+		if(Auth::check())
+			return redirect('login');
+
+		$checkList=DB::table('groups')->join('schecks','groups.headID','=','schecks.headID')
+		     ->where('schecks.status','=',0)
+		     ->where('headID','=',session('userID'))
+		     ->distinct()
+		     -get();
+		return view('',['checkList'=>$checkList]);     
+
+
+	}
+	public function check(Request $request)
+	{
+		if(!Auth::check())
+			return redirect('login');
+		$agree=$request->agree;
+		$agree++;
+		DB::update("update schecks set status = ? where studentID =? and groupID =?",
+			[$agree,$request->studentID,$request->groupID]);
+		if($agree==2)
+		{
+			DB::insert("insert into sgroups (studentID,groupID) values(?,?)",
+		          [$request->studentID,$request->groupID]);
+       		DB::update("update groups set occupied = occupied+1 where groupID =",[$request->groupID]);
+       	}
+
+		return ['status'=>1];
+	}
+
 }
