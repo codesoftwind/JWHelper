@@ -14,6 +14,17 @@ use Session;
 class GroupController extends Controller {
 
 	/**
+	 * 教师查看某门课程的团队列表
+	 */
+	public function groupsList()
+	{
+		if(!Auth::check())
+			return redirect('login');
+
+		
+	}
+
+	/**
 	 * 教师审核团队申请进入课程
 	 */
 	public function groupCheck(Request $request)
@@ -21,7 +32,17 @@ class GroupController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
-		
+		$teacherID = session('userID');
+		$lessonID = $request->get('lessonID');
+		$groupID = $request->get('groupID');
+
+		$success = DB::table('tsgroups')
+							->insert(array('teacherID'=>$teacherID, 'lessonID'=>$lessonID, 'groupID'=>$groupID));
+
+		if($success)
+			return ['status'=>1];
+		else
+			return ['status'=>0];
 	}
 
 }
