@@ -2,3 +2,12 @@
     color: #FFF;
     background-color: #428bca;
 }
+
+#myTeam, #inTeam, #outTeam {
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.displayNone {
+    display: none !important;
+}
