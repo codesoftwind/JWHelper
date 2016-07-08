@@ -2,7 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Auth;
 use Illuminate\Http\Request;
 
 class ResourceController extends Controller {
@@ -11,19 +11,60 @@ class ResourceController extends Controller {
 	 * Display a listing of the resource.
 	 *
 	 */
-	public function resourcesList()
+	public function resourcesList(Request $request)
 	{
-		//
+		if(!Auth::check())
+			return redirect('login');
+		$teacher=session('userID');
+		$lesson=$request->lessonID;
+		$list=array();
+		$catogory=DB::select("select * from rcatogorys where teacherID =? and 
+			lessonID = ?",[$teacher,$lesson]);
+		foreach ($catogory as $data) {
+			
+			$id=$data->catogoryID;
+			$res=DB::select("select * from resources where teacherID =? and 
+			lessonID =? and catogoryID=?",[$teacher,$lessonID,$id]);
+			$files=array();
+			foreach($res as $f)
+			{
+				$file=['resourceName'=>$f->resourceName,'resourcePath'=>$f->resourcePath];
+				array_push(files, $file);
+			}
+			array_push(list,['catogoryName'=>$data->catogoryName,'resourcesList'=>$files]);
+		}
+		return view('',['catogoryList'=>$list]);
+
 	}
 
-	public function resourcesClassify()
+	public function resourcesClassify(Request $request)
 	{
-
+		if(!Auth::check())
+			return redirect('login');
+		DB::insert("insert into rcatogorys (catogoryName,teacherID,lessonID) 
+			values(?,?,?)",[$request->catogoryName,session('userID'),$request->lessonID]);
+		return view('')
 	}
 
-	public function resourceUpload()
+	public function resourceUpload(Request $request)
 	{
-		
+		if(!Auth::check())
+			return redirect('login');
+		if($request->hasFile('resource'))
+		{
+			$file = $request->file('resource');
+			$clientName=$file->getClientOriginalName();
+			$extension=$file->getClientOriginalExtension();
+			$newName=md5(date('ymdhis')).$clientName.".".$extension;
+			$newFilePath=$file->move(app_path().'/storage/resource',$newName);
+			DB::insert("insert into resources (teacherID,lessonID,catogoryID,
+				resourceName,resourcePath) values(?,?,?,?,?)",
+			[session('userID'),$request->lessonID,$request->catogoryID,
+			$clientName,$newFilePath]);
+			return  view('',['success'=>'1',
+    			'username'=>session('username'),'role'=>session('role'),
+    			'lessonID'=>$request->lessonID]);
+		}
 	}
 
 	public function resourceDownload()

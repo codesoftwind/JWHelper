@@ -20,21 +20,18 @@ class LessonController extends Controller {
 
 		$lessonList = array();
 		foreach ($datas as $data) {
-		if(count($data)==0)
-			break;
-
-		$teacher=DB::select("select teacherName from teachers where teacherID = ?",[$data->teacherID])[0];
+		$teacher=DB::select("select teacherName from teachers where teacherID = ?",[$data->teacherID]);
 		$lessonID=$data->lessonID;
 
-		$year=DB::select("select semesterYear from semesters where semesterID = ?",[$data->semesterID])[0];
-		$infor=DB::select("select basicInfo from semesters where semesterID = ?",[$data->semesterID])[0];
-		$lessonName=DB::select("select lessonName from lessons where lessonID = ?",[$data->lessonID])[0];
+		$year=DB::select("select semesterYear from semesters where semesterID = ?",[$data->semesterID]);
+		$infor=DB::select("select basicInfo from semesters where semesterID = ?",[$data->semesterID]);
+		$lessonName=DB::select("select lessonName from lessons where lessonID = ?",[$data->lessonID]);
 		if(count($teacher)==0||count($year)==0||count($infor)==0||count($lessonName)==0)
 			break;
 		$result= array('lessonID' => $lessonID,
-			'lessonName'=>$lessonName->lessonName,
-			'teacherName'=>$teacher->teacherName
-		,'semester'=> $year->semesterYear.' '.$infor->basicInfo);
+			'lessonName'=>$lessonName[0]->lessonName,
+			'teacherName'=>$teacher[0]->teacherName
+		,'semester'=> $year[0]->semesterYear.' '.$infor[0]->basicInfo);
 		array_push($lessonList,$result);
 
 			
