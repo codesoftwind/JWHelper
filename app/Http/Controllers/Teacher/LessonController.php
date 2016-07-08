@@ -37,7 +37,7 @@ class LessonController extends Controller {
 	{
 		if(!Auth::check())
 			return redirect('login');
-
+		
 		$lessonID = $request->get('lessonID');
 
 		$tmpresult = DB::table('lessons')
@@ -46,10 +46,8 @@ class LessonController extends Controller {
 								->get();
 
 		$result = ['title'=>'课程详情', 'username'=>session('username'), 'role'=>session('role'), 'result'=>$tmpresult];
-		
+
 		return view('view.teacher.classinfo')->with($result);
 	}
-
 	
-
 }

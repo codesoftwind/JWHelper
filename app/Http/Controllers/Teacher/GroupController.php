@@ -18,6 +18,9 @@ class GroupController extends Controller {
 	 */
 	public function groupCheck(Request $request)
 	{
+		if(!Auth::check())
+			return redirect('login');
+
 		
 	}
 
