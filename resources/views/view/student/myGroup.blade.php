@@ -31,7 +31,7 @@
                 <th>{{$group->maxPeople}}</th>
                 <th>{{$group->occupied}}</th>
                 <th><button class="btn btn-primary check">审核<span> ( {{$group->applyPeople}} ) </span></button></th>
-                <th><button class="btn btn-danger">退出团队</button></th>
+                <th><button class="btn btn-danger exit">退出团队</button></th>
             </tr>
         @endforeach
         </tbody>
@@ -44,6 +44,11 @@
         $(function () {
             $(".check").click(function () {
                 window.location.href = "http://localhost/JWHelper/public/student/checkGroup";
+            });
+
+            //To do 退出团队
+            $(".exit").click(function () {
+
             });
         });
     </script>

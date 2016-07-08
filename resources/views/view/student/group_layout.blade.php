@@ -15,7 +15,7 @@
     @parent
     <div>
         <h1 class="page-header">学生团队</h1>
-        <button class="btn btn-primary" id="createTeam">创建团队</button>
+        <button class="btn btn-primary" id="createTeam"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 创建团队</button>
     </div>
 
     <h2 class="sub-header">@yield('header')</h2>

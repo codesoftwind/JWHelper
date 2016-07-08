@@ -29,9 +29,22 @@
                 <th>{{$group->headName}}</th>
                 <th>{{$group->maxPeople}}</th>
                 <th>{{$group->occupied}}</th>
-                <th><button class="btn btn-danger">退出团队</button></th>
+                <th><button class="btn btn-danger exit">退出团队</button></th>
             </tr>
         @endforeach
         </tbody>
     </table>
+@endsection
+
+
+@section('bodyJS')
+    @parent
+    <script>
+        $(function () {
+            // To do
+            $(".exit").click(function () {
+
+            });
+        });
+    </script>
 @endsection
