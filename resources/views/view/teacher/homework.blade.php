@@ -23,24 +23,27 @@
 	          $lessons = $result;
 	        ?>
 
-	       @foreach ($lessons as $lesson)
-	           <tr> 
-	           <td>{{  $lesson->lessonName }}</td>
-	           <td>{{  $lesson->homeworkName }}</td>  
-	           <td>{{  $lesson->startTime }}</td> 
-	           <td>{{  $lesson->endTime }}</td> 
 
-	<td>
-	  <div class="btn-group" role="group" aria-label="...">
-		  <button type="button" class="btn btn-sm btn-warning" >查看详情</button>
-		</div>
-	</td>    
-	           </tr>  
-	       @endforeach
-	</table>
+       @foreach ($lessons as $lesson)
+           <tr> 
+           <td>{{  $lesson->lessonName }}</td>
+           <td>{{  $lesson->thomeworkName }}</td>  
+           <td>{{  $lesson->startTime }}</td> 
+           <td>{{  $lesson->endTime }}</td> 
+
+<td>
+  <div class="btn-group" role="group" aria-label="...">
+  <form action="http://localhost/JWHelper/public/teacher/thomework" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="thomeworkID" value="{{ $lesson->thomeworkID }}">
+  <button type="submit" class="btn btn-primary" >查看详情</button>
+  </form> 
 </div>
-
-<button align="right" class="btn btn-default btn-md" data-toggle="modal" data-target="#modify-modal">上传作业</button>
+</td>    
+           </tr>  
+       @endforeach
+</table>
+</div>
+<button align="right" class="btn btn-default btn-md" data-toggle="modal" data-target="#modify-modal">布置作业</button>
 
 	<div class="modal fade" id="modify-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
