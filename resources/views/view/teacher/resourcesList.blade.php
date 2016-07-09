@@ -95,10 +95,10 @@
     </div>
 </div>
 
-<div class="col-md-2">
+<div class="col-md-1 col-sm-2">
     <button align="right" class="btn btn-success btn-md" data-toggle="modal" data-target="#upload-modal">上传资源</button>
 </div>
-<div class="col-md-2">
+<div class="col-md-1 col-sm-2">
     <button align="right" class="btn btn-warning btn-md" data-toggle="modal" data-target="#newClass-modal">新建分类</button>
 </div>
 
@@ -138,7 +138,7 @@
             <select class="form-control" id="resourceCategory"/>
                 <option value="未分类">未分类</option>
                 @foreach($categories as $category)
-                <option value="{{ $category['catogoryId'] }}">{{ $category['categoryName'] }}</option>
+                <option value="{{ $category->catogoryID }}">{{ $category->catogoryName }}</option>
                 @endforeach
             </select>
             <label for="resourceFile">选择文件</label>
