@@ -104,7 +104,7 @@ class GroupController extends Controller {
 		$groupID = $request->get('groupID');
 		//backPage和lessonID用于返回按钮
 		$backPage = $request->get('backPage');
-		$lessonID = $request->get('lessonID');
+		$lessonID = session('lessonID');
 
 		$group = DB::table('groups')
 					->join('sgroups', 'groups.groupID', '=', 'sgroups.groupID')
