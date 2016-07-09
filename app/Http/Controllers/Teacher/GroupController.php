@@ -35,7 +35,7 @@ class GroupController extends Controller {
 
 		$result = ['title'=>'已加入课程的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups, 'backPage'=>$backPage];
 
-		return view()->with($result);
+		return view('view.teacher.groupList')->with($result);
 	}
 
 
@@ -62,7 +62,7 @@ class GroupController extends Controller {
 
 		$result = ['title'=>'待审核的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups, 'backPage'=>$backPage];
 
-		return view()->with($result);
+		return view('view.teacher.groupList')->with($result);
 	}	
 
 
@@ -89,7 +89,7 @@ class GroupController extends Controller {
 
 		$result = ['title'=>'审核被拒的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups, 'backPage'=>$backPage];
 	
-		return view()->with($result);
+		return view('view.teacher.groupList')->with($result);
 	}
 
 

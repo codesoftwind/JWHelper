@@ -11,7 +11,8 @@
             <th style="color:#55595c;background-color:#eceeef">团队人数上限</th>
             <th style="color:#55595c;background-color:#eceeef">团队现有人数</th>
             <th style="color:#55595c;background-color:#eceeef">审核(申请人数)</th>
-            <th style="color:#55595c;background-color:#eceeef">操作</th>
+            <th style="color:#55595c;background-color:#eceeef"></th>
+            <th style="color:#55595c;background-color:#eceeef"></th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,7 @@
                 <th>{{$group['group']->maxPeople}}</th>
                 <th>{{$group['group']->occupied}}</th>
                 <th><button class="btn btn-primary check" data-group-id="{{$group['group']->groupID}}">审核<span> ( {{$group['applyCount']}} ) </span></button></th>
+                <th><button class="btn btn-success apply-course" data-group-id="{{$group['group']->groupID}}">申请课程</button></th>
                 <th><button class="btn btn-danger exit">退出团队</button></th>
             </tr>
         @endforeach
@@ -40,6 +42,11 @@
             $(".check").click(function () {
                 var groupID = $(this).data('groupId');
                 window.location.href = "http://localhost/JWHelper/public/student/checkList?groupID=" + groupID;
+            });
+
+            $(".apply-course").click(function () {
+                var groupID = $(this).data('groupId');
+                window.location.href = "http://localhost/JWHelper/public/student/applyCourse?groupID=" + groupID;
             });
 
             //To do 退出团队
