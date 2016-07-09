@@ -2,8 +2,6 @@
 
 @section('headjs')
     @parent
-    <link rel="stylesheet" href="{{asset('css/bootstrap-dialog.min.css')}}">
-    <script src="{{asset('js/bootstrap-dialog.min.js')}}"></script>
     <style>
         #groupName, #maxPeople {
             margin: 10px 0;
@@ -29,6 +27,7 @@
     <script>
         $(function() {
 
+            var baseURL = 'http://localhost/JWHelper/public/student';
             // 显示团队列表下的标签
             $("#myGroup").removeClass("displayNone");
             $("#inGroup").removeClass("displayNone");
@@ -56,7 +55,7 @@
                                 'maxPeople': maxPeople
                             };
                             $.ajax({
-                                url: 'http://localhost/JWHelper/public/student/groupForm',
+                                url: baseURL + '/groupForm',
                                 type: 'POST',
                                 data: formData,
                                 success: function(data) {
@@ -70,7 +69,7 @@
                                                     label: '关闭',
                                                     action: function(dialogItself) {
                                                         dialogItself.close();
-                                                        location.reload();
+                                                        location.href = baseURL + '/myGroups';
                                                     }
                                                 }
                                             ]

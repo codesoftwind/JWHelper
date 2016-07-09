@@ -79,4 +79,3 @@ Route::get('student/checkList', 'Student\GroupController@checkList');
 Route::post('student/apply', 'Student\GroupController@apply');
 Route::post('student/check', 'Student\GroupController@check');
 Route::post('student/groupForm', 'Student\GroupController@groupForm');
-Route::get('show', 'AuthController@show');

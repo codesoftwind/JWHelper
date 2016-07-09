@@ -28,12 +28,13 @@ class ResourceController extends Controller {
 			$files=array();
 			foreach($res as $f)
 			{
-				$file=['resourceName'=>$f->resourceName,'resourcePath'=>$f->resourcePath];
+				$file=['name'=>$f->resourceName,'url'=>$f->resourcePath,'info'=>$f->resourceInfo];
 				array_push(files, $file);
 			}
-			array_push(list,['catogoryName'=>$data->catogoryName,'resourcesList'=>$files]);
+			array_push(list,['category'=>$data->catogoryName,'items'=>$files]);
 		}
-		return view('',['catogoryList'=>$list]);
+		return view('view.teacher.resourcesList',['data'=>$list,'categories'=>$catogory,'title'=>"资源列表",
+			    'username'=>session('username'),'role'=>session('role')]);
 
 	}
 

@@ -12,11 +12,13 @@
 
     <title>JWHelper - {{ $title or "undefined" }}</title>
 
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap-blue.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/layout.css')}}">
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/jquery.ajaxfileupload.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('css/bootstrap-dialog.min.css')}}">
+    <script src="{{asset('js/bootstrap-dialog.min.js')}}"></script>
     @yield('headjs')
   </head>
 
@@ -50,7 +52,7 @@
                 
             @show
           </div>
-          <div class="col-sm-9 col-md-10 main">
+          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             @section('main_panel')
                 
             @show
@@ -61,9 +63,9 @@
     @yield('bodyJS')
   </body>
 
-  <footer>
-    <hr />
-    <p align="center">
-        JWHelper v1.0 &copy; 2016 All Rights Reserved.
+  <footer class="footer navbar-fixed-bottom navbar-default">
+      <div class="container">
+        <p class="text-muted" align="center" style="margin: 10px 0;">JWHelper v1.0 &copy; 2016 All Rights Reserved.</p>
+      </div>
   </footer>
 </html>
