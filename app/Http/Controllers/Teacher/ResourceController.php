@@ -17,15 +17,16 @@ class ResourceController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 		$teacher=session('userID');
-		$lesson=$request->lessonID;
+		$lesson=session('lessonID');
 		$list=array();
 		$catogory=DB::select("select * from rcatogorys where teacherID =? and 
-			lessonID = ?",[$teacher,$lesson]);
+			lessonID = ?",[$teacher,session('lessonID')]);
+		
 		foreach ($catogory as $data) {
 			
 			$id=$data->catogoryID;
 			$res=DB::select("select * from resources where teacherID =? and 
-			lessonID =? and catogoryID=?",[$teacher,$lessonID,$id]);
+			lessonID =? and catogoryID=?",[$teacher,$lesson,$id]);
 			$files=array();
 			foreach($res as $f)
 			{
