@@ -10,6 +10,7 @@ return array(
     'AddHeadIDToGroups' => $baseDir . '/database/migrations/2016_07_06_051640_add_headID_to_groups.php',
     'AddHeadNameToGroups' => $baseDir . '/database/migrations/2016_07_06_083315_add_headName_to_groups.php',
     'AddIntroductionToLessons' => $baseDir . '/database/migrations/2016_07_06_114324_add_introduction_to_lessons.php',
+    'AddResourceInfoToResources' => $baseDir . '/database/migrations/2016_07_09_074016_add_resourceInfo_to_resources.php',
     'CreateAdminsTable' => $baseDir . '/database/migrations/2016_07_04_024339_create_admins_table.php',
     'CreateGroupsTable' => $baseDir . '/database/migrations/2016_07_06_034411_create_groups_table.php',
     'CreateLessonsTable' => $baseDir . '/database/migrations/2016_07_04_074333_create_lessons_table.php',

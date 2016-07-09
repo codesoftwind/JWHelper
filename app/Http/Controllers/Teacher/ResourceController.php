@@ -4,7 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 class ResourceController extends Controller {
 
 	/**
@@ -16,22 +17,23 @@ class ResourceController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 		$teacher=session('userID');
-		$lesson=$request->lessonID;
+		$lesson=session('lessonID');
 		$list=array();
 		$catogory=DB::select("select * from rcatogorys where teacherID =? and 
-			lessonID = ?",[$teacher,$lesson]);
+			lessonID = ?",[$teacher,session('lessonID')]);
+		
 		foreach ($catogory as $data) {
 			
 			$id=$data->catogoryID;
 			$res=DB::select("select * from resources where teacherID =? and 
-			lessonID =? and catogoryID=?",[$teacher,$lessonID,$id]);
+			lessonID =? and catogoryID=?",[$teacher,$lesson,$id]);
 			$files=array();
 			foreach($res as $f)
 			{
 				$file=['name'=>$f->resourceName,'url'=>$f->resourcePath,'info'=>$f->resourceInfo];
 				array_push(files, $file);
 			}
-			array_push(list,['category'=>$data->catogoryName,'items'=>$files]);
+			array_push($list,['category'=>$data->catogoryName,'items'=>$files]);
 		}
 		return view('view.teacher.resourcesList',['data'=>$list,'categories'=>$catogory,'title'=>"资源列表",
 			    'username'=>session('username'),'role'=>session('role')]);
@@ -44,7 +46,7 @@ class ResourceController extends Controller {
 			return redirect('login');
 		DB::insert("insert into rcatogorys (catogoryName,teacherID,lessonID) 
 			values(?,?,?)",[$request->catogoryName,session('userID'),$request->lessonID]);
-		return view('')
+		return view('');
 	}
 
 	public function resourceUpload(Request $request)
