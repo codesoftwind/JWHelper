@@ -30,7 +30,7 @@ class THomeworkController extends Controller {
 									->select('thomeworks.thomeworkID', 'thomeworks.thomeworkName', 'lessons.lessonName', 'thomeworks.startTime', 'thomeworks.endTime')
 									->get();
 
-		$result = ['title'=>'作业列表', 'username'=>session('username'), 'role'=>session('role'), 'thomework'=>$thomework];
+		$result = ['title'=>'作业列表', 'username'=>session('username'), 'role'=>session('role'), 'result'=>$thomework];
 		
 		return view('view.teacher.homework')->with($result);
 	}
@@ -104,7 +104,7 @@ class THomeworkController extends Controller {
 
 		$result = ['title'=>'作业详情', 'username'=>session('username'), 'role'=>session('role'), 'thomework'=>$thomework, 'shomework'=>$shomework, 'group'=>$group];
 
-		return view()->with($result);
+		return view('view.teacher.homework')->with($result);
 	}
 
 }

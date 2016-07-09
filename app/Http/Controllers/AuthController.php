@@ -22,6 +22,7 @@ class AuthController extends Controller {
 	{
 		return view('login');
 	}
+	
 
 	//登录的身份认证
 	public function authLogin(Request $request)

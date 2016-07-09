@@ -11,12 +11,13 @@
 
 @section('main_panel')
     @parent
-    <div>
-        <h1 class="page-header">学生团队</h1>
-        <button class="btn btn-primary" id="createTeam"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 创建团队</button>
+    <div class="page-header">
+        <h1>学生团队</h1>
     </div>
-
-    <h2 class="sub-header">@yield('header')</h2>
+    <button class="btn btn-primary" id="createTeam"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 创建团队</button>
+    <div class="sub-header">
+        <h2><small>@yield('header')</small></h2>
+    </div>
     @yield('main_content')
 
 @endsection
