@@ -21,7 +21,7 @@
                 <th>{{$group['group']->headName}}</th>
                 <th>{{$group['group']->maxPeople}}</th>
                 <th>{{$group['group']->occupied}}</th>
-                <th><button class="btn btn-primary check">审核<span> ( {{$group['applyCount']}} ) </span></button></th>
+                <th><button class="btn btn-primary check" data-group-id="{{$group['group']->groupID}}">审核<span> ( {{$group['applyCount']}} ) </span></button></th>
                 <th><button class="btn btn-danger exit">退出团队</button></th>
             </tr>
         @endforeach
@@ -38,7 +38,8 @@
             $("#myGroup").addClass("active");
 
             $(".check").click(function () {
-                window.location.href = "http://localhost/JWHelper/public/student/checkList";
+                var groupID = $(this).data('groupId');
+                window.location.href = "http://localhost/JWHelper/public/student/checkList?groupID=" + groupID;
             });
 
             //To do 退出团队
