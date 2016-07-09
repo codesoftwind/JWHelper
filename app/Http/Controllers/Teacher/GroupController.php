@@ -31,7 +31,9 @@ class GroupController extends Controller {
 						->where('tsgroups.lessonID', $lessonID)
 						->get();
 
-		$result = ['title'=>'已加入课程的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups];
+		$backPage = 'in';
+
+		$result = ['title'=>'已加入课程的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups, 'backPage'=>$backPage];
 
 		return view()->with($result);
 	}
@@ -56,7 +58,9 @@ class GroupController extends Controller {
 						->where('status', 0)
 						->get();
 
-		$result = ['title'=>'待审核的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups];
+		$backPage = 'io';
+
+		$result = ['title'=>'待审核的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups, 'backPage'=>$backPage];
 
 		return view()->with($result);
 	}	
@@ -81,10 +85,60 @@ class GroupController extends Controller {
 						->where('status', 1)
 						->get();
 
-		$result = ['title'=>'审核被拒的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups];
+		$backPage = 'out';
+
+		$result = ['title'=>'审核被拒的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups, 'backPage'=>$backPage];
 	
 		return view()->with($result);
 	}
+
+
+	/**
+	 * 教师查看团队的详细信息
+	 */
+	public function group(Request $request)
+	{
+		if(!Auth::check())
+			return redirect('login');
+
+		$groupID = $request->get('groupID');
+		//backPage和lessonID用于返回按钮
+		$backPage = $request->get('backPage');
+		$lessonID = $request->get('lessonID');
+
+		$group = DB::table('groups')
+					->join('sgroups', 'groups.groupID', '=', 'sgroups.groupID')
+					->join('students', 'sgroups.studentID', '=', 'students.studentID')
+					->select('students.studentID', 'studetns.studentName')
+					->where('groups.groupID', $groupID)
+					->get();
+
+		$result = ['title'=>'团队详情', 'username'=>session('username'), 'role'=>session('role'), 'group'=>$group, 'lessonID'=>$lessonID, 'backPage'=>$backPage]; 
+	
+		return view()->with($result);
+	}
+
+
+	/**
+	 * 教师查看团队详细信息之后返回上一级页面
+	 */
+	public function backPage(Request $request)
+	{
+		if(!Auth::check())
+			return redirect('login');
+
+		$lessonID = $request->get('lessonID');
+		$teacherID = session('userID');
+		$backPage = $request->get('backPage');
+
+		if($backPage == 'in') //返回已经在课程中的团队列表
+			return redirect('teacher/groupsInList')->with(['lessonID'=>$lessonID]);
+		elseif ($backPage == 'io') //返回待审核团队列表
+			return redirect('teacher/groupsIOList')->with(['lessonID'=>$lessonID]);
+		elseif ($backPage == 'out') //返回审核被拒的团队列表
+			return redirect('teacher/groupsOutList')->with(['lessonID'=>$lessonID]);
+	}
+
 
 
 	/**
