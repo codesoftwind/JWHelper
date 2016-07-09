@@ -17,7 +17,9 @@
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/jquery.ajaxfileupload.js')}}"></script>
+    <script src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('css/bootstrap-dialog.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.min.css')}}">
     <script src="{{asset('js/bootstrap-dialog.min.js')}}"></script>
     @yield('headjs')
   </head>

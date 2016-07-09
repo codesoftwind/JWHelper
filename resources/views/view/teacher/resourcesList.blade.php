@@ -136,7 +136,6 @@
             <input class="form-control" id="resourceInfo"/>
             <label for="resourceCategory">资源分类</label>
             <select class="form-control" id="resourceCategory"/>
-                <option value="未分类">未分类</option>
                 @foreach($categories as $category)
                 <option value="{{ $category['catogoryId'] }}">{{ $category['categoryName'] }}</option>
                 @endforeach
