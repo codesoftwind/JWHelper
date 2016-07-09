@@ -21,7 +21,7 @@ class GroupController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
-		$lessonID = $request->get('lessonID');
+		$lessonID = session('lessonID');
 		$teacherID = session('userID');
 
 		$groups = DB::table('tsgroups')
@@ -48,7 +48,7 @@ class GroupController extends Controller {
 			return redirect('login');
 
 		$teacherID = session('userID');
-		$lessonID = $request->get('lessonID');
+		$lessonID = session('lessonID');
 
 		$groups = DB::table('tschecks')
 						->join('groups', 'tschecks.groupID', '=', 'groups.groupID')
@@ -75,7 +75,7 @@ class GroupController extends Controller {
 			return redirect('login');
 
 		$teacherID = session('username');
-		$lessonID = $request->get('lessonID');
+		$lessonID = session('lessonID');
 
 		$groups = DB::table('tschecks')
 						->join('groups', 'tschecks.groupID', '=', 'groups.groupID')

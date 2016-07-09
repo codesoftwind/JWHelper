@@ -20,7 +20,7 @@ class THomeworkController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
-		$lessonID = $request->get('lessonID');
+		$lessonID = session('lessonID');
 		$teacherID = session('userID');
 
 		$thomework = DB::table('thomeworks')
