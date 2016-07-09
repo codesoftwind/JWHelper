@@ -93,11 +93,21 @@ class GroupController extends Controller {
 	{
 		if(!Auth::check())
 			return redirect('login');
-        $res=DB::table('groups')->join('sgroups','groups.groupID','=','sgroups.groupID')
+		$have=array();
+		$choose=DB::select("select groupID from sgroups where studentID =?",[session('userID')]);
+		foreach ($choose as $v) {
+			array_push($have, $v->groupID);
+		}
+		 $res=DB::table('groups')
+            ->select('groups.groupID', 'groups.groupName', 'groups.headID', 'groups.headName', 'groups.maxPeople', 'groups.occupied')
+      	    ->whereNotIn('groupID',$have)
+
+      		->get();  	
+      /*  $res=DB::table('groups')->join('sgroups','groups.groupID','=','sgroups.groupID')
             ->select('groups.groupID', 'groups.groupName', 'groups.headID','sgroups.studentID', 'groups.headName', 'groups.maxPeople', 'groups.occupied')
       	    ->where('sgroups.studentID','!=',session('userID'))
 
-      		->get();  	
+      		->get();  	*/
       	
         $toApply=array();
        
@@ -153,11 +163,12 @@ class GroupController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
-		$checkList=DB::table('groups')->join('schecks','groups.headID','=','schecks.headID')
+		$checkList=DB::table('groups')->join('schecks','groups.groupID','=','schecks.groupID')
 		     ->where('schecks.status','=',0)
 		     ->where('groups.headID','=',session('userID'))
-		     ->where('groups.groupID','=',$request->groupID)
+		     ->where('schecks.groupID','=',$request->groupID)
 		     ->get();
+		
 		return view('view.student.checkGroup',['title'=>'待审核的申请列表', 'username'=>session('username'),'role'=>session('role'),'checkList'=>$checkList]);
 
 
@@ -168,6 +179,7 @@ class GroupController extends Controller {
 			return redirect('login');
 		$agree=$request->agree;
 		$agree++;
+		return var_dump($agree);
 		DB::update("update schecks set status = ? where studentID =? and groupID =?",
 			[$agree,$request->studentID,$request->groupID]);
 		if($agree==2)
