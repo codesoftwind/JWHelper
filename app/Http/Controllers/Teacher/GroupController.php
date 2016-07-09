@@ -103,19 +103,20 @@ class GroupController extends Controller {
 
 		$groupID = $request->get('groupID');
 		//backPage和lessonID用于返回按钮
-		$backPage = $request->get('backPage');
-		$lessonID = $request->get('lessonID');
+		//$backPage = $request->get('backPage');
+		$backPage = 'in';
+		$lessonID = session('lessonID');
 
 		$group = DB::table('groups')
 					->join('sgroups', 'groups.groupID', '=', 'sgroups.groupID')
 					->join('students', 'sgroups.studentID', '=', 'students.studentID')
-					->select('students.studentID', 'studetns.studentName')
+					->select('students.studentID', 'students.studentName')
 					->where('groups.groupID', $groupID)
 					->get();
 
 		$result = ['title'=>'团队详情', 'username'=>session('username'), 'role'=>session('role'), 'group'=>$group, 'lessonID'=>$lessonID, 'backPage'=>$backPage]; 
-	
-		return view()->with($result);
+		
+		return view('view.teacher.groupcheck')->with($result);
 	}
 
 

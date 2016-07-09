@@ -67,7 +67,7 @@
 
   <footer class="footer navbar-fixed-bottom navbar-default">
       <div class="container">
-        <p class="text-muted" align="center" style="margin: 10px 0;">JWHelper v1.0 &copy; 2016 All Rights Reserved.</p>
+        <p align="center" style="margin: 10px 0;">JWHelper v1.0 &copy; 2016 All Rights Reserved.</p>
       </div>
   </footer>
 </html>

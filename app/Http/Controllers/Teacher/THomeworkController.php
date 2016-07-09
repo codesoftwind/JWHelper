@@ -45,7 +45,7 @@ class THomeworkController extends Controller {
 			return redirect('login');
 
 		$teacherID = session('userID');
-		$lessonID = $request->get('lessonID');
+		$lessonID = session('lessonID');
 		$thomeworkName = $request->get('thomeworkName');
 		$description = $request->get('description');
 		$startTime = $request->get('startTime');
@@ -104,7 +104,7 @@ class THomeworkController extends Controller {
 
 		$result = ['title'=>'作业详情', 'username'=>session('username'), 'role'=>session('role'), 'thomework'=>$thomework, 'shomework'=>$shomework, 'group'=>$group];
 
-		return view('view.teacher.homework')->with($result);
+		return view('view.teacher.thomework')->with($result);
 	}
 
 }

@@ -56,7 +56,7 @@ Route::get('teacher/index', 'Teacher\IndexController@index');
 Route::get('teacher/lessonsList', 'Teacher\LessonController@lessonsList');
 Route::post('teacher/lesson', 'Teacher\LessonController@lesson');
 Route::get('teacher/resourcesList', 'Teacher\ResourceController@resourcesList');
-Route::get('teacher/resourcesClassify', 'Teacher\ResourceController@resourcesClassify');
+Route::post('teacher/resourcesClassify', 'Teacher\ResourceController@resourcesClassify');
 Route::get('teacher/resourceUpload', 'Teacher\ResourceController@resourceUpload');
 Route::get('teacher/resourceDownload', 'Teacher\ResourceController@resourceDownload');
 Route::get('teacher/thomeworksList', 'Teacher\THomeworkController@thomeworksList');
@@ -80,9 +80,15 @@ Route::get('student/myGroups', 'Student\GroupController@myGroups');
 Route::get('student/groupList', 'Student\GroupController@groupsList');
 Route::get('student/toApply', 'Student\GroupController@toApply');
 Route::get('student/checkList', 'Student\GroupController@checkList');
+Route::get('student/homeworkInfo',function ()
+	{ return view('view.student.onlinefinishhomework');});
 
 Route::post('student/apply', 'Student\GroupController@apply');
 Route::post('student/check', 'Student\GroupController@check');
 Route::post('student/groupForm', 'Student\GroupController@groupForm');
+
+
+Route::post('student/uploadShomework','Student\SHomeworkController@uploadShomework');
 Route::post('student/shomework', 'Student\SHomeworkController@shomework');
 Route::post('student/thomeworksList', 'Student\THomeworkController@thomeworksList');
+
