@@ -74,9 +74,8 @@ Route::post('teacher/groupsOutList', 'Teacher\GroupController@groupsOutList');
 //学生路由
 Route::get('student/index', 'Student\IndexController@index');
 Route::get('student/lessonsList', 'Student\LessonController@lessonsList');
-
-Route::get('student/myGroups', 'Student\GroupController@myGroup');
-Route::get('student/groupList', 'Student\GroupController@groupList');
+Route::get('student/myGroups', 'Student\GroupController@myGroups');
+Route::get('student/groupList', 'Student\GroupController@groupsList');
 Route::get('student/toApply', 'Student\GroupController@toApply');
 Route::get('student/checkList', 'Student\GroupController@checkList');
 

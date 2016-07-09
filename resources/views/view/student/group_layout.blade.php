@@ -1,6 +1,7 @@
 @extends('view.template.student_layout')
 
 @section('headjs')
+    @parent
     <link rel="stylesheet" href="{{asset('css/bootstrap-dialog.min.css')}}">
     <script src="{{asset('js/bootstrap-dialog.min.js')}}"></script>
     <style>
@@ -12,74 +13,26 @@
 
 @section('main_panel')
     @parent
-        <div>
-            <h1 class="page-header">学习团队</h1>
-            <button class="btn btn-primary" id="createTeam">创建团队</button>
-        </div>
+    <div>
+        <h1 class="page-header">学生团队</h1>
+        <button class="btn btn-primary" id="createTeam"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 创建团队</button>
+    </div>
 
-        <h2 class="sub-header">已加入的团队</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th style="color:#55595c;background-color:#eceeef">团队名称</th>
-                    <th style="color:#55595c;background-color:#eceeef">团队负责人</th>
-                    <th style="color:#55595c;background-color:#eceeef">团队人数上限</th>
-                    <th style="color:#55595c;background-color:#eceeef">团队现有人数</th>
-                    <th style="color:#55595c;background-color:#eceeef">操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($ingroups as $group)
-                    <tr>
-                        <th>{{$group->groupName}}</th>
-                        <th>{{$group->headName}}</th>
-                        <th>{{$group->maxPeople}}</th>
-                        <th>{{$group->occupied}}</th>
-                        <th><button class="btn btn-danger">退出团队</button></th>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        <h2 class="sub-header">可加入的团队</h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th style="color:#55595c;background-color:#eceeef">团队名称</th>
-                <th style="color:#55595c;background-color:#eceeef">团队负责人</th>
-                <th style="color:#55595c;background-color:#eceeef">团队人数上限</th>
-                <th style="color:#55595c;background-color:#eceeef">团队现有人数</th>
-                <th style="color:#55595c;background-color:#eceeef">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($outgroups as $group)
-                <tr>
-                    <th>{{$group->groupName}}</th>
-                    <th>{{$group->headName}}</th>
-                    <th>{{$group->maxPeople}}</th>
-                    <th>{{$group->occupied}}</th>
-                    <th><button class="btn btn-primary">申请加入</button></th>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-
+    <h2 class="sub-header">@yield('header')</h2>
+    @yield('main_content')
 
 @endsection
+
 
 @section('bodyJS')
     @parent
     <script>
         $(function() {
-            // 更改sidebar的样式, 使当前页面显示为active
-            $(".nav-sidebar>li").removeClass("active");
-            $("#team").addClass("active");
 
             // 显示团队列表下的标签
-            $("#myTeam").removeClass("displayNone");
-            $("#inTeam").removeClass("displayNone");
-            $("#outTeam").removeClass("displayNone");
+            $("#myGroup").removeClass("displayNone");
+            $("#inGroup").removeClass("displayNone");
+            $("#outGroup").removeClass("displayNone");
 
             // 创建团队表单
             $("#createTeam").click(function () {

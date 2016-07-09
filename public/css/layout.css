@@ -2,3 +2,12 @@
     color: #FFF;
     background-color: #428bca;
 }
+
+#myGroup, #inGroup, #outGroup {
+    text-align: center;
+    font-size: 0.95em;
+}
+
+.displayNone {
+    display: none !important;
+}
