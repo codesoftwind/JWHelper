@@ -85,6 +85,7 @@
                 var url = baseURL + '/check';
                 var data = {
                     'groupID': $(this).data('groupId'),
+                    'studentID': $(this).data('studentId'),
                     'agree': 0
                 };
                 $.ajax({
