@@ -40,7 +40,7 @@
 
 <td>
   <div class="btn-group" role="group" aria-label="...">
-  <form action='http://localhost/JWHelper/publi/student/shomework', method="post", enctype="multipart/form-data">
+  <form action='http://localhost/JWHelper/public/student/shomework', method="post", enctype="multipart/form-data">
   <input type="hidden" name="$shomeworkID", value="{{ $shomework->shomeworkID}}">
   <button type="submit" class="btn btn-primary" id="submit-change" >查看详情</button>
   </form>
