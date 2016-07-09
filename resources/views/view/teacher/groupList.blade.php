@@ -1,5 +1,6 @@
 @extends('view.template.teacher_layout')
 
+
 @section('main_panel')
 <div class="row" style="background-color:#E7E8ED">
  	<div class="col-md-4 text-center" style='font-weight: bold;font-size:1.5em;'>团队名称</div>
@@ -12,6 +13,7 @@
  	<div class="col-md-4 " style='font-size:1.0em;padding:0.5em'>
  		<form action='http://localhost/JWHelper/public/teacher/group', method="post", enctype="multipart/form-data">
   			<input type="hidden" name="groupID", value="{{ $group->groupID}}">
+  			<input type="hidden" name="backPage", value="{{ $backPage}}">
   			<button type="submit" class="btn btn-primary" id="submit-change" >查看</button>
   		</form>
  	</div>
