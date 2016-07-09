@@ -12,7 +12,7 @@
 
     <title>JWHelper - {{ $title or "undefined" }}</title>
 
-    <link href="{{asset('css/bootstrap-orange.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap-light-blue.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/layout.css')}}">
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
