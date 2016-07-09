@@ -16,8 +16,12 @@
   </tr>
 
         <?php 
-           //$lessons=[["1","大","7.1","7.2",'','','1'],["2","小","7.5","7.6",'t','','-1']];
+           //$thomeworks=[["1","大","7.1","1",'','','1'],["2","小","7.5","7.6",'t','','-1']];
           $thomeworks = $result;
+           $t=strtotime($thomeworks->endTime);
+
+          $time = time();
+          date("y-m-d H:i:s",$time);
         ?>
 
        @foreach ($thomeworks as $thomework)
@@ -32,21 +36,31 @@
       <td>否</td>
    @endif
 
-@if ($thomework->grade>=0 )
-       <td>{{  $thomework->grade }}</td>
+@if ($thomework->grade >=0 )
+       <td>{{  $thomework->grade}}</td>
    @else
       <td>未评分</td>
    @endif
-
+@if ($time > $t)
 <td>
   <div class="btn-group" role="group" aria-label="...">
   <form action='http://localhost/JWHelper/public/student/shomework', method="post", enctype="multipart/form-data">
-  <input type="hidden" name="$shomeworkID", value="{{ $shomework->shomeworkID}}">
+  <input type="hidden" name="shomeworkID", value="{{ $shomework->shomeworkID}}">
   <button type="submit" class="btn btn-primary" id="submit-change" >查看详情</button>
   </form>
   
 </div>
 </td> 
+    @else
+<td>
+  <div class="btn-group" role="group" aria-label="...">
+  <form action='http://localhost/JWHelper/public/student/shomework', method="post", enctype="multipart/form-data">
+  <input type="hidden" name="shomeworkID", value="{{ $shomework->shomeworkID}}">
+  <button type="submit" class="btn btn-primary" id="submit-change" >编辑</button>
+  </form>
+</div>
+</td>
+      @endif
            </tr>  
        @endforeach
 </table>
