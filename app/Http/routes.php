@@ -55,7 +55,7 @@ Route::get('admin/semester_info', 'Admin\SemesterController@semester_info');
 Route::get('teacher/index', 'Teacher\IndexController@index');
 Route::get('teacher/lessonsList', 'Teacher\LessonController@lessonsList');
 Route::get('teacher/lesson', 'Teacher\LessonController@lesson');
-Route::post('teacher/resourcesList', 'Teacher\ResourceController@resourcesList');
+Route::get('teacher/resourcesList', 'Teacher\ResourceController@resourcesList'
 Route::get('teacher/resourcesClassify', 'Teacher\ResourceController@resourcesClassify');
 Route::get('teacher/resourceUpload', 'Teacher\ResourceController@resourceUpload');
 Route::get('teacher/resourceDownload', 'Teacher\ResourceController@resourceDownload');
