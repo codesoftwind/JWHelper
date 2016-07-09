@@ -93,27 +93,43 @@ class GroupController extends Controller {
 	{
 		if(!Auth::check())
 			return redirect('login');
-        $res=DB::table('groups')->join('sgroups','groups.groupID','=','sgroups.groupID')
-            ->select('groups.groupID', 'groups.groupName', 'groups.headID','sgroups.studentID', 'groups.headName', 'groups.maxPeople', 'groups.occupied')
-      	    ->where('sgroups.studentID','!=',session('userID'))	
+		$have=array();
+		$choose=DB::select("select groupID from sgroups where studentID =?",[session('userID')]);
+		foreach ($choose as $v) {
+			array_push($have, $v->groupID);
+		}
+		 $res=DB::table('groups')
+            ->select('groups.groupID', 'groups.groupName', 'groups.headID', 'groups.headName', 'groups.maxPeople', 'groups.occupied')
+      	    ->whereNotIn('groupID',$have)
+
       		->get();  	
-      	//return session('userID');
+      /*  $res=DB::table('groups')->join('sgroups','groups.groupID','=','sgroups.groupID')
+            ->select('groups.groupID', 'groups.groupName', 'groups.headID','sgroups.studentID', 'groups.headName', 'groups.maxPeople', 'groups.occupied')
+      	    ->where('sgroups.studentID','!=',session('userID'))
+
+      		->get();  	*/
+      	
         $toApply=array();
-        //return count($res);
+       
         foreach($res as $data)
         {
-        	$status=DB::select("select * from schecks where studentID=? and groupID =? and status!=?",
-        		[session('userID'),$data->groupID,2]);
-        	if(count($status)!=0)
-        	{
-        		array_push($toApply, ['apply'=>$data,'status'=>1]);
-        	}
-        	else
+        	$has=DB::select("select * from schecks where studentID=? and groupID =?",
+        		[session('userID'),$data->groupID]);
+        	$no=DB::select("select * from schecks where studentID=? and groupID =? and status=?",
+        		[session('userID'),$data->groupID,0]);
+        	$refuse=DB::select("select * from schecks where studentID=? and groupID =? and status=?",
+        		[session('userID'),$data->groupID,1]);
+        	if(count($has)==0)
         		array_push($toApply, ['apply'=>$data,'status'=>0]);
+        	if(count($no)!=0)
+        		array_push($toApply, ['apply'=>$data,'status'=>1]);
+        	if(count($refuse)!=0)
+        		array_push($toApply, ['apply'=>$data,'status'=>2]);
 
 
          	
         }
+       
 
         $result = ['title'=>'可申请的团队列表', 'username'=>session('username'), 'toApply'=>$toApply,'role'=>session('role')];
         return view('view.student.outGroup',$result);
@@ -124,11 +140,19 @@ class GroupController extends Controller {
 	{
 		if(!Auth::check())
 			return redirect("login");
-		DB::insert("insert into sapplys values(?,?)",[session('userID'),$request->groupID]);
-
+		
         $headID=DB::select("select headID from groups where groupID = ?",[$request->groupID])[0]->headID;
-		DB::insert("insert into schecks values(?,?,?,?,?)",
+		$has=DB::select("select * from schecks where groupID = ? and studentID=?",[$request->groupID,session('userID')]);
+		if(count($has)==0)
+		{
+			DB::insert("insert into schecks(studentID,studentName,groupID,headID,status) values(?,?,?,?,?)",
 			[session('userID'),session('username'),$request->groupID,$headID,0]);
+		}
+		else
+		{
+			DB::update("update schecks set status = 0 where groupID = ? and studentID=?",
+			[$request->groupID,session('userID')]);
+		}
 
 		return ['status'=>1];
 	}
@@ -139,11 +163,12 @@ class GroupController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
-		$checkList=DB::table('groups')->join('schecks','groups.headID','=','schecks.headID')
+		$checkList=DB::table('groups')->join('schecks','groups.groupID','=','schecks.groupID')
 		     ->where('schecks.status','=',0)
 		     ->where('groups.headID','=',session('userID'))
-		    
+		     ->where('schecks.groupID','=',$request->groupID)
 		     ->get();
+		
 		return view('view.student.checkGroup',['title'=>'待审核的申请列表', 'username'=>session('username'),'role'=>session('role'),'checkList'=>$checkList]);
 
 
@@ -154,13 +179,14 @@ class GroupController extends Controller {
 			return redirect('login');
 		$agree=$request->agree;
 		$agree++;
+		return var_dump($agree);
 		DB::update("update schecks set status = ? where studentID =? and groupID =?",
 			[$agree,$request->studentID,$request->groupID]);
 		if($agree==2)
 		{
 			DB::insert("insert into sgroups (studentID,groupID) values(?,?)",
 		          [$request->studentID,$request->groupID]);
-       		DB::update("update groups set occupied = occupied+1 where groupID =",[$request->groupID]);
+       		DB::update("update groups set occupied = occupied+1 where groupID =?",[$request->groupID]);
        	}
 
 		return ['status'=>1];
