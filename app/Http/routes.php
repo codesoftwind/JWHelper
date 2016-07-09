@@ -66,6 +66,11 @@ Route::post('teacher/shomework', 'Teacher\SHomeworkController@shomework');
 Route::get('teacher/shomeworkDownload', 'Teacher\SHomweorkController@shomeworkDownload');
 Route::post('teacher/shomeworkRate', 'Teacher\SHomeworkController@shomeworkRate');
 Route::post('teacher/groupCheck', 'Teacher\GroupController@groupCheck');
+Route::get('teacher/groupsInList', 'Teacher\GroupController@groupsInList');
+Route::get('teacher/groupsIOList', 'Teacher\GroupController@groupsIOList');
+Route::get('teacher/groupsOutList', 'Teacher\GroupController@groupsOutList');
+Route::post('teacher/group', 'Teacher\GroupController@group');
+
 
 
 //学生路由
@@ -79,3 +84,5 @@ Route::get('student/checkList', 'Student\GroupController@checkList');
 Route::post('student/apply', 'Student\GroupController@apply');
 Route::post('student/check', 'Student\GroupController@check');
 Route::post('student/groupForm', 'Student\GroupController@groupForm');
+Route::post('student/shomework', 'Student\SHomeworkController@shomework');
+Route::post('student/thomeworksList', 'Student\THomeworkController@thomeworksList');
