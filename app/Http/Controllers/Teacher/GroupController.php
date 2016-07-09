@@ -14,15 +14,78 @@ use Session;
 class GroupController extends Controller {
 
 	/**
-	 * 教师查看某门课程的团队列表
+	 * 教师查看已加入某门课程的团队列表
 	 */
-	public function groupsList()
+	public function groupsInList(Request $request)
 	{
 		if(!Auth::check())
 			return redirect('login');
 
-		
+		$lessonID = $request->get('lessonID');
+		$teacherID = session('userID');
+
+		$groups = DB::table('tsgroups')
+						->join('groups', 'groups.groupID', '=', 'tsgroups.groupID')
+						->select('tsgroups.lessonID', 'groups.groupID', 'groups.groupName', 'groups.headID', 'groups.headName')
+						->where('tsgroups.teacherID', $teacherID)
+						->where('tsgroups.lessonID', $lessonID)
+						->get();
+
+		$result = ['title'=>'已加入课程的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups];
+
+		return view()->with($result);
 	}
+
+
+	/**
+	 * 教师查看待审核的团队列表
+	 */
+	public function groupsIOList(Request $request)
+	{
+		if(!Auth::check())
+			return redirect('login');
+
+		$teacherID = session('userID');
+		$lessonID = $request->get('lessonID');
+
+		$groups = DB::table('tschecks')
+						->join('groups', 'tschecks.groupID', '=', 'groups.groupID')
+						->select('tschecks.lessonID', 'groups.groupID', 'groups.groupName', 'groups.headID', 'groups.groupName')
+						->where('tschecks.teacherID', $teacherID)
+						->where('tschecks.lessonID', $lessonID)
+						->where('status', 0)
+						->get();
+
+		$result = ['title'=>'待审核的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups];
+
+		return view()->with($result);
+	}	
+
+
+	/**
+	 * 教师查看审核被拒的团队列表
+	 */
+	public function groupsOutList(Request $request)
+	{
+		if(!Auth::check())
+			return redirect('login');
+
+		$teacherID = session('username');
+		$lessonID = $request->get('lessonID');
+
+		$groups = DB::table('tschecks')
+						->join('groups', 'tschecks.groupID', '=', 'groups.groupID')
+						->select('tschecks.lessonID', 'groups.groupID', 'groups.groupName', 'groups.headID', 'groups.groupName')
+						->where('tschecks.teacherID', $teacherID)
+						->where('tschecks.lessonID', $lessonID)
+						->where('status', 1)
+						->get();
+
+		$result = ['title'=>'审核被拒的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups];
+	
+		return view()->with($result);
+	}
+
 
 	/**
 	 * 教师审核团队申请进入课程
@@ -35,14 +98,59 @@ class GroupController extends Controller {
 		$teacherID = session('userID');
 		$lessonID = $request->get('lessonID');
 		$groupID = $request->get('groupID');
+		$judge = $request->get('judge');
 
-		$success = DB::table('tsgroups')
+		//说明老师拒绝了该团队加入课程的申请
+		if($judge == 0)
+		{
+			$success = DB::table('tschecks')
+							->where('teacherID', $teacherID)
+							->where('lessonID', $lessonID)
+							->where('groupID', $groupID)
+							->update(array('status'=>1));
+
+			if($success)
+				return response()->json(['status'=>1, 'descrip'=>'拒绝申请成功']);
+			else
+				return response()->json(['status'=>0, 'descrip'=>'拒绝申请失败，数据库操作失败']);
+		}
+
+		//下面判断申请加入课程的团队中是否有人在其他加入本课程的团队中
+		
+		//这是已经通过团队加入课程的学生ID的集合
+		$tmpdata = DB::table('tsgroups')
+							->join('sgroups', 'tsgroups.groupID', '=', 'sgroups.groupID')
+							->select('sgroups.studentID')
+							->get();
+		$inID = array();
+		foreach ($tmpdata as $data) 
+		{
+			$inID[] = $data->studentID;
+		}
+
+		$tmpdata = DB::table('sgroups')
+							->where('groupID', $groupID)
+							->whereIn('studentID', $inID)
+							->get();
+
+		//说明有学生已经在某个加入课程的团队中了
+		if(count($tmpdata) > 0)
+			return response()->json(['status'=>0, 'descrip'=>'同意申请失败，该组的某个学生已经在某个加入课程的团队中了']);
+
+		//到这步，说明是同意申请，并且团队满足要求
+		$success1 = DB::table('tsgroups')
 							->insert(array('teacherID'=>$teacherID, 'lessonID'=>$lessonID, 'groupID'=>$groupID));
 
-		if($success)
-			return ['status'=>1];
+		$success2 = DB::table('tschecks')
+							->where('teacherID', $teacherID)
+							->where('lessonID', $lessonID)
+							->where('groupID', $groupID)
+							->update(array('status'=>2));
+
+		if($success1 and $success2)
+			return response()->json(['status'=>1, 'descrip'=>'同意申请成功']);
 		else
-			return ['status'=>0];
+			return response()->json(['status'=>0, 'descrip'=>'同意申请失败，数据库操作失败']);
 	}
 
 }
