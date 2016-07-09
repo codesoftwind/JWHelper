@@ -105,20 +105,21 @@ class GroupController extends Controller {
         {
         	$has=DB::select("select * from schecks where studentID=? and groupID =?",
         		[session('userID'),$data->groupID]);
-        	$no=DB::select("select * from schecks where studentID=? and groupID =? and status!=?",
+        	$no=DB::select("select * from schecks where studentID=? and groupID =? and status=?",
         		[session('userID'),$data->groupID,0]);
-        	$refuse=DB::select("select * from schecks where studentID=? and groupID =? and status!=?",
+        	$refuse=DB::select("select * from schecks where studentID=? and groupID =? and status=?",
         		[session('userID'),$data->groupID,1]);
-        	if(count($has)!=0)
+        	if(count($has)==0)
         		array_push($toApply, ['apply'=>$data,'status'=>0]);
         	if(count($no)!=0)
         		array_push($toApply, ['apply'=>$data,'status'=>1]);
-        	if(count($refuse))
+        	if(count($refuse)!=0)
         		array_push($toApply, ['apply'=>$data,'status'=>2]);
 
 
          	
         }
+       
 
         $result = ['title'=>'可申请的团队列表', 'username'=>session('username'), 'toApply'=>$toApply,'role'=>session('role')];
         return view('view.student.outGroup',$result);
@@ -130,7 +131,7 @@ class GroupController extends Controller {
 		if(!Auth::check())
 			return redirect("login");
 		
-        $headID=DB::select("select headID from groups where grouudpID = ?",[$request->groupID])[0]->headID;
+        $headID=DB::select("select headID from groups where groupID = ?",[$request->groupID])[0]->headID;
 		$has=DB::select("select * from schecks where groupID = ? and studentID=?",[$request->groupID,session('userID')]);
 		if(count($has)==0)
 		{
@@ -155,7 +156,7 @@ class GroupController extends Controller {
 		$checkList=DB::table('groups')->join('schecks','groups.headID','=','schecks.headID')
 		     ->where('schecks.status','=',0)
 		     ->where('groups.headID','=',session('userID'))
-		     ->where('groups.groupID','='$request->groupID)
+		     ->where('groups.groupID','=',$request->groupID)
 		     ->get();
 		return view('view.student.checkGroup',['title'=>'待审核的申请列表', 'username'=>session('username'),'role'=>session('role'),'checkList'=>$checkList]);
 

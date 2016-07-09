@@ -93,6 +93,9 @@ class UploadController extends Controller {
 				foreach ($rows as $data) {
 					DB::insert("insert into tlessons (teacherID,lessonID,semesterID)
                          values(?,?,?)",[$data->teacherid,$data->lessonid,$data->semesterid]);
+
+					DB::insert("insert into rcatogorys (catogoryName,teacherID,lessonID,semesterID)
+						 values(?,?,?,?)",["未分类资源",$data->teacherid,$data->lessonid,$data->semesterid]);
 				}
 			}
 			
