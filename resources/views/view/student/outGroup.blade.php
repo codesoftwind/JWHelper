@@ -22,13 +22,13 @@
                 <th>{{$group['apply']->maxPeople}}</th>
                 <th>{{$group['apply']->occupied}}</th>
                 <th>
-                    @if ($group['status'] == 0)
+                    @if ($group['status'] == 1)
                         {{'已申请待审核'}}
-                    @elseif ($group['status'] == 1)
+                    @elseif ($group['status'] == 2)
                         {{'审核未通过'}}
                     @endif
                 </th>
-                <th><button class="btn btn-primary apply">申请加入</button></th>
+                <th><button class="btn btn-primary apply" data-group-id="{{$group['apply']->groupID}}">申请加入</button></th>
             </tr>
         @endforeach
         </tbody>
@@ -42,10 +42,48 @@
         $(".nav-sidebar>li").removeClass("active");
         $("#outGroup").addClass("active");
 
+        var baseURL = 'http://localhost/JWHelper/public/student';
         $(function () {
             // To do
             $(".apply").click(function () {
-
+                var groupID = $(this).data('groupId');
+                var url = baseURL + '/apply';
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {'groupID': groupID},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data['status'] == 1) {
+                            BootstrapDialog.show({
+                                title: '申请成功',
+                                type: BootstrapDialog.TYPE_SUCCESS,
+                                buttons: [
+                                    {
+                                        label: '关闭',
+                                        action: function(dialogItself) {
+                                            dialogItself.close();
+                                            location.reload();
+                                        }
+                                    }
+                                ]
+                            });
+                        } else {
+                            BootstrapDialog.show({
+                                title: '申请失败',
+                                type: BootstrapDialog.TYPE_WARNING,
+                                buttons: [
+                                    {
+                                        label: '关闭',
+                                        action: function(dialogItself) {
+                                            dialogItself.close();
+                                        }
+                                    }
+                                ]
+                            });
+                        }
+                    }
+                });
             });
         });
     </script>

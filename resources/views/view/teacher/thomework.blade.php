@@ -47,7 +47,7 @@
            @endif
 <td>
   <div class="btn-group" role="group" aria-label="...">
-  <form action='http://localhost/JWHelper/publi/teacher/shomework', method="post", enctype="multipart/form-data">
+  <form action='http://localhost/JWHelper/public/teacher/shomework', method="post", enctype="multipart/form-data">
   <input type="hidden" name="shomeworkID", value="{{ $shomeworkt->shomeworkID}}">
   <button type="submit" class="btn btn-primary" id="submit-change" >查看</button>
   </form>
@@ -89,7 +89,7 @@
            @endif
 <td>
   <div class="btn-group" role="group" aria-label="...">
-  <form action='http://localhost/JWHelper/publi/teacher/shomework', method="post", enctype="multipart/form-data">
+  <form action='http://localhost/JWHelper/public/teacher/shomework', method="post", enctype="multipart/form-data">
   <input type="hidden" name="shomeworkID", value="{{ $shomeworkt->shomeworkID}}">
   <button type="submit" class="btn btn-primary" id="submit-change" >查看</button>
   </form>
