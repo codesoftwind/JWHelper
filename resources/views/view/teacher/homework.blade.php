@@ -9,7 +9,7 @@
 <div class="table-responsive">
 <table class="table table-striped">
  <tr>
-    <th>课程号</th>
+    <th>课程名称</th>
     <th>作业名称</th>
     <th>开始时间</th>
     <th>结束时间</th>
@@ -23,7 +23,7 @@
 
        @foreach ($lessons as $lesson)
            <tr> 
-           <td>{{  $lesson->lessonID }}</td>
+           <td>{{  $lesson->lessonName }}</td>
            <td>{{  $lesson->homeworkName }}</td>  
            <td>{{  $lesson->startTime }}</td> 
            <td>{{  $lesson->endTime }}</td> 

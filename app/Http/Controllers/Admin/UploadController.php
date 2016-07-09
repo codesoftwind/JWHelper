@@ -19,21 +19,26 @@ class UploadController extends Controller {
 			$file = $request->file('teacher');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=md5(date('ymdhis').$clientName).".".$extension;
+			$newName=md5(date('ymdhis')).$clientName.".".$extension;
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();
 			foreach ($result as $rows) {
 				foreach ($rows as $data) {
+					$pass=Hash::make($data->pass);
 					DB::insert("insert into teachers (teacherID,teacherName,password,basicInfo)
-                         values(?,?,?,?)",[$data->id,$data->name,Hash::make($data->pass),$data->info]);
+                         values(?,?,?,?)",[$data->id,$data->name,$pass,$data->info]);
+					DB::insert("insert into users (userID,password,isTeacher)
+                         values(?,?,?)",[$data->id,$pass,1]);
 				}
 			}
 			
-    		return  view('view.admin.teacherimport');
+    		return  view('view.admin.teacherimport',['success'=>'1',
+    			'username'=>session('username'),'role'=>session('role')]);
 		}
 		else
 		{
-			return 'error';
+			return view('view.admin.teacherimport',['fail'=>'1',
+    			'username'=>session('username'),'role'=>session('role')]);
 		}
 	}
 
@@ -46,22 +51,27 @@ class UploadController extends Controller {
 			$file = $request->file('student');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=md5(date('ymdhis').$clientName).".".$extension;
+			$newName=md5(date('ymdhis')).$clientName.".".$extension;
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();
 			foreach ($result as $rows) {
 				foreach ($rows as $data) {					
+					$pass=Hash::make($data->password);
 					DB::insert("insert into students (studentID,studentName,password,department)
-                         values(?,?,?,?)",[$data->id,$data->name,Hash::make($data->password),$data->depart]);
+                         values(?,?,?,?)",[$data->id,$data->name,$pass,$data->depart]);
+					DB::insert("insert into users (userID,password,isStudent)
+                         values(?,?,?)",[$data->id,$pass,1]);
 				}
 			}
 			
-    		return  view('view.admin.studentimport');
+    		return  view('view.admin.studentimport',['success'=>'1',
+    			'username'=>session('username'),'role'=>session('role')]);
 		}
 		else
 		{
-			return 'error';
+			return view('view.admin.studentimport',['fail'=>'1',
+    			'username'=>session('username'),'role'=>session('role')]);
 		}
 
 	}
@@ -75,7 +85,7 @@ class UploadController extends Controller {
 			$file = $request->file('teach');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=md5(date('ymdhis').$clientName).".".$extension;
+			$newName=md5(date('ymdhis')).$clientName.".".$extension;
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();
@@ -86,11 +96,13 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return  view('view.admin.teachimport');
+    		return  view('view.admin.teachimport',['success'=>'1',
+    			'username'=>session('username'),'role'=>session('role')]);
 		}
 		else
 		{
-			return 'error';
+			return view('view.admin.teachimport',['fail'=>'1',
+    			'username'=>session('username'),'role'=>session('role')]);
 		}
 
 	}
@@ -105,7 +117,7 @@ class UploadController extends Controller {
 			$file = $request->file('choose');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=md5(date('ymdhis').$clientName).".".$extension;
+			$newName=md5(date('ymdhis')).$clientName.".".$extension;
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();
@@ -116,11 +128,13 @@ class UploadController extends Controller {
            values(?,?,?,?)",[$data->studentid,$data->teacherid,$data->lessonid,$data->semesterid]);
 				}
 			}
-    		return view('view.admin.chooseimport')->with('result', '上传成功');
+    		return view('view.admin.chooseimport',['success'=>'1',
+    			'username'=>session('username'),'role'=>session('role')]);
 		}
 		else
 		{
-			return 'error';
+			return view('view.admin.chooseimport',['fail'=>'1',
+    			'username'=>session('username'),'role'=>session('role')]);
 		}
 
 	}
@@ -134,7 +148,7 @@ class UploadController extends Controller {
 			$file = $request->file('lesson');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=md5(date('ymdhis').$clientName).".".$extension;
+			$newName=md5(date('ymdhis')).$clientName.".".$extension;
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();
@@ -145,11 +159,13 @@ class UploadController extends Controller {
 				}
 			}
 			
-    		return  view('view.admin.lessonimport');
+    		return  view('view.admin.lessonimport',['success'=>'1',
+    			'username'=>session('username'),'role'=>session('role')]);
 		}
 		else
 		{
-			return 'error';
+			return view('view.admin.lessonimport',['fail'=>'1',
+    			'username'=>session('username'),'role'=>session('role')]);
 		}
 
 	}
@@ -158,31 +174,31 @@ class UploadController extends Controller {
 	{
 		if(!Auth::check())
 			return redirect('login');
-		return view('view.admin.teacherimport');
+		return view('view.admin.teacherimport',['username'=>session('username'),'role'=>session('role')]);
 	}
 	function uploadStudentPage()
 	{
 		if(!Auth::check())
 			return redirect('login');
-		return view('view.admin.studentimport');
+		return view('view.admin.studentimport',['username'=>session('username'),'role'=>session('role')]);
 	}
 	function uploadTeachPage()
 	{
 		if(!Auth::check())
 			return redirect('login');
-		return view('view.admin.teachimport');
+		return view('view.admin.teachimport',['username'=>session('username'),'role'=>session('role')]);
 	}
 	function uploadLessonPage()
 	{
 		if(!Auth::check())
 			return redirect('login');
-		return view('view.admin.lessonimport');
+		return view('view.admin.lessonimport',['username'=>session('username'),'role'=>session('role')]);
 	}
 	function uploadChoosePage()
 	{
 		if(!Auth::check())
 			return redirect('login');
-		return view('view.admin.chooseimport');
+		return view('view.admin.chooseimport',['username'=>session('username'),'role'=>session('role')]);
 	}
 	
 

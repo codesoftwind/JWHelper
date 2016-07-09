@@ -34,19 +34,19 @@ class AuthController extends Controller {
 			if(Auth::user()->isAdmin)
 			{
 				$admin = DB::table('admins')->select('adminName')->where('adminID', $userID)->get();
-				session(['userID'=>$userID, 'role'=>'教务管理员', 'userName'=>$admin[0]->adminName]);
+				session(['userID'=>$userID, 'role'=>'教务管理员', 'username'=>$admin[0]->adminName]);
 				return response()->json(['status'=>1, 'role'=>'admin', 'userID'=>$userID]);
 			}
 			elseif(Auth::user()->isTeacher)
 			{
 				$teacher = DB::table('teachers')->select('teacherName')->where('teacherID', $userID)->get();
-				session(['userID'=>$userID, 'role'=>'教师', 'userName'=>$teacher[0]->teacherName]);
+				session(['userID'=>$userID, 'role'=>'教师', 'username'=>$teacher[0]->teacherName]);
 				return response()->json(['status'=>1, 'role'=>'teacher', 'userID'=>$userID]);
 			}
 			elseif(Auth::user()->isStudent)
 			{
 				$student = DB::table('students')->select('studentName')->where('studentID', $userID)->get();
-				session(['userID'=>$userID, 'role'=>'学生', 'userName'=>$student[0]->studentName]);
+				session(['userID'=>$userID, 'role'=>'学生', 'username'=>$student[0]->studentName]);
 				return response()->json(['status'=>1, 'role'=>'student', 'userID'=>$userID]);
 			}
 		}

@@ -54,22 +54,28 @@ Route::get('admin/semester_info', 'Admin\SemesterController@semester_info');
 //教师路由
 Route::get('teacher/index', 'Teacher\IndexController@index');
 Route::get('teacher/lessonsList', 'Teacher\LessonController@lessonsList');
-Route::get('teacher/lesson', 'Teacher\LessonController@lesson');
-Route::get('teacher/resourcesList', 'Teacher\ResourceController@resourcesList'
+Route::post('teacher/lesson', 'Teacher\LessonController@lesson');
+Route::post('teacher/resourcesList', 'Teacher\ResourceController@resourcesList');
 Route::get('teacher/resourcesClassify', 'Teacher\ResourceController@resourcesClassify');
 Route::get('teacher/resourceUpload', 'Teacher\ResourceController@resourceUpload');
 Route::get('teacher/resourceDownload', 'Teacher\ResourceController@resourceDownload');
-Route::post('teacher/homeworksList', 'Teacher\HomeworkController@homeworksList');
-Route::post('teacher/homeworkPublish', 'Teacher\HomeworkController@homeworkPublish');
-Route::get('teacher/homework', 'Teacher\HomeworkController@homework');
-Route::get('teacher/stuHomework', 'Teacher\StuHomeworkController@stuHomework');
-Route::get('teacher/stuHomeworkDownload', 'Teacher\StuHomweorkController@stuHomeworkDownload');
-Route::get('teacher/stuHomeworkRate', 'Teacher\StuHomeworkController@stuHomeworkRate');
+Route::post('teacher/thomeworksList', 'Teacher\THomeworkController@thomeworksList');
+Route::post('teacher/thomeworkPublish', 'Teacher\THomeworkController@thomeworkPublish');
+Route::post('teacher/thomework', 'Teacher\THomeworkController@thomework');
+Route::post('teacher/shomework', 'Teacher\SHomeworkController@shomework');
+Route::get('teacher/shomeworkDownload', 'Teacher\SHomweorkController@shomeworkDownload');
+Route::post('teacher/shomeworkRate', 'Teacher\SHomeworkController@shomeworkRate');
+Route::post('teacher/groupCheck', 'Teacher\GroupController@groupCheck');
 
 
 //学生路由
 Route::get('student/index', 'Student\IndexController@index');
 Route::get('student/lessonsList', 'Student\LessonController@lessonsList');
-Route::get('student/teamsList', 'Student\TeamController@teamsList');
-Route::get('student/teamForm', 'Student\TeamController@teamForm');
+Route::get('student/myGroups', 'Student\GroupController@myGroups');
+Route::get('student/groupList', 'Student\GroupController@groupsList');
+Route::get('student/toApply', 'Student\GroupController@toApply');
+Route::get('student/checkList', 'Student\GroupController@checkList');
 
+Route::post('student/apply', 'Student\GroupController@apply');
+Route::post('student/check', 'Student\GroupController@check');
+Route::post('student/groupForm', 'Student\GroupController@groupForm');

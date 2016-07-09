@@ -46,7 +46,7 @@ class SemesterController extends Controller {
 									->where('id', 1)
 									->get();
 
-		$result = ['title'=>'学期信息', 'userName'=>session('userName'), 'role'=>session('role'), 'semester'=>$tmpresult[0]];
+		$result = ['title'=>'学期信息', 'username'=>session('username'), 'role'=>session('role'), 'semester'=>$tmpresult[0]];
 
 		return view('view.admin.semester_info')->with($result);
 	}
