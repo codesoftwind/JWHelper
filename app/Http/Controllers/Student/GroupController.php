@@ -179,7 +179,7 @@ class GroupController extends Controller {
 			return redirect('login');
 		$agree=$request->agree;
 		$agree++;
-		return var_dump($agree);
+		
 		DB::update("update schecks set status = ? where studentID =? and groupID =?",
 			[$agree,$request->studentID,$request->groupID]);
 		if($agree==2)

@@ -83,5 +83,19 @@ class SHomeworkController extends Controller {
 			return response()->json(['status'=>0]);
 	}
 	
+	public function uploadShomework(Request $request)
+	{
+		if($request->hasFile('choose'))
+		{
+			$file = $request->file('choose');
+			$clientName=$file->getClientOriginalName();
+			$extension=$file->getClientOriginalExtension();
+			$newName="测试作业上传".".".$extension;
+			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
+			
+			return 'success';
+		}
+
+	}
 
 }

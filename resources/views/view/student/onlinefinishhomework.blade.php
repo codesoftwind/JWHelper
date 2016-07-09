@@ -17,9 +17,9 @@
 <main>
      <div class="grid-container">
             <div class="grid-width-90">
-                <form action="" name="myform" method="post" enctype="multipart/form-data">
+                <form action="http://localhost/JWHelper/public/student/uploadShomework" name="myform" method="post" enctype="multipart/form-data">
                     <div id="editor">
-                        <textarea name="Xeditor" id="Xeditor"></textarea>
+                        <textarea name="content" id="Xeditor"></textarea>
                          <script type="text/javascript">
                             CKEDITOR.replace('Xeditor');
                         </script>
