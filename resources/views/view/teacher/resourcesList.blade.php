@@ -138,7 +138,7 @@
             <select class="form-control" id="resourceCategory"/>
                 <option value="未分类">未分类</option>
                 @foreach($categories as $category)
-                <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                <option value="{{ $category['catogoryId'] }}">{{ $category['categoryName'] }}</option>
                 @endforeach
             </select>
             <label for="resourceFile">选择文件</label>
