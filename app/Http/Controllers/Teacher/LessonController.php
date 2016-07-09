@@ -39,6 +39,7 @@ class LessonController extends Controller {
 			return redirect('login');
 		
 		$lessonID = $request->get('lessonID');
+		session(['lessonID'=>$lessonID]);
 
 		$tmpresult = DB::table('lessons')
 								->select('lessonID', 'lessonName', 'introduction')

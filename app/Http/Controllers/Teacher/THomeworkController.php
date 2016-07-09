@@ -30,7 +30,7 @@ class THomeworkController extends Controller {
 									->select('thomeworks.thomeworkID', 'thomeworks.thomeworkName', 'lessons.lessonName', 'thomeworks.startTime', 'thomeworks.endTime')
 									->get();
 
-		$result = ['title'=>'作业列表', 'username'=>session('username'), 'role'=>session('role'), 'thomework'=>$thomework];
+		$result = ['title'=>'作业列表', 'username'=>session('username'), 'role'=>session('role'), 'result'=>$thomework];
 		
 		return view('view.teacher.homework')->with($result);
 	}
