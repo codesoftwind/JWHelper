@@ -10,7 +10,7 @@
           <li class="active" id="lessonList"><a href="{{$baseURL.'/lessonsList'}}"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> 课程列表</a></li>
       </ul>
       <ul class="nav nav-sidebar">
-          <li id="resource"><a href="#"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 课程资源</a></li>
+          <li id="resource"><a href="{{$baseURL.'/lessonResource'}}"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 课程资源</a></li>
           <li id="group"><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 学生团队</a></li>
           <li id="myGroup" class="displayNone"><a href="{{$baseURL. '/myGroups'}}">我的团队</a><li>
           <li id="inGroup" class="displayNone"><a href="{{$baseURL. '/groupList'}}">已加入的团队</a><li>
