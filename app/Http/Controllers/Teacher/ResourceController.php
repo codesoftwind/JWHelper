@@ -4,7 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 class ResourceController extends Controller {
 
 	/**
@@ -31,7 +32,7 @@ class ResourceController extends Controller {
 				$file=['name'=>$f->resourceName,'url'=>$f->resourcePath,'info'=>$f->resourceInfo];
 				array_push(files, $file);
 			}
-			array_push(list,['category'=>$data->catogoryName,'items'=>$files]);
+			array_push($list,['category'=>$data->catogoryName,'items'=>$files]);
 		}
 		return view('view.teacher.resourcesList',['data'=>$list,'categories'=>$catogory,'title'=>"资源列表",
 			    'username'=>session('username'),'role'=>session('role')]);
@@ -44,7 +45,7 @@ class ResourceController extends Controller {
 			return redirect('login');
 		DB::insert("insert into rcatogorys (catogoryName,teacherID,lessonID) 
 			values(?,?,?)",[$request->catogoryName,session('userID'),$request->lessonID]);
-		return view('')
+		return view('');
 	}
 
 	public function resourceUpload(Request $request)
