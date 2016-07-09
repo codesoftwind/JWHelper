@@ -31,7 +31,7 @@ class ResourceController extends Controller {
 			foreach($res as $f)
 			{
 				$file=['name'=>$f->resourceName,'url'=>$f->resourcePath,'info'=>$f->resourceInfo];
-				array_push(files, $file);
+				array_push($files, $file);
 			}
 			array_push($list,['category'=>$data->catogoryName,'items'=>$files]);
 		}
@@ -56,22 +56,28 @@ class ResourceController extends Controller {
 	{
 		if(!Auth::check())
 			return redirect('login');
-		if($request->hasFile('resource'))
+     
+		if(isset($request->resourceName))
+			return json_encode(['status'=>1]);
+		else
+			return json_encode(['status'=>0]);
+		if($request->hasFile('resourceFile'))
 		{
-			$file = $request->file('resource');
+				return  json_encode(['status'=>1]);
+			$file = $request->file('resourceFile');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
 			$newName=$clientName.md5(date('ymdhis')).".".$extension;
 			$newFilePath=$file->move(app_path().'/storage/resource',$newName);
 			DB::insert("insert into resources (teacherID,lessonID,catogoryID,
 				resourceName,resourcePath) values(?,?,?,?,?)",
-			[session('userID'),session('lessonID'),$request->categoryID,
+			[session('userID'),session('lessonID'),$request->resourceCategory,
 			$clientName,$newFilePath]);
-			return  view('',['success'=>'1',
-    			'username'=>session('username'),'role'=>session('role'),
-    			'lessonID'=>session('lessonID')]);
-		}
-	}
+			return  json_encode(['status'=>1]);
+	     }
+	     else
+	     	return json_encode(['status'=>0]);
+	 }
 
 	public function resourceDownload()
 	{

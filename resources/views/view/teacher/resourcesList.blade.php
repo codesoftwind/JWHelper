@@ -10,24 +10,30 @@
         $('#c-fail-alert').hide()
         $('#f-progress-alert').hide()
         $('#submit-file').click(function(){
-            $("#resourceFile").AjaxFileUpload({
-                action: "http://localhost/JWHelper/public/teacher/resourceUpload",
-                data : {
-                    resourceName : $('#resourceName').val() ,
-                    resourceInfo : $('#resourceInfo').val() ,
-                    resourceCategory : $('#resourceCategory').val()
-                },
-                onComplete: function(data){
-                    $('#progress-alert').fadeOut()
-                    endFileUpload();
+            // formData = new FormData()
+            // formData.append('resourceName',$('#resourceName').val())
+            // formData.append('resourceInfo',$('#resourceInfo').val())
+            // formData.append('resourceCategory',$('#resourceCategory').val())
+            // formData.append('resourceFile',$('#resourceFile')[0].files[0])
+            var formData = new FormData($( "#uploadForm" )[0]);
+            alert($('#resourceFile')[0].files[0])
+            $.ajax({
+                type : 'POST',
+                url: "http://localhost/JWHelper/public/teacher/resourceUpload",
+                dataType : 'json',
+                data : formData,
+                processData: false,
+                contentType: false,
+                success: function(data){                    
+                    $('#f-progress-alert').fadeOut()
                     if (data.status == 1){
-                        $('#success-alert').fadeIn()
+                        $('#f-success-alert').fadeIn()
                         setTimeout(function(){
                             window.location.href = "http://localhost/JWHelper/public/teacher/resourcesList"
                         },2000)
                     }
                     else
-                        $('#fail-alert').fadeIn()
+                        $('#f-fail-alert').fadeIn()
                 }
             });
         });
@@ -131,17 +137,17 @@
         </div>
         <form id="uploadForm">
             <label for="resourceName">资源名称</label>
-            <input class="form-control" id="resourceName"/>
+            <input class="form-control" id="resourceName" name="resourceName"/>
             <label for="resourceInfo">资源描述</label>
-            <input class="form-control" id="resourceInfo"/>
+            <input class="form-control" id="resourceInfo" name="resourceInfo"/>
             <label for="resourceCategory">资源分类</label>
-            <select class="form-control" id="resourceCategory"/>
+            <select class="form-control" id="resourceCategory" name="resourceCategory"/>
                 @foreach($categories as $category)
                 <option value="{{ $category->catogoryID }}">{{ $category->catogoryName }}</option>
                 @endforeach
             </select>
             <label for="resourceFile">选择文件</label>
-            <input class="form-control" type="file" id="resourceFile" />
+            <input class="form-control" type="file" id="resourceFile" name="resourceFile" />
         </form>
       </div>
       <div class="modal-footer">
