@@ -10,10 +10,14 @@
         $('#c-fail-alert').hide()
         $('#f-progress-alert').hide()
         $('#submit-file').click(function(){
-            $('#uploadForm').submitForm({
-                url: "http://localhost/JWHelper/public/teacher/resourceUpload",
-                dataType: "json",
-                callback: function(data){
+            $("#resourceFile").AjaxFileUpload({
+                action: "http://localhost/JWHelper/public/teacher/resourceUpload",
+                data : {
+                    resourceName : $('#resourceName').val() ,
+                    resourceInfo : $('#resourceInfo').val() ,
+                    resourceCategory : $('#resourceCategory').val()
+                },
+                onComplete: function(data){
                     $('#progress-alert').fadeOut()
                     endFileUpload();
                     if (data.status == 1){
@@ -24,12 +28,8 @@
                     }
                     else
                         $('#fail-alert').fadeIn()
-                },
-                before: function(){
-                    $('#progress-alert').fadeIn()
-                    startFileUpload();
                 }
-            }).submit();
+            });
         });
         $('#submit-class').click(function(){
             $.ajax({
