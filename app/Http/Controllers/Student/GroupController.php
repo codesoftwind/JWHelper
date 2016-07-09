@@ -94,18 +94,24 @@ class GroupController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
         $res=DB::table('groups')->join('sgroups','groups.groupID','=','sgroups.groupID')
-        	->select('groups.groupID', 'groups.groupName', 'groups.headID', 'groups.headName', 'groups.maxPeople', 'groups.occupied')
-      		->where('sgroups.studentID','!=',session('userID'))
-      		->distinct();  	
+            ->select('groups.groupID', 'groups.groupName', 'groups.headID','sgroups.studentID', 'groups.headName', 'groups.maxPeople', 'groups.occupied')
+      	    ->where('sgroups.studentID','!=',session('userID'))	
+      		->get();  	
+      	//return session('userID');
         $toApply=array();
+        //return count($res);
         foreach($res as $data)
         {
         	$status=DB::select("select * from schecks where studentID=? and groupID =? and status!=?",
         		[session('userID'),$data->groupID,2]);
         	if(count($status)!=0)
         	{
-        		array_push($toApply, ['apply'=>$data,'status'=>$status->status]);
+        		array_push($toApply, ['apply'=>$data,'status'=>1]);
         	}
+        	else
+        		array_push($toApply, ['apply'=>$data,'status'=>0]);
+
+
          	
         }
 
@@ -135,10 +141,10 @@ class GroupController extends Controller {
 
 		$checkList=DB::table('groups')->join('schecks','groups.headID','=','schecks.headID')
 		     ->where('schecks.status','=',0)
-		     ->where('headID','=',session('userID'))
-		     ->distinct()
+		     ->where('groups.headID','=',session('userID'))
+		    
 		     ->get();
-		return view('view.student.checkGroup',['checkList'=>$checkList]);
+		return view('view.student.checkGroup',['title'=>'待审核的申请列表', 'username'=>session('username'),'role'=>session('role'),'checkList'=>$checkList]);
 
 
 	}
