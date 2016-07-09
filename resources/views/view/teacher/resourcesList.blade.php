@@ -4,10 +4,12 @@
 <script type="text/javascript">
     $(document).ready(function () {
         //$('#hospital').addClass('active');
-        $('#success-alert').hide()
-        $('#fail-alert').hide()
-        $('#progress-alert').hide()
-        $('#submit-change').click(function(){
+        $('#f-success-alert').hide()
+        $('#f-fail-alert').hide()
+        $('#c-success-alert').hide()
+        $('#c-fail-alert').hide()
+        $('#f-progress-alert').hide()
+        $('#submit-file').click(function(){
             $('#uploadForm').submitForm({
                 url: "http://localhost/JWHelper/public/teacher/resourceUpload",
                 dataType: "json",
@@ -28,6 +30,26 @@
                     startFileUpload();
                 }
             }).submit();
+        });
+        $('#submit-class').click(function(){
+            $.ajax({
+                type : "POST" ,
+                url : "http://localhost/JWHelper/public/teacher/resourcesClassify" ,
+                dataType : 'json',
+                data : {
+                    categoryName : $('#newClassName').val()
+                },  
+                success : function(data){
+                    if (data.status == 1){
+                        $('#c-success-alert').fadeIn()
+                        setTimeout(function(){
+                            window.location.href = "http://localhost/JWHelper/public/teacher/resourcesList"
+                        },2000)
+                    }
+                    else
+                        $('#c-fail-alert').fadeIn()
+                }
+            });
         });
     });
 </script>
@@ -73,8 +95,15 @@
     </div>
 </div>
 
-<button align="right" class="btn btn-success btn-md" data-toggle="modal" data-target="#modify-modal">上传资源</button>
-<div class="modal fade" id="modify-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="col-md-2">
+    <button align="right" class="btn btn-success btn-md" data-toggle="modal" data-target="#upload-modal">上传资源</button>
+</div>
+<div class="col-md-2">
+    <button align="right" class="btn btn-warning btn-md" data-toggle="modal" data-target="#newClass-modal">新建分类</button>
+</div>
+
+<!-- Resource Upload -->
+<div class="modal fade" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -82,19 +111,19 @@
         <h4 class="modal-title" id="myModalLabel">上传资源</h4>
       </div>
       <div class="modal-body">
-        <div id="progress-alert" class="col-md-12">
+        <div id="f-progress-alert" class="col-md-12">
             <div class="alert alert-success alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               上传中……
             </div>
         </div>
-        <div id="success-alert" class="col-md-12">
+        <div id="f-success-alert" class="col-md-12">
             <div class="alert alert-success alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               上传成功
             </div>
         </div>
-        <div id="fail-alert" class="col-md-12">
+        <div id="f-fail-alert" class="col-md-12">
             <div class="alert alert-danger alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               上传失败
@@ -118,7 +147,39 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-        <button type="button" id="submit-change" class="btn btn-success">上传</button>
+        <button type="button" id="submit-file" class="btn btn-success">上传</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New Class -->
+<div class="modal fade" id="newClass-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">新建分类</h4>
+      </div>
+      <div class="modal-body">
+        <div id="c-success-alert" class="col-md-12">
+            <div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              提交成功
+            </div>
+        </div>
+        <div id="c-fail-alert" class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              提交失败
+            </div>
+        </div>
+        <label for="resourceName">新建分类名称</label>
+        <input class="form-control" id="newClassName"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+        <button type="button" id="submit-class" class="btn btn-success">确定</button>
       </div>
     </div>
   </div>
