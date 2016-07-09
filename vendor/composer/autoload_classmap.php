@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddAttachmentNameToShomeworks' => $baseDir . '/database/migrations/2016_07_08_161139_add_attachmentName_to_shomeworks.php',
     'AddHeadIDToGroups' => $baseDir . '/database/migrations/2016_07_06_051640_add_headID_to_groups.php',
     'AddHeadNameToGroups' => $baseDir . '/database/migrations/2016_07_06_083315_add_headName_to_groups.php',
     'AddIntroductionToLessons' => $baseDir . '/database/migrations/2016_07_06_114324_add_introduction_to_lessons.php',
@@ -25,6 +26,7 @@ return array(
     'CreateTeachersTable' => $baseDir . '/database/migrations/2016_07_04_024308_create_teachers_table.php',
     'CreateThomeworksTable' => $baseDir . '/database/migrations/2016_07_07_110734_create_thomeworks_table.php',
     'CreateTlessonsTable' => $baseDir . '/database/migrations/2016_07_04_075353_create_tlessons_table.php',
+    'CreateTschecksTable' => $baseDir . '/database/migrations/2016_07_08_095718_create_tschecks_table.php',
     'CreateTsgroupsTable' => $baseDir . '/database/migrations/2016_07_08_080342_create_tsgroups_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',

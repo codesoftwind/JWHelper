@@ -55,11 +55,11 @@ Route::get('admin/semester_info', 'Admin\SemesterController@semester_info');
 Route::get('teacher/index', 'Teacher\IndexController@index');
 Route::get('teacher/lessonsList', 'Teacher\LessonController@lessonsList');
 Route::post('teacher/lesson', 'Teacher\LessonController@lesson');
-Route::post('teacher/resourcesList', 'Teacher\ResourceController@resourcesList');
+Route::get('teacher/resourcesList', 'Teacher\ResourceController@resourcesList');
 Route::get('teacher/resourcesClassify', 'Teacher\ResourceController@resourcesClassify');
 Route::get('teacher/resourceUpload', 'Teacher\ResourceController@resourceUpload');
 Route::get('teacher/resourceDownload', 'Teacher\ResourceController@resourceDownload');
-Route::post('teacher/thomeworksList', 'Teacher\THomeworkController@thomeworksList');
+Route::get('teacher/thomeworksList', 'Teacher\THomeworkController@thomeworksList');
 Route::post('teacher/thomeworkPublish', 'Teacher\THomeworkController@thomeworkPublish');
 Route::post('teacher/thomework', 'Teacher\THomeworkController@thomework');
 Route::post('teacher/shomework', 'Teacher\SHomeworkController@shomework');
@@ -81,11 +81,8 @@ Route::get('student/groupList', 'Student\GroupController@groupsList');
 Route::get('student/toApply', 'Student\GroupController@toApply');
 Route::get('student/checkList', 'Student\GroupController@checkList');
 
-
 Route::post('student/apply', 'Student\GroupController@apply');
 Route::post('student/check', 'Student\GroupController@check');
 Route::post('student/groupForm', 'Student\GroupController@groupForm');
-
-Route::post('student/uploadShomework','Student\Student\SHomeworkController@uploadShomework');
 Route::post('student/shomework', 'Student\SHomeworkController@shomework');
 Route::post('student/thomeworksList', 'Student\THomeworkController@thomeworksList');
