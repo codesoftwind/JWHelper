@@ -34,7 +34,7 @@
             $("#homework").addClass("active");
 
             //To do
-            $(".lessonResource").click(function () {
+            $(".lessonHomework").click(function () {
                 var lessonID = $(this).data('lessonId');
                 var teacherID = $(this).data('teacherId');
                 location.href = baseURL + '/thomeworksList?lessonID=' + lessonID + '&teacherID=' + teacherID;
