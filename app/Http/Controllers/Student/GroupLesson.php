@@ -22,7 +22,7 @@ class GroupLesson extends Controller {
         {
         	array_push($have,$c->lessonID);
         }
-		$rest=DB::table('lesson')->whereNotIn('lessonID',$have);
+		$rest=DB::table('slessons')->where('studentID','=',session('userID'))->whereNotIn('lessonID',$have)->get();
 		$toApply=array();
 		foreach($rest as $data)
 		{
@@ -33,16 +33,17 @@ class GroupLesson extends Controller {
 			$never=DB::select("select * from tschecks where groupID=?  and lessonID=? and status=?",
 				             [$groupID,$data->lessonID,0]);
 			$refuse=DB::select("select * from tschecks where groupID=?  and lessonID=? and status=?",
-				             [$groupID,$data->lessonID],1);
-			 $semester=DB::select("select * from semesters where lessonID =?",[$data->semesterID])[0];
-			if(count($has)!=0)
-				array_push($toApply,['lessonID'=>$data->lessonID,'semesterName'=>$semester->semesterYear." ".$semester->basicInfo,'teacherName'=>$teacherName,'lessonName'=>$data->lessonName
+				             [$groupID,$data->lessonID,1]);
+			 $semester=DB::select("select * from semesters where semesterID =?",[$data->semesterID])[0];
+			 $lessons=DB::select("select * from lessons where lessonID =?",[$data->lessonID])[0];
+			if(count($has)==0)
+				array_push($toApply,['lessonID'=>$data->lessonID,'semester'=>$semester->semesterYear." ".$semester->basicInfo,'teacherName'=>$teacherName,'lessonName'=>$lessons->lessonName
 					                 ,'status'=>0]);
 			if(count($never)!=0)
-				array_push($toApply,['lessonID'=>$data->lessonID,'semesterName'=>$semester->semesterYear." ".$semester->basicInfo,'teacherName'=>$teacherName,'lessonName'=>$data->lessonName
+				array_push($toApply,['lessonID'=>$data->lessonID,'semester'=>$semester->semesterYear." ".$semester->basicInfo,'teacherName'=>$teacherName,'lessonName'=>$lessons->lessonName
 					                 ,'status'=>1]);
 			if(count($refuse)!=0)
-				array_push($toApply,['lessonID'=>$data->lessonID,'semesterName'=>$semester->semesterYear." ".$semester->basicInfo,'teacherName'=>$teacherName,'lessonName'=>$data->lessonName
+				array_push($toApply,['lessonID'=>$data->lessonID,'semester'=>$semester->semesterYear." ".$semester->basicInfo,'teacherName'=>$teacherName,'lessonName'=>$lessons->lessonName
 					                 ,'status'=>2]);
 		}
 		return view('view.student.applyLesson',['groupID'=>$groupID,'groupName'=>$groupName,'toApply'=>$toApply,'role'=>session('role'),'username'=>session('username')]);
@@ -77,13 +78,13 @@ class GroupLesson extends Controller {
         	            [$groupID,$lessonID,$teacherID]);
         if(count($res)==0)
         {
-        	DB::insert("insert into schecks groupID,groupName,teacherID,lessonID,status
+        	DB::insert("insert into tschecks (groupID,groupName,teacherID,lessonID,status)
         	            values(?,?,?,?,?)",[$groupID,$groupName,$teacherID,$lessonID,0]);
         }
         else
-        	DB::update("update schecks set status =0 where groupID=? and lessonID=?",
+        	DB::update("update tschecks set status =0 where groupID=? and lessonID=?",
         		        [$groupID,$lessonID]);
-        return ['status'=>0];
+        return ['status'=>1];
 	}
 
 }

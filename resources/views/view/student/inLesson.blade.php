@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($lessonList as $lesson)
+        @foreach($groups as $lesson)
             <tr>
                 <th class="scope">{{$lesson['lessonID']}}</th>
                 <td>{{$lesson['lessonName']}}</td>
