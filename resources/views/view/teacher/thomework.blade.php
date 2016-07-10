@@ -49,8 +49,9 @@ $(document).ready(function(){
     </div>
 </div>
 <div class="col-md-12">
-  <button class="btn btn-info" id="massDownload">批量下载作业附件</button>
+  <button class="btn btn-success" id="massDownload">批量下载作业附件</button>
 </div>
+<br />
 <div class="page-header">
   <h3>提交列表</h3>
 </div>
