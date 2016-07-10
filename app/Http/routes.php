@@ -91,6 +91,10 @@ Route::get('student/groupLesson','Student\GroupLesson@groupLesson');
 Route::get('student/homeworkInfo',function ()
 	{ return view('view.student.onlinefinishhomework');});
 
+Route::get('student/lessonHomework', function () {
+	return view('view.student.lessonHomework');
+});
+
 
 Route::post('student/apply', 'Student\GroupController@apply');
 Route::post('student/check', 'Student\GroupController@check');
