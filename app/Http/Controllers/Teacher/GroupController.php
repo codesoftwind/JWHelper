@@ -107,7 +107,7 @@ class GroupController extends Controller {
 		$lessonID = session('lessonID');
 
 		$group = DB::table('groups')
-					->select('groupName', 'headID', 'headName')
+					->select('groupName', 'groupID', 'headID', 'headName')
 					->where('groupID', $groupID)
 					->get();
 
@@ -119,7 +119,7 @@ class GroupController extends Controller {
 					->get();
 
 		$result = ['title'=>'团队详情', 'username'=>session('username'), 'role'=>session('role'), 'group'=>$group, 'groupMembers'=>$groupMembers, 'backPage'=>$backPage]; 
-		
+
 		return view('view.teacher.groupcheck')->with($result);
 	}
 

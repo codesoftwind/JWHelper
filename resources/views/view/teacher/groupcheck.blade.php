@@ -43,6 +43,10 @@
     }
 </script>
 @endsection
+<?php
+$group = $group[0];
+?>
+
 
 @section('main_panel')
 
@@ -51,51 +55,51 @@
 </div>
 
 <table>
-  <tr><td>&nbsp</td></tr>
+  <tr><td>&nbsp;</td></tr>
 
   <tr>
     <th width="100">团队名称</th>
-    <td>{{$group->groupName}}</td>
+    <td>{{ $group->groupName }}</td>
   </tr>
   
-  <tr><td>&nbsp</td></tr>
+  <tr><td>&nbsp;</td></tr>
 
   <tr>
     <th width="100">负责人</th>
-    <td>{{$group->headName}}</td>
+    <td>{{ $group->headName }}</td>
   </tr>
 
-  <tr><td>&nbsp</td></tr>
+  <tr><td>&nbsp;</td></tr>
 
   <tr>
     <th width="100">团队组员</th>
     <td>
     @foreach ($groupMembers as $member)
-    {{$member->studentID}}-{{$member->studentName}}&nbsp&nbsp
+    {{ $member->studentID }}-{{ $member->studentName }}&nbsp;&nbsp;
     @endforeach
     </td>
   </tr>
 
-  <tr><td>&nbsp</td></tr>
+  <tr><td>&nbsp;</td></tr>
 </table>
 
 <table align="center">
 <tr>
   <td>
       <button class="judge" value=1></button>
-      <button class="groupID" value={{ $group->groupID }}></button>
+      <button class="groupID" value="{{ $group->groupID }}"></button>
       <button class="btn btn-primary" id="accept" onclick="submitfunc(this)">同意</button>
   </td>
   
   <td>
       <button class="judge" value=0></button>
-      <button class="groupID" value={{ $group->groupID }}></button>
+      <button class="groupID" value="{{ $group->groupID }}"></button>
       <button class="btn btn-danger" id="deny" onclick="submitfunc(this)">拒绝</button>
   </td>
 
   <td>
    <form action='http://localhost/JWHelper/public/teacher/backPage', method="post", enctype="multipart/form-data">
-      <input type="hidden" name="backPage", value="{{ $group->backPage}}">
+      <input type="hidden" name="backPage", value="{{ $backPage}}">
       <button type="submit" class="btn btn-info" id="back" >返回</button>
     </form>
   </td>
