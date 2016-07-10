@@ -24,7 +24,7 @@ class StudentController extends Controller {
 						->select('studentID', 'studentName', 'department')
 						->get();
 
-		$result = ['title'=>'学生列表', 'username'=>session('username'), 'role'=>session('role'), 'students'=>$students];
+		$result = ['title'=>'学生列表', 'username'=>session('username'), 'role'=>session('role'), 'result'=>$students];
 
 		return view('view.admin.studentlist')->with($result);
 	}

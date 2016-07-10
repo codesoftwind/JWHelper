@@ -25,7 +25,7 @@
       <td>{{  $teacher->teacherID }} </td>
 
            <td>{{ $teacher->teacherName }}</td>    
-           <td>{{ $teacher->basicinfo }}</td>    
+           <td>{{ $teacher->basicInfo }}</td>    
 <td>
   <div class="btn-group" role="group" aria-label="...">
   <button type="button" class="btn btn-primary" >修改</button>

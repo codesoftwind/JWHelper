@@ -24,7 +24,7 @@ class TeacherController extends Controller {
 					->select('teacherID', 'teacherName', 'basicInfo')
 					->get();
 
-		$result = ['title'=>'教师列表', 'username'=>session('username'), 'role'=>session('role'), 'teachers'=>$teachers];
+		$result = ['title'=>'教师列表', 'username'=>session('username'), 'role'=>session('role'), 'result'=>$teachers];
 
 		return view('view.admin.teacherlist')->with($result);
 	}
