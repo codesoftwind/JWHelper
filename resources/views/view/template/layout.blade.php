@@ -64,6 +64,7 @@
 
     @yield('bodyJS')
   </body>
+    <br /><br /><br />
 
   <footer class="footer navbar-fixed-bottom navbar-default">
       <div class="container">
