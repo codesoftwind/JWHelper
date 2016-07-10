@@ -46,20 +46,22 @@ class THomeworkController extends Controller {
 
 		$teacherID = session('userID');
 		$lessonID = session('lessonID');
-		$thomeworkName = $request->get('thomeworkName');
-		$description = $request->get('description');
+		$thomeworkName = $request->thomeworkName;
+		$description = $request->description;
 		$startDate = $request->get('startDate');
 		$startTime = $request->get('startTime');
 		$endDate = $request->get('endDate');
 		$endTime = $request->get('endTime');
 		$group = (int)$request->get('group');
 
-		$startTime = strtotime($startDate+' '+$startTime);
-		$endTime = strtotime($endDate+' '+$endTime);
+		$startTime = date("Y-m-d H:i:s", strtotime($startDate+' '+$startTime));
+		$endTime = date("Y-m-d H:i:s", strtotime($endDate+' '+$endTime));
 
-		$success = DB::table('thomeworks')->insert(
-			array('teacherID'=>$teacherID, 'lessonID'=>$lessonID, 'thomeworkName'=>$thomeworkName, 'description'=>$description,
-				'startTime'=>$startTime, 'endTime'=>$endTime, 'group'=>$group));
+		$success = DB::table('thomeworks')
+					->insert(array('teacherID'=>$teacherID, 'lessonID'=>$lessonID, 'thomeworkName'=>$thomeworkName, 'description'=>$description, 
+						'startTime'=>$startTime, 'endTime'=>$endTime, 'group'=>$group));
+
+		
 
 		if($success)
 			return response()->json(['status'=>1]);
