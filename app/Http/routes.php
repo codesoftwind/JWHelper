@@ -49,7 +49,7 @@ Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
 Route::post('admin/setSemester', 'Admin\SemesterController@setSemester');
 Route::get('admin/semester_info', 'Admin\SemesterController@semester_info');
 Route::get('admin/teachersList', 'Admin\TeacherController@teachersList');
-Route::get('admin/studentsList', 'Admin\StudentController@studentsList');
+Route::get('admin/studentsList', 'Admin\StudentController@studetnsList');
 
 
 
@@ -63,7 +63,7 @@ Route::post('teacher/resourceUpload', 'Teacher\ResourceController@resourceUpload
 Route::get('teacher/resourceDownload', 'Teacher\ResourceController@resourceDownload');
 Route::get('teacher/thomeworksList', 'Teacher\THomeworkController@thomeworksList');
 Route::post('teacher/thomeworkPublish', 'Teacher\THomeworkController@thomeworkPublish');
-Route::get('teacher/thomework', function(){return view('view.teacher.thomework');});
+Route::post('teacher/thomework', 'Teacher\THomeworkController@thomework');
 Route::post('teacher/shomework', 'Teacher\SHomeworkController@shomework');
 Route::get('teacher/shomeworkDownload', 'Teacher\SHomweorkController@shomeworkDownload');
 Route::post('teacher/shomeworkRate', 'Teacher\SHomeworkController@shomeworkRate');
