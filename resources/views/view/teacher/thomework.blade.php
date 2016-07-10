@@ -5,18 +5,18 @@
 $(document).ready(function(){
   $('#progress-alert').hide()
   $('#success-alert').hide()
-  $('#massDownload').click(function(){
-    $('#alert-info').text("开始下载……")
-    $('#progress-alert').fadeIn()
-    <?php foreach($attachments as $url){?>    
-    $.get("<?php echo $url?>", function(result){
-      $('#alert-info').text("<?php echo $url?>" + "下载完毕，准备下载下一附件")
-    })
-    <?php } ?>
-    $('#progress-alert').fadeOut()
-    $('#success-alert').fadeIn()
-  })
-})
+  // $('#massDownload').click(function(){
+  //   $('#alert-info').text("开始下载……")
+  //   $('#progress-alert').fadeIn()
+  //   <?php foreach($attachments as $url){?>    
+  //   $.get("<?php echo $url?>", function(result){
+  //     $('#alert-info').text("<?php echo $url?>" + "下载完毕，准备下载下一附件")
+  //   })
+  //   <?php } ?>
+  //   $('#progress-alert').fadeOut()
+  //   $('#success-alert').fadeIn()
+  // })
+});
 </script>
 @endsection
 
@@ -34,6 +34,7 @@ $(document).ready(function(){
   <p>团队作业：是</p>
   @else
   <p>团队作业：否</p>
+  @endif
 </div>
 <div id="progress-alert" class="col-md-12">
     <div class="alert alert-primary alert-dismissible" role="alert">
