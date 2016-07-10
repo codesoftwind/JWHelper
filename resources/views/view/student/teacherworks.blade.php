@@ -50,6 +50,7 @@
   <div class="btn-group" role="group" aria-label="...">
   <form action='http://localhost/JWHelper/public/student/shomeworkView', method="post", enctype="multipart/form-data">
   <input type="hidden" name="shomeworkID", value="{{ $shomeworks[$i]->shomeworkID}}">
+  <input type="hidden" name="flag", value=1>
   <button type="submit" class="btn btn-primary" id="submit-change" >查看详情</button>
   </form>
   
@@ -60,6 +61,7 @@
   <div class="btn-group" role="group" aria-label="...">
   <form action='http://localhost/JWHelper/public/student/shomeworkEdit', method="post", enctype="multipart/form-data">
   <input type="hidden" name="shomeworkID", value="{{ $shomeworks[$i]->shomeworkID }}">
+  <input type="hidden" name="flag", value=0>
   <button type="submit" class="btn btn-primary" id="submit-change" >编辑</button>
   </form>
 </div>
