@@ -48,6 +48,8 @@ Route::get('admin/uploadChoosePage', 'Admin\UploadController@uploadChoosePage');
 Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
 Route::post('admin/setSemester', 'Admin\SemesterController@setSemester');
 Route::get('admin/semester_info', 'Admin\SemesterController@semester_info');
+Route::get('admin/teachersList', 'Admin\TeacherController@teachersList');
+Route::get('admin/studentsList', 'Admin\StudentController@studetnsList');
 
 
 
@@ -89,6 +91,10 @@ Route::get('student/groupLesson','Student\GroupLesson@groupLesson');
 Route::get('student/homeworkInfo',function ()
 	{ return view('view.student.onlinefinishhomework');});
 
+Route::get('student/lessonHomework', function () {
+	return view('view.student.lessonHomework');
+});
+
 
 Route::post('student/apply', 'Student\GroupController@apply');
 Route::post('student/check', 'Student\GroupController@check');
@@ -96,7 +102,8 @@ Route::post('student/groupForm', 'Student\GroupController@groupForm');
 Route::post('student/groupApplyLesson','Student\GroupLesson@groupApplyLesson');
 Route::post('student/uploadShomework','Student\SHomeworkController@uploadShomework');
 Route::post('student/shomework', 'Student\SHomeworkController@shomework');
-Route::post('student/thomeworksList', 'Student\THomeworkController@thomeworksList');
+Route::get('student/thomeworksList', 'Student\THomeworkController@thomeworksList');
+Route::get('student/thlessonsList', 'Student\THomeworkController@thlessonsList');
 
 Route::get('student/applyLesson', function () {
 		return view('view.student.applyLesson');

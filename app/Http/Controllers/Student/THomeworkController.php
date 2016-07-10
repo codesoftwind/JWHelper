@@ -62,9 +62,35 @@ class THomeworkController extends Controller {
 			}
 		}
 
+
+
 		$result = ['title'=>'作业列表', 'username'=>session('username'), 'role'=>session('role'), 'thomeworks'=>$thomeworks, 'shomeworks'=>$shomeworks];
 
 		return view('view.student.teacherworks')->with($result);
+	}
+
+
+
+	/**
+	 * 学生点击作业列表之后显示课程列表
+	 */
+	public function thlessonsList()
+	{
+		if(!Auth::check())
+			return redirect('login');
+
+		$studentID = session('userID');
+
+		$lessons = DB::table('slessons')
+						->join('lessons', 'lessons.lessonID', '=', 'slessons.lessonID')
+						->join('teachers', 'teachers.teacherID', '=', 'slessons.teacherID')
+						->select('lessons.lessonID', 'lessons.lessonName', 'teachers.teacherID', 'teachers.teacherName')
+						->where('slessons.studentID', $studentID)
+						->get();
+
+		$result = ['title'=>'所有课程', 'username'=>session('username'), 'role'=>session('role'), 'lessons'=>$lessons];
+
+		return view('view.student.lessonHomework')->with($result);
 	}
 
 }
