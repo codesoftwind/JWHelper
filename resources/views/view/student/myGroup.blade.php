@@ -39,7 +39,6 @@
         $(function () {
             var baseURL = "http://localhost/JWHelper/public/student";
             // 更改sidebar的样式, 使当前页面显示为active
-            $(".nav-sidebar>li").removeClass("active");
             $("#myGroup").addClass("active");
 
             $(".check").click(function () {

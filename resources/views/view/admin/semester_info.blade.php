@@ -83,3 +83,13 @@
 	</div>
 
 @endsection
+
+@section('bodyJS')
+	@parent
+	<script>
+		$(function () {
+			$(".nav-sidebar>li").removeClass('active');
+			$("#semesterInfo").addClass('active');
+		});
+	</script>
+@endsection

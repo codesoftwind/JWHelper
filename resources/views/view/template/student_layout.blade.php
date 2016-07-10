@@ -7,7 +7,7 @@
 @section('sidebar')
 	@parent
       <ul class="nav nav-sidebar">
-          <li class="active" id="lessonList"><a href="{{$baseURL.'/lessonsList'}}"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> 课程列表</a></li>
+          <li id="lessonList"><a href="{{$baseURL.'/lessonsList'}}"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> 课程列表</a></li>
       </ul>
       <ul class="nav nav-sidebar">
           <li id="resource"><a href="{{$baseURL.'/lessonResource'}}"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 课程资源</a></li>
@@ -16,7 +16,7 @@
           <li id="inGroup" class="displayNone"><a href="{{$baseURL. '/groupList'}}">已加入的团队</a><li>
           <li id="outGroup" class="displayNone"><a href="{{$baseURL. '/toApply'}}">可加入的团队</a><li>
           <li id="homework"><a href="#"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> 作业</a></li>
-          <li id="communication"><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 在线交流</a></li>
+          <li id="communication"><a href="http://localhost/JWHelper/public/template/no-page"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 在线交流</a></li>
       </ul>
 @endsection
 
@@ -25,6 +25,7 @@
     <script>
         $(function () {
             $("#group").click(function () {
+                $(this).addClass("active");
                 $("#myGroup").toggleClass("displayNone");
                 $("#inGroup").toggleClass("displayNone");
                 $("#outGroup").toggleClass("displayNone");
