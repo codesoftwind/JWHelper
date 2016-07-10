@@ -48,6 +48,8 @@ Route::get('admin/uploadChoosePage', 'Admin\UploadController@uploadChoosePage');
 Route::get('admin/uploadLessonPage', 'Admin\UploadController@uploadLessonPage');
 Route::post('admin/setSemester', 'Admin\SemesterController@setSemester');
 Route::get('admin/semester_info', 'Admin\SemesterController@semester_info');
+Route::get('admin/teachersList', 'Admin\TeacherController@teachersList');
+Route::get('admin/studentsList', 'Admin\StudentController@studetnsList');
 
 
 
