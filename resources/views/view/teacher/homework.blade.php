@@ -7,28 +7,29 @@
         $('#success-alert').hide()
         $('#fail-alert').hide()
         $('#submit-change').click(function(){
+          alert($('#isGroup').val())
         	$.ajax({
         		type : "POST" ,
-				url : "http://localhost/JWHelper/public/teacher/thomeworkPublish" ,
-				dataType : 'json',
-				data : {
-					thomeworkName : $('#workName').val() ,
-					startTime : $('#startTime').val() ,
-					endTime : $('#endTime').val() ,
-					description : $('#basicInfo').val() ,
-					group : $('#isGroup').val()
-				},	
-				success : function(data){
-					if (data.status == 1){
-						$('#success-alert').fadeIn()
-						setTimeout(function(){
-							window.location.href = "http://localhost/JWHelper/public/teacher/homework"
-						},2000)
-					}
-					else
-						$('#fail-alert').fadeIn()
-				}
-        	});
+    				url : "http://localhost/JWHelper/public/teacher/thomeworkPublish" ,
+    				dataType : 'json',
+    				data : {
+    					thomeworkName : $('#workName').val() ,
+    					startTime : $('#startTime').val() ,
+    					endTime : $('#endTime').val() ,
+    					description : $('#basicInfo').val() ,
+    					group : $('#isGroup').val()
+    				},	
+    				success : function(data){
+    					if (data.status == 1){
+    						$('#success-alert').fadeIn()
+    						setTimeout(function(){
+    							window.location.href = "http://localhost/JWHelper/public/teacher/homework"
+    						},2000)
+    					}
+    					else
+    						$('#fail-alert').fadeIn()
+    				}
+          });
         });
     });
 </script>
@@ -50,14 +51,8 @@
 	    <th>结束时间</th>
 	    <th></th>
 	  </tr>
-
-	        <?php 
-	           //$lessons=[["1","大","7.1","7.2"],["2","小","7.5","7.6"]];
-	          $lessons = $result;
-	        ?>
-
-
-       @foreach ($lessons as $lesson)
+    @if(isset($result))
+       @foreach ($result as $lesson)
            <tr> 
            <td>{{  $lesson->lessonName }}</td>
            <td>{{  $lesson->thomeworkName }}</td>  
@@ -74,9 +69,10 @@
 			</td>    
            </tr>  
        @endforeach
+    @endif
 </table>
 </div>
-<button align="right" class="btn btn-default btn-md" data-toggle="modal" data-target="#modify-modal">布置作业</button>
+<button align="right" class="btn btn-success btn-md" data-toggle="modal" data-target="#modify-modal">布置作业</button>
 
 <div class="modal fade" id="modify-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -89,45 +85,54 @@
       	<div id="success-alert" class="col-md-12">
             <div class="alert alert-success alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              上传成功
+              发布成功
             </div>
         </div>
         <div id="fail-alert" class="col-md-12">
             <div class="alert alert-danger alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              上传失败
+              发布失败
             </div>
         </div>
     	<label for="workName">作业名称</label>
     	<input class="form-control" id="courseName"/>
-    	<label for="startTime">开始时间</label>
+    	<label for="startTime">开始日期</label>
     	<div class="input-append date form_datetime row">
-            <input size="16" type="text" data-format="yyyy-MM-dd hh-mm-ss" id="startTime" value="" readonly
+        <div class="col-md-9">
+            <input class="form-control" type="date" data-format="yyyy-MM-dd" id="startTime" value="" readonly
                    required>
-            <span class="add-on"><button id="date1_btn" class="btn btn-default btn-warning">选择时间
+        </div>
+        <div class="col-md-3">
+            <span class="add-on"><button id="date1_btn" class="btn btn-default btn-info">选择日期
             </button></span>
             <script type="text/javascript">
                 $(function () {
                     $('.date').datetimepicker({
-                        //pickTime: false
+                      maskInput: false
                     });
                 });
             </script>
         </div>
-    	<label for="endTime">结束时间</label>
+      </div>
+    	<label for="endTime">结束日期</label>
     	<div class="input-append date form_datetime row">
-            <input size="16" type="text" data-format="yyyy-MM-dd hh-mm-ss" id="endTime" value="" readonly
+        <div class="col-md-9">
+            <input class="form-control" type="date" data-format="yyyy-MM-dd" id="endTime" value="" readonly
                    required>
-            <span class="add-on"><button id="date2_btn" class="btn btn-default btn-warning">选择时间
+        </div>
+        <div class="col-md-3">
+            <span class="add-on"><button id="date2_btn" class="btn btn-default btn-info">选择日期
             </button></span>
             <script type="text/javascript">
                 $(function () {
                     $('.date').datetimepicker({
-                        //pickTime: false
+                      maskInput: false
                     });
                 });
             </script>
         </div>
+      </div>
+      <br />
         <select class="form-control" id="isGroup"/>
             <option value="1" selected>团队作业</option>
             <option value="0">个人作业</option>
@@ -136,8 +141,8 @@
     	<textarea class="form-control" id="basicInfo"></textarea>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" id="submit-change" class="btn btn-primary">保存更改</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+        <button type="button" id="submit-change" class="btn btn-success">保存更改</button>
       </div>
     </div>
   </div>

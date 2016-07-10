@@ -103,7 +103,7 @@ class THomeworkController extends Controller {
 		}
 
 		$result = ['title'=>'作业详情', 'username'=>session('username'), 'role'=>session('role'), 'thomework'=>$thomework, 'shomework'=>$shomework, 'group'=>$group];
-
+		
 		return view('view.teacher.thomework')->with($result);
 	}
 

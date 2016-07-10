@@ -33,7 +33,7 @@ class GroupController extends Controller {
 
 		$backPage = 'in';
 
-		$result = ['title'=>'已加入课程的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups, 'backPage'=>$backPage];
+		$result = ['title'=>'已加入的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups, 'backPage'=>$backPage];
 
 		return view('view.teacher.groupList')->with($result);
 	}
