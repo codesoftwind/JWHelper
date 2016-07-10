@@ -54,32 +54,50 @@ class ResourceController extends Controller {
 
 	public function resourceUpload(Request $request)
 	{
-		/*if(!Auth::check())
-			return redirect('login');*/
-         if($request->hasFile('resourceFile'))
-         	return 'yes';
-         else
-         	return 'no';
-		if(isset($request->resourceName))
-			return json_encode(['status'=>1]);
-		else
-			return json_encode(['status'=>0]);
+
+		if(!Auth::check())
+			return redirect('login');
+    
 		if($request->hasFile('resourceFile'))
 		{
-				return  json_encode(['status'=>1]);
+				
 			$file = $request->file('resourceFile');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=iconv('UTF-8', 'GBK', $clientName.md5(date('ymdhis')).".".$extension);
+			$string=md5(date('ymdhis'));
+			$newName=$string.iconv('UTF-8', 'GBK', $clientName);
+            
 			$newFilePath=$file->move(app_path().'/storage/resource',$newName);
 			DB::insert("insert into resources (teacherID,lessonID,catogoryID,
-				resourceName,resourcePath) values(?,?,?,?,?)",
+				resourceName,resourcePath,resourceInfo) values(?,?,?,?,?,?)",
 			[session('userID'),session('lessonID'),$request->resourceCategory,
-			$clientName,$newFilePath]);
-			return  json_encode(['status'=>1]);
+			$request->resourceName,"http://localhost/JWHelper/app/storage/resource/".$string.$clientName,$request->resourceInfo]);
+			
+			$teacher=session('userID');
+			$lesson=session('lessonID');
+			$list=array();
+			$catogory=DB::select("select catogoryID ,catogoryName from rcatogorys where teacherID =? and 
+			lessonID = ?",[$teacher,session('lessonID')]);
+		
+			foreach ($catogory as $data) {
+			
+			$id=$data->catogoryID;
+			$res=DB::select("select * from resources where teacherID =? and 
+			lessonID =? and catogoryID=?",[$teacher,$lesson,$id]);
+			$files=array();
+			foreach($res as $f)
+			{
+				$file=['name'=>$f->resourceName,'url'=>$f->resourcePath,'info'=>$f->resourceInfo];
+				array_push($files, $file);
+			}
+			array_push($list,['category'=>$data->catogoryName,'items'=>$files]);
+			}
+		
+			return view('view.teacher.resourcesList',['data'=>$list,'categories'=>$catogory,
+			    'username'=>session('username'),'role'=>session('role')]);
+
 	     }
-	     else
-	     	return json_encode(['status'=>0]);
+	     
 	 }
 
 	public function resourceDownload()
