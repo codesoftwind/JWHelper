@@ -13,8 +13,10 @@
     				dataType : 'json',
     				data : {
     					thomeworkName : $('#workName').val() ,
-    					startTime : $('#startTime').val() ,
-    					endTime : $('#endTime').val() ,
+    					startDate : $('#startDate').val() ,
+    					endDate : $('#endDate').val() ,
+              startTime : $('#startTime').val() ,
+              endTime : $('#endTime').val() ,
     					description : $('#basicInfo').val() ,
     					group : $('#isGroup').val()
     				},	
@@ -98,11 +100,11 @@
     	<label for="startTime">开始日期</label>
     	<div class="input-append date form_datetime row">
         <div class="col-md-9">
-            <input class="form-control" type="date" data-format="yyyy-MM-dd" id="startTime" value="" readonly
+            <input class="form-control" type="date" data-format="yyyy-MM-dd" id="startDate" value="" readonly
                    required>
         </div>
         <div class="col-md-3">
-            <span class="add-on"><button id="date1_btn" class="btn btn-default btn-info">选择日期
+            <span class="add-on"><button class="btn btn-default btn-info">选择日期
             </button></span>
             <script type="text/javascript">
                 $(function () {
@@ -113,19 +115,55 @@
             </script>
         </div>
       </div>
-    	<label for="endTime">结束日期</label>
-    	<div class="input-append date form_datetime row">
+      <label for="startTime">开始时间</label>
+      <div class="input-append time form_datetime row">
         <div class="col-md-9">
-            <input class="form-control" type="date" data-format="yyyy-MM-dd" id="endTime" value="" readonly
+            <input class="form-control" type="datetime" data-format="hh:mm:ss" id="startTime" value="" readonly
                    required>
         </div>
         <div class="col-md-3">
-            <span class="add-on"><button id="date2_btn" class="btn btn-default btn-info">选择日期
+            <span class="add-on"><button class="btn btn-warning">选择时间
+            </button></span>
+            <script type="text/javascript">
+                $(function () {
+                    $('.time').datetimepicker({
+                      pickDate: false
+                    });
+                });
+            </script>
+        </div>
+      </div>
+    	<label for="endTime">结束日期</label>
+    	<div class="input-append date form_datetime row">
+        <div class="col-md-9">
+            <input class="form-control" type="date" data-format="yyyy-MM-dd" id="endDate" value="" readonly
+                   required>
+        </div>
+        <div class="col-md-3">
+            <span class="add-on"><button class="btn btn-default btn-info">选择日期
             </button></span>
             <script type="text/javascript">
                 $(function () {
                     $('.date').datetimepicker({
                       maskInput: false
+                    });
+                });
+            </script>
+        </div>
+      </div>
+      <label for="endTime">结束时间</label>
+      <div class="input-append time form_datetime row">
+        <div class="col-md-9">
+            <input class="form-control" type="datetime" data-format="hh:mm:ss" id="endTime" value="" readonly
+                   required>
+        </div>
+        <div class="col-md-3">
+            <span class="add-on"><button class="btn btn-default btn-warning">选择时间
+            </button></span>
+            <script type="text/javascript">
+                $(function () {
+                    $('.time').datetimepicker({
+                      pickDate: false
                     });
                 });
             </script>
