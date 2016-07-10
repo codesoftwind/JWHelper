@@ -2,19 +2,8 @@
 
 @section('main_panel')
     @parent
-    <?php
-            $groupID = '1';
-            $groupName = '一颗赛艇';
-            $lessonList = [
-                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'time' => '2016-07-10 10:00:00'],
-                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'time' => '2016-07-10 10:00:00'],
-                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'time' => '2016-07-10 10:00:00'],
-                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'time' => '2016-07-10 10:00:00'],
-                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'time' => '2016-07-10 10:00:00'],
-            ];
-    ?>
     <h1 class="page-header">已选课程</h1>
-    <h2 class="sub-header"><small>团队名称: {{$groupName}}</small></h2>
+    <h2 class="sub-header" id="groupName" data-group-id="{{$groupID}}"><small>团队名称: {{$groupName}}</small></h2>
     <table class="table">
         <thead>
             <tr>

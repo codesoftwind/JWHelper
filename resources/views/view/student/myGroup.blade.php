@@ -48,12 +48,12 @@
 
             $(".apply-lesson").click(function () {
                 var groupID = $(this).data('groupId');
-                window.location.href = baseURL + '/applyLesson?groupID=' + groupID;
+                window.location.href = baseURL + '/toApplyLesson?groupID=' + groupID;
             });
 
             $(".lesson-list").click(function () {
                 var groupID = $(this).data('groupId');
-                window.location.href = baseURL + '/lessonList?groupID=' + groupID;
+                window.location.href = baseURL + '/groupLesson?groupID=' + groupID;
             });
 
             //To do 退出团队

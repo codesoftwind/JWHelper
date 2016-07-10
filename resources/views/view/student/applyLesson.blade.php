@@ -2,17 +2,6 @@
 
 @section('main_panel')
     @parent
-    <?php
-            $groupID = '1';
-            $groupName = '一颗赛艇';
-            $lessonList = [
-                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'status' => '0'],
-                ['lessonID' => '002', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'status' => '2'],
-                ['lessonID' => '003', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'status' => '1'],
-                ['lessonID' => '004', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'status' => '0'],
-                ['lessonID' => '005', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'status' => '1'],
-            ];
-    ?>
     <h1 class="page-header">申请课程</h1>
     <h2 class="sub-header" id="groupName" data-group-id="{{$groupID}}"><small>团队名称: {{$groupName}}</small></h2>
     <table class="table">
@@ -27,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($lessonList as $lesson)
+        @foreach($toApply as $lesson)
             <tr>
                 <th class="scope">{{$lesson['lessonID']}}</th>
                 <td>{{$lesson['lessonName']}}</td>
