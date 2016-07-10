@@ -12,8 +12,6 @@
 @section('main_panel')
 @parent
 
-
-
 @if($homework== null)
    <form>
     <h3>作业信息</h3>
@@ -96,7 +94,7 @@
                             <tr><td>&nbsp</td></tr>
                             <tr>
                                 <th width="100">已上交文件</th>
-                                <td><a href="{{ $homework[0]['attachment']}}">{{ $homework[0]->attachmentName}}</a></td>
+                                <td><a href="{{ $homework[0]->attachment}}">{{ $homework[0]->attachmentName}}</a></td>
                             </tr>
                             <tr><td>&nbsp</td></tr>
                         </table>
