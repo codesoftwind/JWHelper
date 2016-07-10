@@ -14,11 +14,17 @@
 
     <link href="{{asset('css/bootstrap-blue.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/layout.css')}}">
+    <!-- These js files MUST be referenced in the following order -->
     <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/jquery.ui.widget.js')}}"></script>
+    <script src="{{asset('js/jquery.iframe-transport.js')}}"></script>
+    <script src="{{asset('js/jquery.fileupload.js')}}"></script>
+
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/jquery.ajaxfileupload.js')}}"></script>
     <script src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('css/bootstrap-dialog.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/jquery.fileupload.css')}}">
+    <script src="{{asset('js/jquery.ui.widget.js')}}"></script>
     <link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.min.css')}}">
     <script src="{{asset('js/bootstrap-dialog.min.js')}}"></script>
     @yield('headjs')
