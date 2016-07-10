@@ -25,7 +25,8 @@
 			<td>
 			  <div class="btn-group" role="group" aria-label="...">
 				  <form action="http://localhost/JWHelper/public/teacher/group" method="post" enctype="multipart/form-data">
-				  <input type="hidden" name="thomeworkID" value="{{ $group->groupID }}">
+				  <input type="hidden" name="groupID" value="{{ $group->groupID }}">
+				  <input type='hidden' name='backPage' value="{{ $backPage}}">
 				  <button type="submit" class="btn btn-sm btn-primary" >查看详情</button>
 				  </form> 
 				</div>

@@ -90,7 +90,7 @@ $group = $group[0];
 
 <table align="center">
 <tr>
-@if($backPage=='io')
+@if($backPage == 'io')
   <td width="70">
       <button class="judge" value=1></button>
       <button class="groupID" value="{{ $group->groupID }}"></button>
