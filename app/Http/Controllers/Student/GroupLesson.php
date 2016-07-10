@@ -15,6 +15,7 @@ class GroupLesson extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 		$groupID=$request->groupID;
+		$groupName=DB::select("select * from groups where groupID =?",[$groupID])[0]->groupName;
 		$have=array();
         $choose=DB::select("select * from tsgroups where groupID =?",[$groupID]);
         foreach($choose as $c)
@@ -44,13 +45,14 @@ class GroupLesson extends Controller {
 				array_push($toApply,['lessonID'=>$data->lessonID,'semesterName'=>$semester->semesterYear." ".$semester->basicInfo,'teacherName'=>$teacherName,'lessonName'=>$data->lessonName
 					                 ,'status'=>2]);
 		}
-		return view('',['toApply'=>$toApply,'role'=>session('role'),'username'=>session('username')]);
+		return view('view.student.applyLesson',['groupID'=>$groupID,'groupName'=>$groupName,'toApply'=>$toApply,'role'=>session('role'),'username'=>session('username')]);
 
 	}
 
-	public  function groupLesson(Request $rqeuest)
+	public  function groupLesson(Request $request)
 	{
 		$groupID=$request->groupID;
+		$groupName=DB::select("select * from groups where groupID =?",[$groupID])[0]->groupName;
 		$res=DB::select("select * from tsgroups where groupID =?",[$groupID]);
 		$group=array();
 		foreach($res as $data)
@@ -58,9 +60,30 @@ class GroupLesson extends Controller {
 			$teacherName=DB::select("select * from teachers where teacherID=?",[$data->teacherID])[0]->teacherName;
             $lesson=DB::select("select * from lessons where lessonID =?",[$data->lessonID])[0];
 		    $semester=DB::select("select * from semesters where lessonID =?",[$lesson->semesterID])[0];
-		    array_push($group,['teacerName'=>$teacherName,'lessonName'=>$lesson->lessonName]);
+		    array_push($group,['teacerName'=>$teacherName,'lessonID'=>$data->lessonID,'semesterName'=>$semester->semesterYear." ".$semester->basicInfo,'lessonName'=>$lesson->lessonName]);
 		}
-		return view('',['groups'=>$group,'lessonID'=>$data->lessonID,'semesterName'=>$semester->semesterYear." ".$semester->basicInfo,'role'=>session('role'),'username'=>session('username')]);
+		return view('view.student.inLesson',['groups'=>$group,'groupID'=>$groupID,'groupName'=>$groupName,'role'=>session('role'),'username'=>session('username')]);
+	}
+
+	public function groupApplyLesson(Request $request)
+	{
+		if(!Auth::check())
+			return redirect('login');
+		$groupID=$request->groupID;
+		$groupName=DB::select("select * from groups where groupID =?",[$groupID])[0]->groupName;
+		$lessonID=$request->lessonID;
+		$teacherID=DB::select("select * from tlessons where lessonID =?",[$lessonID])[0]->teacherID;
+        $res=DB::select("select * from tschecks where groupID=? and lessonID=? and teacherID=?",
+        	            [$groupID,$lessonID,$teacherID]);
+        if(count($res)==0)
+        {
+        	DB::insert("insert into schecks groupID,groupName,teacherID,lessonID,status
+        	            values(?,?,?,?,?)",[$groupID,$groupName,$teacherID,$lessonID,0]);
+        }
+        else
+        	DB::update("update schecks set status =0 where groupID=? and lessonID=?",
+        		        [$groupID,$lessonID]);
+        return ['status'=>0];
 	}
 
 }

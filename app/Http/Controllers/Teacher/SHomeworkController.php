@@ -86,7 +86,7 @@ class SHomeworkController extends Controller {
 		if($success)
 			return response()->json(['status'=>1, 'descrip'=>'评分成功']);
 		else
-			return response()->json(['status'=>0, 'descrip'=>'评分失败，数据库操作失败']);
+			return response()->json(['status'=>0, 'descrip'=>$shomeworkID]);
 	}
 	
 
