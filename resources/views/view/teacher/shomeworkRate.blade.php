@@ -32,6 +32,9 @@ $shomework = $shomework[0];
 				}
         	});
         });
+        $('#return-btn').click(function(){
+        	window.location.href = "http://localhost/JWHelper/public/teacher/thomework"
+        })
     });
 </script>
 @endsection
@@ -132,7 +135,7 @@ $shomework = $shomework[0];
 
 @endif
     <div class="col-md-2">
-    <button  type="submit" class="btn btn-success">返回</button>
+    <button  type="submit" id="return-btn" class="btn btn-success">返回</button>
     </div>
 </div>
 
