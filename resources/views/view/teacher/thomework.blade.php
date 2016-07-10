@@ -5,17 +5,17 @@
 $(document).ready(function(){
   $('#progress-alert').hide()
   $('#success-alert').hide()
-  // $('#massDownload').click(function(){
-  //   $('#alert-info').text("开始下载……")
-  //   $('#progress-alert').fadeIn()
-  //   <?php foreach($attachments as $url){?>    
-  //   $.get("<?php echo $url?>", function(result){
-  //     $('#alert-info').text("<?php echo $url?>" + "下载完毕，准备下载下一附件")
-  //   })
-  //   <?php } ?>
-  //   $('#progress-alert').fadeOut()
-  //   $('#success-alert').fadeIn()
-  // })
+  $('#massDownload').click(function(){
+    $('#alert-info').text("开始下载……")
+    $('#progress-alert').fadeIn()
+    <?php foreach($attachments as $url){?>    
+    $.get("<?php echo $url?>", function(result){
+      $('#alert-info').text("<?php echo $url?>" + "下载完毕，准备下载下一附件")
+    })
+    <?php } ?>
+    $('#progress-alert').fadeOut()
+    $('#success-alert').fadeIn()
+  })
 });
 </script>
 @endsection
@@ -54,6 +54,9 @@ $(document).ready(function(){
 <div class="page-header">
   <h3>提交列表</h3>
 </div>
+
+@if ($thomework[0]->group)
+
 <div class="panel panel-primary">
   <div class="panel-heading">团队提交</div>
     <table class="table table-striped">
@@ -87,7 +90,9 @@ $(document).ready(function(){
        @endforeach
        </tbody>
     </table>
-</div>   
+</div>
+
+@else
 
 <div class="panel panel-primary">
   <div class="panel-heading">个人提交</div>
@@ -122,5 +127,6 @@ $(document).ready(function(){
        @endforeach
     </table>
 </div>
+@endif
 
 @endsection
