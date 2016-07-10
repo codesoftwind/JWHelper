@@ -8,11 +8,11 @@ $(document).ready(function(){
   $('#massDownload').click(function(){
     $('#alert-info').text("开始下载……")
     $('#progress-alert').fadeIn()
-    @foreach($attatchments as $url)
-    $.get("demo_ajax_load.txt", function(result){
-      $('#alert-info').text("{{ $url }}" + "下载完毕，准备下载下一附件")
+    <?php foreach($attachments as $url){?>    
+    $.get("<?php echo $url?>", function(result){
+      $('#alert-info').text("<?php echo $url?>" + "下载完毕，准备下载下一附件")
     })
-    @endforeach
+    <?php } ?>
     $('#progress-alert').fadeOut()
     $('#success-alert').fadeIn()
   })
