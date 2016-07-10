@@ -25,6 +25,11 @@
 </script>
 @endsection
 
+<?php
+$thomework = $thomework[0];
+$shomework = $shomework[0];
+?>
+
 @section('main_panel')
 
 <div class="page-header">
