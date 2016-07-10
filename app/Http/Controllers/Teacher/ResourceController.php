@@ -54,9 +54,12 @@ class ResourceController extends Controller {
 
 	public function resourceUpload(Request $request)
 	{
-		if(!Auth::check())
-			return redirect('login');
-     
+		/*if(!Auth::check())
+			return redirect('login');*/
+         if($request->hasFile('resourceFile'))
+         	return 'yes';
+         else
+         	return 'no';
 		if(isset($request->resourceName))
 			return json_encode(['status'=>1]);
 		else
