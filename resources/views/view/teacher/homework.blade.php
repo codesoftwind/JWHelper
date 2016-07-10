@@ -7,7 +7,6 @@
         $('#success-alert').hide()
         $('#fail-alert').hide()
         $('#submit-change').click(function(){
-          alert($('#isGroup').val())
         	$.ajax({
         		type : "POST" ,
     				url : "http://localhost/JWHelper/public/teacher/thomeworkPublish" ,
