@@ -25,6 +25,7 @@ class SHomeworkController extends Controller {
 		$tmpresult = DB::table('shomeworks')
 					->join('thomeworks', 'shomeworks.thomeworkID', '=', 'thomeworks.thomeworkID')
 					->select('thomeworks.thomeworkID', 'thomeworks.thomeworkName', 'thomeworks.group', 'thomeworks.description', 'thomeworks.startTime', 'thomeworks.endTime', 'shomeworks.content', 'shomeworks.attachment', 'shomeworks.attachmentName', 'shomeworks.grade', 'shomeworks.comment')
+					->where('shomeworks.shomeworkID', $shomeworkID)
 					->get();
 
 		$result = ['title'=>'作业', 'username'=>session('username'), 'role'=>session('role'), 'homework'=>$tmpresult];
