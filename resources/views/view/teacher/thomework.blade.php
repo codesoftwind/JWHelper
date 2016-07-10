@@ -6,14 +6,15 @@ $(document).ready(function(){
   $('#progress-alert').hide()
   $('#success-alert').hide()
   $('#massDownload').click(function(){
+    $('#alert-info').text("开始下载……")
     $('#progress-alert').fadeIn()
+    @foreach($attatchments as $url)
     $.get("demo_ajax_load.txt", function(result){
-      $('#progress-alert').fadeOut()
-      $('#success-alert').fadeIn()
-      setTimeout(function(){
-        $('#success-alert').fadeOut()
-      },2000)
+      $('#alert-info').text($url + "下载完毕，准备下载下一附件")
     })
+    @endforeach
+    $('#progress-alert').fadeOut()
+    $('#success-alert').fadeIn()
   })
 })
 </script>
@@ -37,7 +38,7 @@ $(document).ready(function(){
 <div id="progress-alert" class="col-md-12">
     <div class="alert alert-primary alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      下载中……
+      <p id="alert-info"></p>
     </div>
 </div>
 <div id="success-alert" class="col-md-12">
