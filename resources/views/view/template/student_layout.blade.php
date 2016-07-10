@@ -25,6 +25,7 @@
     <script>
         $(function () {
             $("#group").click(function () {
+                $(".nav-sidebar>li").removeClass("active");
                 $(this).addClass("active");
                 $("#myGroup").toggleClass("displayNone");
                 $("#inGroup").toggleClass("displayNone");
