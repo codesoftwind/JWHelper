@@ -12,7 +12,7 @@
     				url : "http://localhost/JWHelper/public/teacher/thomeworkPublish" ,
     				dataType : 'json',
     				data : {
-    					thomeworkName : $('#workName').val() ,
+    					thomeworkName : $('#courseName').val() ,
     					startDate : $('#startDate').val() ,
     					endDate : $('#endDate').val() ,
               startTime : $('#startTime').val() ,
@@ -24,7 +24,7 @@
     					if (data.status == 1){
     						$('#success-alert').fadeIn()
     						setTimeout(function(){
-    							window.location.href = "http://localhost/JWHelper/public/teacher/homework"
+    							window.location.href = "http://localhost/JWHelper/public/teacher/thomeworksList"
     						},2000)
     					}
     					else
@@ -95,7 +95,7 @@
               发布失败
             </div>
         </div>
-    	<label for="workName">作业名称</label>
+    	<label for="courseName">作业名称</label>
     	<input class="form-control" id="courseName"/>
     	<label for="startTime">开始日期</label>
     	<div class="input-append date form_datetime row">
