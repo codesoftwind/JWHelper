@@ -9,12 +9,13 @@
  <tr>
     <th>学号</th>
     <th>姓名</th>
+    <th>学院</th>
     <th></th>
     <th></th>
   </tr>
 
   			<?php 
-  				//$student=[["1", "Leo"], ["2", "Messi"]];
+  				//$student=[["1", "Leo","软件"], ["2", "Messi","物理"]];
   				$student = $result;
   				//$lesson['lessonName']ghghg
   			?>
@@ -23,7 +24,8 @@
 <tr> 
       <td>{{  $student->studentID }} </td>
 
-           <td>{{ $student->studentName }}</td>      
+           <td>{{ $student->studentName }}</td>   
+           <td>{{ $student->department }}</td>    
 <td>
   <div class="btn-group" role="group" aria-label="...">
   <button type="button" class="btn btn-primary" >修改</button>
