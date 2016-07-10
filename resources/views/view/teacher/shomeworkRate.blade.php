@@ -14,10 +14,10 @@
 				},	
 				success : function(data){
 					if (data.status == 1){
-						alert("提交成功")
+						alert(data.descrip)
 					}
 					else
-						alert("提交失败")
+						alert(data.descrip)
 				}
         	});
         });
