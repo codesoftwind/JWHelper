@@ -144,7 +144,10 @@ $shomework = $shomework[0];
 
 @endif
     <div class="col-md-2">
+    <form action="http://localhost/JWHelper/public/teacher/thomework" method="post">
+    <input type="hidden" name="thomeworkID" value={{ $thomework->thomeworkID }}>
     <button  type="submit" id="return-btn" class="btn btn-success">返回</button>
+    </form>
     </div>
 </div>
 
