@@ -92,3 +92,14 @@ Route::post('student/uploadShomework','Student\SHomeworkController@uploadShomewo
 Route::post('student/shomework', 'Student\SHomeworkController@shomework');
 Route::post('student/thomeworksList', 'Student\THomeworkController@thomeworksList');
 
+Route::get('student/applyCourse', function () {
+	return view('view.student.applyCourse');
+});
+
+Route::get('student/lessonResource', function () {
+	return view('view.student.lessonResource');
+});
+
+Route::get('student/lessonResourceList', function () {
+	return view('view.student.lessonResourceList');
+});

@@ -6,11 +6,11 @@
             $groupID = '1';
             $groupName = '一颗赛艇';
             $lessonList = [
-                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季'],
-                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季'],
-                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季'],
-                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季'],
-                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季'],
+                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'status' => '0'],
+                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'status' => '2'],
+                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'status' => '1'],
+                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'status' => '0'],
+                ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季', 'status' => '1'],
             ];
     ?>
     <h1 class="page-header">申请课程</h1>
@@ -22,6 +22,7 @@
                 <th style="color:#55595c;background-color:#eceeef">课程名称</th>
                 <th style="color:#55595c;background-color:#eceeef">授课教师</th>
                 <th style="color:#55595c;background-color:#eceeef">学期</th>
+                <th style="color:#55595c;background-color:#eceeef">申请状态</th>
                 <th style="color:#55595c;background-color:#eceeef"></th>
             </tr>
         </thead>
@@ -32,6 +33,13 @@
                 <td>{{$lesson['lessonName']}}</td>
                 <td>{{$lesson['teacherName']}}</td>
                 <td>{{$lesson['semester']}}</td>
+                <td>
+                    @if($lesson['status'] == 1)
+                        {{'已申请待审核'}}
+                    @elseif($lesson['status'] == 2)
+                        {{'审核未通过'}}
+                    @endif
+                </td>
                 <td><button class="btn btn-success">申请课程</button></td>
             </tr>
         @endforeach
