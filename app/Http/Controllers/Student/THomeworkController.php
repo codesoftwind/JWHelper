@@ -62,6 +62,8 @@ class THomeworkController extends Controller {
 			}
 		}
 
+
+
 		$result = ['title'=>'作业列表', 'username'=>session('username'), 'role'=>session('role'), 'thomeworks'=>$thomeworks, 'shomeworks'=>$shomeworks];
 
 		return view('view.student.teacherworks')->with($result);
