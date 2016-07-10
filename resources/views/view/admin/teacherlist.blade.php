@@ -9,12 +9,13 @@
  <tr>
     <th>职工号</th>
     <th>姓名</th>
+    <th>详细信息</th>
     <th></th>
     <th></th>
   </tr>
 
   			<?php 
-  				//$teacher=[["1", "Leo"], ["2", "Messi"]];
+  				//$teacher=[["1", "Leo","sdad"], ["2", "Messi","qeweq"]];
   				$teacher = $result;
   				//$lesson['lessonName']ghghg
   			?>
@@ -23,7 +24,8 @@
 <tr> 
       <td>{{  $teacher->teacherID }} </td>
 
-           <td>{{ $teacher->teacherName }}</td>      
+           <td>{{ $teacher->teacherName }}</td>    
+           <td>{{ $teacher->basicinfo }}</td>    
 <td>
   <div class="btn-group" role="group" aria-label="...">
   <button type="button" class="btn btn-primary" >修改</button>
@@ -42,4 +44,14 @@
 </table>
 </div>
 
+@endsection
+
+@section('bodyJS')
+    @parent
+    <script>
+        $(function () {
+            $(".nav-sidebar>li").removeClass('active');
+            $("#teacherList").addClass('active');
+        });
+    </script>
 @endsection

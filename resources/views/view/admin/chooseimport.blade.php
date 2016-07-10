@@ -25,3 +25,12 @@
 
 @endsection
 
+@section('bodyJS')
+    @parent
+    <script>
+        $(function () {
+            $(".nav-sidebar>li").removeClass('active');
+            $("#importSelect").addClass('active');
+        });
+    </script>
+@endsection

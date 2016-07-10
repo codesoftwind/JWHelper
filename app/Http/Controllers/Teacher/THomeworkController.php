@@ -48,9 +48,14 @@ class THomeworkController extends Controller {
 		$lessonID = session('lessonID');
 		$thomeworkName = $request->get('thomeworkName');
 		$description = $request->get('description');
+		$startDate = $request->get('startDate');
 		$startTime = $request->get('startTime');
+		$endDate = $request->get('endDate');
 		$endTime = $request->get('endTime');
-		$group = $request->get('group');
+		$group = (int)$request->get('group');
+
+		$startTime = strtotime($startDate+' '+$startTime);
+		$endTime = strtotime($endDate+' '+$endTime);
 
 		$success = DB::table('thomeworks')->insert(
 			array('teacherID'=>$teacherID, 'lessonID'=>$lessonID, 'thomeworkName'=>$thomeworkName, 'description'=>$description,
@@ -103,7 +108,7 @@ class THomeworkController extends Controller {
 		}
 
 		$result = ['title'=>'作业详情', 'username'=>session('username'), 'role'=>session('role'), 'thomework'=>$thomework, 'shomework'=>$shomework, 'group'=>$group];
-
+		
 		return view('view.teacher.thomework')->with($result);
 	}
 

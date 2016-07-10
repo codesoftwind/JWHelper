@@ -25,3 +25,12 @@
         </table>
 
 @endsection
+
+@section('bodyJS')
+    @parent
+    <script>
+        // 更改sidebar的样式, 使当前页面显示为active
+        $("#lessonList").addClass("active");
+
+    </script>
+@endsection

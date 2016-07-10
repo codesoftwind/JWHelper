@@ -57,7 +57,7 @@ class SHomeworkController extends Controller {
 
 		$result = ['title'=>'学生作业', 'username'=>session('username'), 'role'=>session('role'), 'group'=>$group, '$shomework'=>$shomework, 'thomework'=>$thomework];
 	
-		return view()->with($result);
+		return view('view.teacher.shomeworkRate')->with($result);
 	}
 
 

@@ -33,6 +33,10 @@
     @parent
     <script>
         var baseURL = 'http://localhost/JWHelper/public/student';
+
+        // 更改sidebar的样式, 使当前页面显示为active
+        $("#myGroup").addClass("active");
+
         $(function () {
              $(".agree").click(function () {
                  var url = baseURL + '/check';
