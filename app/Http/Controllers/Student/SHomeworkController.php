@@ -20,14 +20,28 @@ class SHomeworkController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
-		$shomeworkID = $request->get('shomeworkID');
+		$thomeworkID = $request->get('thomeworkID');
 		$flag = $request->get('flag');
+		
+		if(null != ($request->get('shomeworkID')))
+		{
+			$shomeworkID = $request->get('shomeworkID');
 
-		$tmpresult = DB::table('shomeworks')
+			$tmpresult = DB::table('shomeworks')
 					->join('thomeworks', 'shomeworks.thomeworkID', '=', 'thomeworks.thomeworkID')
 					->select('thomeworks.teacherID', 'thomeworks.lessonID', 'thomeworks.thomeworkID', 'thomeworks.thomeworkName', 'thomeworks.group', 'thomeworks.description', 'thomeworks.startTime', 'thomeworks.endTime', 'shomeworks.content', 'shomeworks.attachment', 'shomeworks.attachmentName', 'shomeworks.grade', 'shomeworks.comment')
 					->where('shomeworks.shomeworkID', $shomeworkID)
 					->get();
+		}
+		elseif(null != ($request->get('thomeworkID')))
+		{
+			$thomeworkID = $request->get('thomeworkID');
+
+			$tmpresult = DB::table('thomeworks')
+					->select('thomeworks.teacherID', 'thomeworks.lessonID', 'thomeworks.thomeworkID', 'thomeworks.thomeworkName', 'thomeworks.group', 'thomeworks.description', 'thomeworks.startTime', 'thomeworks.endTime')
+					->where('thomeworks.thomeworkID', $thomeworkID)
+					->get();
+		}		
 
 		$result = ['title'=>'作业', 'username'=>session('username'), 'role'=>session('role'), 'homework'=>$tmpresult];
 
