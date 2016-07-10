@@ -47,7 +47,7 @@ class ResourceController extends Controller {
 		$lessonID = $request->lessonID;
 		$teacherName=$request->teacherName;
 		$teacherID=$request->teacherID;
-		$res=DB:select("select * from resources where teacherID =? and lessonID=?",
+		$res=DB::select("select * from resources where teacherID =? and lessonID=?",
 			           [$teacherID,$lessonID]);
 		$resourcesList=array();
 		foreach($res as $data)
