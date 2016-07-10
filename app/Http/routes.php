@@ -72,8 +72,6 @@ Route::get('teacher/groupsOutList', 'Teacher\GroupController@groupsOutList');
 Route::post('teacher/group', 'Teacher\GroupController@group');
 Route::post('teacher/backPage', 'Teacher\GroupController@backPage');
 
-
-
 //学生路由
 Route::get('student/index', 'Student\IndexController@index');
 Route::get('student/lessonsList', 'Student\LessonController@lessonsList');
@@ -85,13 +83,10 @@ Route::get('student/resource','Student\ResourceController@resource');
 Route::get('student/resourcesList','Student\ResourceController@resourcesList');
 Route::get('student/toApplyLesson','Student\GroupLesson@toApplyLesson');
 Route::get('student/groupLesson','Student\GroupLesson@groupLesson');
-
 Route::post('student/apply', 'Student\GroupController@apply');
 Route::post('student/check', 'Student\GroupController@check');
 Route::post('student/groupForm', 'Student\GroupController@groupForm');
 Route::post('student/groupApplyLesson','Student\GroupLesson@groupApplyLesson');
-
-
 Route::post('student/uploadShomework','Student\SHomeworkController@uploadShomework');
 Route::post('student/shomework', 'Student\SHomeworkController@shomework');
 Route::post('student/thomeworksList', 'Student\THomeworkController@thomeworksList');
