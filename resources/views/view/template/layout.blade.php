@@ -12,12 +12,14 @@
 
     <title>JWHelper - {{ $title or "undefined" }}</title>
 
-    <link href="{{asset('css/bootstrap-light-blue.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap-blue.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/layout.css')}}">
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/jquery.ajaxfileupload.js')}}"></script>
+    <script src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('css/bootstrap-dialog.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.min.css')}}">
     <script src="{{asset('js/bootstrap-dialog.min.js')}}"></script>
     @yield('headjs')
   </head>
@@ -65,7 +67,7 @@
 
   <footer class="footer navbar-fixed-bottom navbar-default">
       <div class="container">
-        <p class="text-muted" align="center" style="margin: 10px 0;">JWHelper v1.0 &copy; 2016 All Rights Reserved.</p>
+        <p align="center" style="margin: 10px 0;">JWHelper v1.0 &copy; 2016 All Rights Reserved.</p>
       </div>
   </footer>
 </html>

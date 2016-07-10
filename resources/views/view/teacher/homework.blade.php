@@ -1,5 +1,38 @@
 @extends('view.template.teacher_layout')
 
+@section('headjs')
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$('#hospital').addClass('active');
+        $('#success-alert').hide()
+        $('#fail-alert').hide()
+        $('#submit-change').click(function(){
+        	$.ajax({
+        		type : "POST" ,
+				url : "http://localhost/JWHelper/public/teacher/thomeworkPublish" ,
+				dataType : 'json',
+				data : {
+					thomeworkName : $('#workName').val() ,
+					startTime : $('#startTime').val() ,
+					endTime : $('#endTime').val() ,
+					description : $('#basicInfo').val() ,
+					group : $('#isGroup').val()
+				},	
+				success : function(data){
+					if (data.status == 1){
+						$('#success-alert').fadeIn()
+						setTimeout(function(){
+							window.location.href = "http://localhost/JWHelper/public/teacher/homework"
+						},2000)
+					}
+					else
+						$('#fail-alert').fadeIn()
+				}
+        	});
+        });
+    });
+</script>
+@endsection
 
 @section('main_panel')
 
@@ -31,44 +64,83 @@
            <td>{{  $lesson->startTime }}</td> 
            <td>{{  $lesson->endTime }}</td> 
 
-<td>
-  <div class="btn-group" role="group" aria-label="...">
-  <form action="http://localhost/JWHelper/public/teacher/thomework" method="post" enctype="multipart/form-data">
-  <input type="hidden" name="thomeworkID" value="{{ $lesson->thomeworkID }}">
-  <button type="submit" class="btn btn-primary" >查看详情</button>
-  </form> 
-</div>
-</td>    
+			<td>
+			  <div class="btn-group" role="group" aria-label="...">
+				  <form action="http://localhost/JWHelper/public/teacher/thomework" method="post" enctype="multipart/form-data">
+				  <input type="hidden" name="thomeworkID" value="{{ $lesson->thomeworkID }}">
+				  <button type="submit" class="btn btn-sm btn-primary" >查看详情</button>
+				  </form> 
+				</div>
+			</td>    
            </tr>  
        @endforeach
 </table>
 </div>
 <button align="right" class="btn btn-default btn-md" data-toggle="modal" data-target="#modify-modal">布置作业</button>
 
-	<div class="modal fade" id="modify-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-	        <h4 class="modal-title" id="myModalLabel">作业信息</h4>
-	      </div>
-	      <div class="modal-body">
-	        	<label for="courseName">课程名称</label>
-	        	<input class="form-control" id="semesterYear"/>
-	        	<label for="startTime">开始时间</label>
-	        	<input class="form-control" id="semesterWeek"/>
-	        	<label for="endTime">结束时间</label>
-	        	<input class="form-control" id="semesterWeek"/>
-	        	<label for="basicInfo">基本信息</label>
-	        	<textarea class="form-control" id="basicInfo"></textarea>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-	        <button type="button" id="submit-change" class="btn btn-primary">保存更改</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+<div class="modal fade" id="modify-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">作业信息</h4>
+      </div>
+      <div class="modal-body">
+      	<div id="success-alert" class="col-md-12">
+            <div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              上传成功
+            </div>
+        </div>
+        <div id="fail-alert" class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              上传失败
+            </div>
+        </div>
+    	<label for="workName">作业名称</label>
+    	<input class="form-control" id="courseName"/>
+    	<label for="startTime">开始时间</label>
+    	<div class="input-append date form_datetime row">
+            <input size="16" type="text" data-format="yyyy-MM-dd hh-mm-ss" id="startTime" value="" readonly
+                   required>
+            <span class="add-on"><button id="date1_btn" class="btn btn-default btn-warning">选择时间
+            </button></span>
+            <script type="text/javascript">
+                $(function () {
+                    $('.date').datetimepicker({
+                        //pickTime: false
+                    });
+                });
+            </script>
+        </div>
+    	<label for="endTime">结束时间</label>
+    	<div class="input-append date form_datetime row">
+            <input size="16" type="text" data-format="yyyy-MM-dd hh-mm-ss" id="endTime" value="" readonly
+                   required>
+            <span class="add-on"><button id="date2_btn" class="btn btn-default btn-warning">选择时间
+            </button></span>
+            <script type="text/javascript">
+                $(function () {
+                    $('.date').datetimepicker({
+                        //pickTime: false
+                    });
+                });
+            </script>
+        </div>
+        <select class="form-control" id="isGroup"/>
+            <option value="1" selected>团队作业</option>
+            <option value="0">个人作业</option>
+        </select>
+    	<label for="basicInfo">基本信息</label>
+    	<textarea class="form-control" id="basicInfo"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" id="submit-change" class="btn btn-primary">保存更改</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 @endsection
