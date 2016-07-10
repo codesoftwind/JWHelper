@@ -26,6 +26,8 @@
                         {{'已申请待审核'}}
                     @elseif ($group['status'] == 2)
                         {{'审核未通过'}}
+                    @elseif ($group['status'] == 0)
+                        {{'可申请'}}
                     @endif
                 </th>
                 <th><button class="btn btn-primary apply" data-group-id="{{$group['apply']->groupID}}">申请加入</button></th>
