@@ -7,7 +7,6 @@
         $('#success-alert').hide()
         $('#fail-alert').hide()
         $('#submit-change').click(function(){
-          alert($('#basicInfo').val())
         	$.ajax({
         		type : "POST" ,
     				url : "http://localhost/JWHelper/public/teacher/thomeworkPublish" ,
@@ -25,7 +24,7 @@
     					if (data.status == 1){
     						$('#success-alert').fadeIn()
     						setTimeout(function(){
-    							window.location.href = "http://localhost/JWHelper/public/teacher/homework"
+    							window.location.href = "http://localhost/JWHelper/public/teacher/thomeworksList"
     						},2000)
     					}
     					else
