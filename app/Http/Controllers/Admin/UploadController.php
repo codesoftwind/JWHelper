@@ -19,7 +19,8 @@ class UploadController extends Controller {
 			$file = $request->file('teacher');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=md5(date('ymdhis')).$clientName.".".$extension;
+
+			$newName=iconv('UTF-8', 'GBK', md5(date('ymdhis')).$clientName.".".$extension);
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();
 			foreach ($result as $rows) {
@@ -51,7 +52,7 @@ class UploadController extends Controller {
 			$file = $request->file('student');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=md5(date('ymdhis')).$clientName.".".$extension;
+		    $newName=iconv('UTF-8', 'GBK', md5(date('ymdhis')).$clientName.".".$extension);
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();
@@ -85,7 +86,7 @@ class UploadController extends Controller {
 			$file = $request->file('teach');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=md5(date('ymdhis')).$clientName.".".$extension;
+			$newName=iconv('UTF-8', 'GBK', md5(date('ymdhis')).$clientName.".".$extension);
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();
@@ -120,7 +121,7 @@ class UploadController extends Controller {
 			$file = $request->file('choose');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=md5(date('ymdhis')).$clientName.".".$extension;
+			$newName=iconv('UTF-8', 'GBK', md5(date('ymdhis')).$clientName.".".$extension);
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();
@@ -151,7 +152,7 @@ class UploadController extends Controller {
 			$file = $request->file('lesson');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=md5(date('ymdhis')).$clientName.".".$extension;
+			$newName=iconv('UTF-8', 'GBK', md5(date('ymdhis')).$clientName.".".$extension);
 			
 			$newFilePath=$file->move(app_path().'/storage/excel',$newName);
 			$result=Excel::load($newFilePath)->get();

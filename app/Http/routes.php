@@ -70,8 +70,6 @@ Route::get('teacher/groupsInList', 'Teacher\GroupController@groupsInList');
 Route::get('teacher/groupsIOList', 'Teacher\GroupController@groupsIOList');
 Route::get('teacher/groupsOutList', 'Teacher\GroupController@groupsOutList');
 Route::post('teacher/group', 'Teacher\GroupController@group');
-Route::post('teacher/backPage', 'Teacher\GroupController@backPage');
-
 
 
 //学生路由

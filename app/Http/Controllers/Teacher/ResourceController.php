@@ -67,7 +67,7 @@ class ResourceController extends Controller {
 			$file = $request->file('resourceFile');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=$clientName.md5(date('ymdhis')).".".$extension;
+			$newName=iconv('UTF-8', 'GBK', $clientName.md5(date('ymdhis')).".".$extension);
 			$newFilePath=$file->move(app_path().'/storage/resource',$newName);
 			DB::insert("insert into resources (teacherID,lessonID,catogoryID,
 				resourceName,resourcePath) values(?,?,?,?,?)",
