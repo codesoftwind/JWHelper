@@ -1,14 +1,6 @@
 @extends('view.template.student_layout')
 
 @section('main_panel')
-    <?php
-        $lessonList = [
-                ['lessonID' => '001', 'lessonName' => 'C++高级程序', 'teacherName' => '林广艳', 'semester' => '2016春季'],
-                ['lessonID' => '001', 'lessonName' => 'C++高级程序', 'teacherName' => '林广艳', 'semester' => '2016春季'],
-                ['lessonID' => '001', 'lessonName' => 'C++高级程序', 'teacherName' => '林广艳', 'semester' => '2016春季'],
-                ['lessonID' => '001', 'lessonName' => 'C++高级程序', 'teacherName' => '林广艳', 'semester' => '2016春季'],
-        ];
-    ?>
     @parent
     <h1 class="page-header">课程作业</h1>
     <table class="table">
@@ -42,7 +34,7 @@
             $("#homework").addClass("active");
 
             //To do
-            $(".lessonResource").click(function () {
+            $(".lessonHomework").click(function () {
                 var lessonID = $(this).data('lessonId');
                 var teacherID = $(this).data('teacherId');
                 location.href = baseURL + '/thomeworksList?lessonID=' + lessonID + '&teacherID=' + teacherID;
