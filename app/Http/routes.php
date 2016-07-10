@@ -85,6 +85,7 @@ Route::get('student/homeworkInfo',function ()
 Route::post('student/apply', 'Student\GroupController@apply');
 Route::post('student/check', 'Student\GroupController@check');
 Route::post('student/groupForm', 'Student\GroupController@groupForm');
+Route::post('student/groupApplyLesson','Student\GroupLesson@groupApplyLesson');
 
 
 Route::post('student/uploadShomework','Student\SHomeworkController@uploadShomework');
