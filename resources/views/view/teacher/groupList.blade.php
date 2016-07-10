@@ -2,21 +2,34 @@
 
 
 @section('main_panel')
-<div class="row" style="background-color:#E7E8ED">
- 	<div class="col-md-4 text-center" style='font-weight: bold;font-size:1.5em;'>团队名称</div>
- 	<div class="col-md-4 text-center" style='font-weight: bold;font-size:1.5em'>团队负责人</div>
+<div class="page-header">
+  <h3>团队</h3>
 </div>
-@foreach($groups as $group)
-<div class="row">
-	<div class="col-md-4 text-center" style='font-size:1.0em;padding-top: 1em;word-wrap:break-word'>{{$group->groupName}}</div>
-  	<div class="col-md-4 text-center" style='font-size:1.0em;padding-top: 1em;word-wrap:break-word'>{{$group->headName}}</div>
- 	<div class="col-md-4 " style='font-size:1.0em;padding:0.5em'>
- 		<form action='http://localhost/JWHelper/public/teacher/group', method="post", enctype="multipart/form-data">
-  			<input type="hidden" name="groupID", value="{{ $group->groupID}}">
-  			<input type="hidden" name="backPage", value="{{ $backPage}}">
-  			<button type="submit" class="btn btn-primary" id="submit-change" >查看</button>
-  		</form>
- 	</div>
-</div>
-@endforeach
+<div class="panel panel-primary">
+	<!-- Default panel contents -->
+	<div class="panel-heading">$title</div>
+	<table class="table table-striped">
+	 <tr>
+	    <th>团队名称</th>
+	    <th>团队负责人</th>
+	    <th></th>
+	  </tr>
+
+
+
+       @foreach ($groups as $group)
+           <tr> 
+           <td>{{  $group->groupName }}</td>
+           <td>{{  $group->headName }}</td>  
+
+			<td>
+			  <div class="btn-group" role="group" aria-label="...">
+				  <form action="http://localhost/JWHelper/public/teacher/thomework" method="post" enctype="multipart/form-data">
+				  <input type="hidden" name="thomeworkID" value="{{ $thomework->thomeworkID }}">
+				  <button type="submit" class="btn btn-sm btn-primary" >查看详情</button>
+				  </form> 
+				</div>
+			</td>    
+           </tr>  
+       @endforeach
 @endsection

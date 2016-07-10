@@ -21,9 +21,9 @@ class GroupController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
-		$lessonID = session('lessonID');
 		$teacherID = session('userID');
-
+		$lessonID = session('lessonID');
+		
 		$groups = DB::table('tsgroups')
 						->join('groups', 'groups.groupID', '=', 'tsgroups.groupID')
 						->select('tsgroups.lessonID', 'groups.groupID', 'groups.groupName', 'groups.headID', 'groups.headName')
@@ -33,7 +33,7 @@ class GroupController extends Controller {
 
 		$backPage = 'in';
 
-		$result = ['title'=>'已加入课程的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups, 'backPage'=>$backPage];
+		$result = ['title'=>'已加入的团队', 'username'=>session('username'), 'role'=>session('role'), 'groups'=>$groups, 'backPage'=>$backPage];
 
 		return view('view.teacher.groupList')->with($result);
 	}
@@ -52,7 +52,7 @@ class GroupController extends Controller {
 
 		$groups = DB::table('tschecks')
 						->join('groups', 'tschecks.groupID', '=', 'groups.groupID')
-						->select('tschecks.lessonID', 'groups.groupID', 'groups.groupName', 'groups.headID', 'groups.groupName')
+						->select('tschecks.lessonID', 'groups.groupID', 'groups.groupName', 'groups.headID', 'groups.headName')
 						->where('tschecks.teacherID', $teacherID)
 						->where('tschecks.lessonID', $lessonID)
 						->where('status', 0)
@@ -74,15 +74,15 @@ class GroupController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
-		$teacherID = session('username');
+		$teacherID = session('userID');
 		$lessonID = session('lessonID');
 
 		$groups = DB::table('tschecks')
 						->join('groups', 'tschecks.groupID', '=', 'groups.groupID')
-						->select('tschecks.lessonID', 'groups.groupID', 'groups.groupName', 'groups.headID', 'groups.groupName')
+						->select('tschecks.lessonID', 'groups.groupID', 'groups.groupName', 'groups.headID', 'groups.headName')
 						->where('tschecks.teacherID', $teacherID)
 						->where('tschecks.lessonID', $lessonID)
-						->where('status', 1)
+						->where('tschecks.status', 1)
 						->get();
 
 		$backPage = 'out';
@@ -103,19 +103,23 @@ class GroupController extends Controller {
 
 		$groupID = $request->get('groupID');
 		//backPage和lessonID用于返回按钮
-		//$backPage = $request->get('backPage');
-		$backPage = 'in';
+		$backPage = $request->get('backPage');
 		$lessonID = session('lessonID');
 
 		$group = DB::table('groups')
+					->select('groupName', 'groupID', 'headID', 'headName')
+					->where('groupID', $groupID)
+					->get();
+
+		$groupMembers = DB::table('groups')
 					->join('sgroups', 'groups.groupID', '=', 'sgroups.groupID')
 					->join('students', 'sgroups.studentID', '=', 'students.studentID')
 					->select('students.studentID', 'students.studentName')
 					->where('groups.groupID', $groupID)
 					->get();
 
-		$result = ['title'=>'团队详情', 'username'=>session('username'), 'role'=>session('role'), 'group'=>$group, 'lessonID'=>$lessonID, 'backPage'=>$backPage]; 
-		
+		$result = ['title'=>'团队详情', 'username'=>session('username'), 'role'=>session('role'), 'group'=>$group, 'groupMembers'=>$groupMembers, 'backPage'=>$backPage]; 
+
 		return view('view.teacher.groupcheck')->with($result);
 	}
 
@@ -128,16 +132,16 @@ class GroupController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
-		$lessonID = $request->get('lessonID');
+		$lessonID = session('lessonID');
 		$teacherID = session('userID');
 		$backPage = $request->get('backPage');
 
 		if($backPage == 'in') //返回已经在课程中的团队列表
-			return redirect('teacher/groupsInList')->with(['lessonID'=>$lessonID]);
+			return redirect('teacher/groupsInList');
 		elseif ($backPage == 'io') //返回待审核团队列表
-			return redirect('teacher/groupsIOList')->with(['lessonID'=>$lessonID]);
+			return redirect('teacher/groupsIOList');
 		elseif ($backPage == 'out') //返回审核被拒的团队列表
-			return redirect('teacher/groupsOutList')->with(['lessonID'=>$lessonID]);
+			return redirect('teacher/groupsOutList');
 	}
 
 
@@ -151,9 +155,9 @@ class GroupController extends Controller {
 			return redirect('login');
 
 		$teacherID = session('userID');
-		$lessonID = $request->get('lessonID');
-		$groupID = $request->get('groupID');
-		$judge = $request->get('judge');
+		$lessonID = session('lessonID');
+		$groupID = (int)$request->get('groupID');
+		$judge = (int)$request->get('judge');
 
 		//说明老师拒绝了该团队加入课程的申请
 		if($judge == 0)
@@ -176,9 +180,12 @@ class GroupController extends Controller {
 		$tmpdata = DB::table('tsgroups')
 							->join('sgroups', 'tsgroups.groupID', '=', 'sgroups.groupID')
 							->select('sgroups.studentID')
+							->where('tsgroups.teacherID', $teacherID)
+							->where('tsgroups.lessonID', $lessonID)
 							->get();
+
 		$inID = array();
-		foreach ($tmpdata as $data) 
+		foreach($tmpdata as $data) 
 		{
 			$inID[] = $data->studentID;
 		}

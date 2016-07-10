@@ -70,9 +70,6 @@ Route::get('teacher/groupsInList', 'Teacher\GroupController@groupsInList');
 Route::get('teacher/groupsIOList', 'Teacher\GroupController@groupsIOList');
 Route::get('teacher/groupsOutList', 'Teacher\GroupController@groupsOutList');
 Route::post('teacher/group', 'Teacher\GroupController@group');
-Route::get('teacher/homework',function(){
-	return view('view.teacher.homework');
-});
 
 
 
