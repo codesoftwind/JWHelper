@@ -79,7 +79,7 @@ $group = $group[0];
   <tr>
     <th width="100">团队组员</th>
     <td>
-    @foreach ($group->groupMembers as $member)
+    @foreach ($groupMembers as $member)
     {{ $member->studentID }}-{{ $member->studentName }}&nbsp;&nbsp;
     @endforeach
     </td>
