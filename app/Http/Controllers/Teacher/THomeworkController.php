@@ -92,7 +92,7 @@ class THomeworkController extends Controller {
 		{
 			$shomework = DB::table('shomeworks')
 									->join('groups', 'groups.groupID', '=', 'shomeworks.groupID')
-									->select('shomeworks.grade', 'shomeworks.shomeworkID', 'groups.groupName', 'groups.headID', 'groups.headName')
+									->select('shomeworks.grade', 'shomeworks.shomeworkID', 'shomeworks.attachment', 'groups.groupName', 'groups.headID', 'groups.headName')
 									->where('shomeworks.thomeworkID', $thomeworkID)
 									->get();
 
@@ -102,14 +102,21 @@ class THomeworkController extends Controller {
 		{
 			$shomework = DB::table('shomeworks')
 									->join('students', 'students.studentID', '=', 'shomeworks.studentID')
-									->select('shomeworks.grade', 'shomeworks.shomeworkID', 'students.studentID', 'students.studentName')
+									->select('shomeworks.grade', 'shomeworks.shomeworkID', 'shomeworks.attachment', 'students.studentID', 'students.studentName')
 									->where('shomeworks.thomeworkID', $thomeworkID)
 									->get();
 
 			$group = false;
 		}
 
-		$result = ['title'=>'作业详情', 'username'=>session('username'), 'role'=>session('role'), 'thomework'=>$thomework, 'shomework'=>$shomework, 'group'=>$group];
+		$attachments = array();
+
+		foreach ($shomework as $tmp) 
+		{
+			array_push($attachments, $tmp->attachment);
+		}
+
+		$result = ['title'=>'作业详情', 'username'=>session('username'), 'role'=>session('role'), 'thomework'=>$thomework, 'shomework'=>$shomework, 'group'=>$group, 'attachments'=>$attachments];
 		
 		return view('view.teacher.thomework')->with($result);
 	}
