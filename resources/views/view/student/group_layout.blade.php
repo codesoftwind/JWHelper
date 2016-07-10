@@ -29,6 +29,8 @@
         $(function() {
 
             var baseURL = 'http://localhost/JWHelper/public/student';
+            // 更改sidebar的样式, 使当前页面显示为active
+            $("#group").addClass("active");
             // 显示团队列表下的标签
             $("#myGroup").removeClass("displayNone");
             $("#inGroup").removeClass("displayNone");

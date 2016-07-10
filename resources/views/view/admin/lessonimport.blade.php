@@ -23,3 +23,13 @@
 </form>
 
 @endsection
+
+@section('bodyJS')
+    @parent
+    <script>
+        $(function () {
+            $(".nav-sidebar>li").removeClass('active');
+            $("#importCourse").addClass('active');
+        });
+    </script>
+@endsection
