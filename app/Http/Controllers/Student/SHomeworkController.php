@@ -32,5 +32,131 @@ class SHomeworkController extends Controller {
 
 		return view()->with($result);
  	}
+ 	public function uploadShomework(Request $request)
+ 	{
+ 		if(!Auth::check())
+ 			return redirect('login');
+ 		$studentID=$request->studentID;
+ 		$thomeworkID=$request->thomeworkID;
+ 		$res=DB::select("select * from thomeworks where thomeworkID=?",[$thomeworkID])[0];
+        $semesterID=$res->semesterID;
+        $group=$res->group;
+        $lessonID=$res->lessonID;
+        $isContent=0;
+        $isFile=0;
+        if (!isset($request->content)&&!empty($request->content)) {
+        	$isContent=1;
+        }
+        if($request->hasFile('filename'))
+        	$isFile=1;
+
+        if($group==1)
+        {
+        	$groupID=$request->groupID;
+        	if($isContent==1)
+        	{
+        		$pan=DB::select("select * from shomeworks where thomeworkID=? and $groupID=?",
+        			      [$thomeworkID,$groupID]);
+        		if(count($pan)==0)
+        		{
+        			DB::insert("insert into shomeworks 
+        			(thomeworkID,group,groupID,studentID,lessonID,semesterID,content) values(?,?,?,?,?,?,?)",
+        			[$thomeworkID,$group,$groupID,$studentID,$lessonID,$semesterID,$request->content]);
+        		}
+        		else
+        		{
+        			DB::update("update set content =? where thomeworkID=? and $groupID=?",
+        			[$request->content,$thomeworkID,$groupID]);
+        		}
+        	}
+        	if($isFile==1)
+        	{
+        		$pan=DB::select("select * from shomeworks where thomeworkID=? and $groupID=?",
+        			      [$thomeworkID,$groupID]);
+        		if(count($pan)==0)
+        		{
+        			$file = $request->file('filename');
+					$clientName=$file->getClientOriginalName();
+					$extension=$file->getClientOriginalExtension();
+					$string=md5(date('ymdhis'));
+					$newName=$string.iconv('UTF-8', 'GBK', $clientName);
+                    $filePath="http://localhost/JWHelper/app/storage/homework/".$string.$clientName;
+					$newFilePath=$file->move(app_path().'/storage/homework',$newName);
+        			DB::insert("insert into shomeworks 
+        			(thomeworkID,group,groupID,studentID,lessonID,semesterID,attachment,attachmentName) values(?,?,?,?,?,?,?,?)",
+        			[$thomeworkID,$group,$groupID,$studentID,$lessonID,$semesterID,$filePath,$clientName]);
+        		}
+        		else
+        		{
+        			$file = $request->file('filename');
+					$clientName=$file->getClientOriginalName();
+					$extension=$file->getClientOriginalExtension();
+					$string=md5(date('ymdhis'));
+					$newName=$string.iconv('UTF-8', 'GBK', $clientName);
+                    $filePath="http://localhost/JWHelper/app/storage/homework/".$string.$clientName;
+					$newFilePath=$file->move(app_path().'/storage/homework',$newName);
+        			DB::update("update set attachment =? where thomeworkID=? and $groupID=?",
+        			[$filePath,$thomeworkID,$groupID]);
+        			DB::update("update set attachmentName =? where thomeworkID=? and $groupID=?",
+        			[$clientName,$thomeworkID,$groupID]);
+        		}
+        	}
+
+        }
+        else
+        {
+        	if($isContent==1)
+        	{
+        		$pan=DB::select("select * from shomeworks where thomeworkID=? and $studentID=?",
+        			      [$thomeworkID,$studentID]);
+        		if(count($pan)==0)
+        		{
+        			DB::insert("insert into shomeworks 
+        			(thomeworkID,group,studentID,lessonID,semesterID,content) values(?,?,?,?,?,?,?)",
+        			[$thomeworkID,$group,$studentID,$lessonID,$semesterID,$request->content]);
+        		}
+        		else
+        		{
+        			DB::update("update set content =? where thomeworkID=? and $studentID=?",
+        			[$request->content,$thomeworkID,$studentID]);
+        		}
+        	}
+        	if($isFile==1)
+        	{
+        		$pan=DB::select("select * from shomeworks where thomeworkID=? and $studentID=?",
+        			      [$thomeworkID,$studentID]);
+        		if(count($pan)==0)
+        		{
+        			$file = $request->file('filename');
+					$clientName=$file->getClientOriginalName();
+					$extension=$file->getClientOriginalExtension();
+					$string=md5(date('ymdhis'));
+					$newName=$string.iconv('UTF-8', 'GBK', $clientName);
+                    $filePath="http://localhost/JWHelper/app/storage/homework/".$string.$clientName;
+					$newFilePath=$file->move(app_path().'/storage/homework',$newName);
+        			DB::insert("insert into shomeworks 
+        			(thomeworkID,group,studentID,lessonID,semesterID,attachment,attachmentName) values(?,?,?,?,?,?,?,?)",
+        			[$thomeworkID,$group,$studentID,$lessonID,$semesterID,$filePath,$clientName]);
+        		}
+        		else
+        		{
+        			$file = $request->file('filename');
+					$clientName=$file->getClientOriginalName();
+					$extension=$file->getClientOriginalExtension();
+					$string=md5(date('ymdhis'));
+					$newName=$string.iconv('UTF-8', 'GBK', $clientName);
+                    $filePath="http://localhost/JWHelper/app/storage/homework/".$string.$clientName;
+					$newFilePath=$file->move(app_path().'/storage/homework',$newName);
+        			DB::update("update set attachment =? where thomeworkID=? and $studentID=?",
+        			[$filePath,$thomeworkID,$studentID]);
+        			DB::update("update set attachmentName =? where thomeworkID=? and $studentID=?",
+        			[$clientName,$thomeworkID,$studentID]);
+        		}
+        	}
+
+        }
+    }
+
+    return view('')
 
 }
