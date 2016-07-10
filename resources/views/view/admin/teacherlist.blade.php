@@ -45,3 +45,13 @@
 </div>
 
 @endsection
+
+@section('bodyJS')
+    @parent
+    <script>
+        $(function () {
+            $(".nav-sidebar>li").removeClass('active');
+            $("#teacherList").addClass('active');
+        });
+    </script>
+@endsection
