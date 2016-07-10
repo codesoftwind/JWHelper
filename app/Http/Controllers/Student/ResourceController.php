@@ -36,7 +36,7 @@ class ResourceController extends Controller {
 			
 		}
 
-		return view('',['lessonList'=>$lessonList,'role'=>'学生','username'=>session('username'));
+		return view('view.student.lessonResource',['lessonList'=>$lessonList,'role'=>'学生','username'=>session('username')]);
 
 	}
 
@@ -45,6 +45,7 @@ class ResourceController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 		$lessonID = $request->lessonID;
+		$lessonName = DB::select('select * from lessons where lessonID =?', [$lessonID])[0]->lessonName;
 		$teacherName=$request->teacherName;
 		$teacherID=$request->teacherID;
 		$res=DB::select("select * from resources where teacherID =? and lessonID=?",
@@ -57,7 +58,7 @@ class ResourceController extends Controller {
 			array_push($resourcesList,['teacherName'=>$teacherName,'path'=>$data->resourcePath,'name'=>$data->resourceName,
 				                     'catogoryName'=>$name[0]->catogoryName]);
 		}
-		return view('',['resourcesList'=>$resourcesList,'role'=>session('role'),'username'=>session('username')]);
+		return view('view.student.lessonResourceList',['resourcesList'=>$resourcesList,'role'=>session('role'),'username'=>session('username'), 'lessonName' => $lessonName]);
 
 	}
 

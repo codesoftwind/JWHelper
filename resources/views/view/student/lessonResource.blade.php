@@ -2,15 +2,6 @@
 
 @section('main_panel')
     @parent
-    <?php
-    $lessonList = [
-            ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季'],
-            ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季'],
-            ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季'],
-            ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季'],
-            ['lessonID' => '001', 'lessonName' => '数据库结构', 'teacherName' => '黄坚', 'semester' => '2013春季'],
-    ];
-    ?>
     <h1 class="page-header">课程资源</h1>
     <table class="table">
         <thead>
@@ -46,7 +37,7 @@
 
             $(".lessonResource").click(function () {
                 var lessonID = $(this).data('lessonId');
-                location.href = baseURL + '/lessonResourceList?lessonID=' + lessonID;
+                location.href = baseURL + '/resourcesList?lessonID=' + lessonID;
             });
         });
     </script>
