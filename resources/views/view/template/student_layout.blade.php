@@ -15,7 +15,7 @@
           <li id="myGroup" class="displayNone"><a href="{{$baseURL. '/myGroups'}}">我的团队</a><li>
           <li id="inGroup" class="displayNone"><a href="{{$baseURL. '/groupList'}}">已加入的团队</a><li>
           <li id="outGroup" class="displayNone"><a href="{{$baseURL. '/toApply'}}">可加入的团队</a><li>
-          <li id="homework"><a href="#"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> 作业</a></li>
+          <li id="homework"><a href="{{$baseURL.'/homeworkInfo'}}"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> 作业</a></li>
           <li id="communication"><a href="http://localhost/JWHelper/public/template/no-page"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 在线交流</a></li>
       </ul>
 @endsection
