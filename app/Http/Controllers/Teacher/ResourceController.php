@@ -54,21 +54,24 @@ class ResourceController extends Controller {
 
 	public function resourceUpload(Request $request)
 	{
+
 		if(!Auth::check())
 			return redirect('login');
-     
+    
 		if($request->hasFile('resourceFile'))
 		{
-				return  json_encode(['status'=>1]);
+				
 			$file = $request->file('resourceFile');
 			$clientName=$file->getClientOriginalName();
 			$extension=$file->getClientOriginalExtension();
-			$newName=iconv('UTF-8', 'GBK', $clientName.md5(date('ymdhis')).".".$extension);
+			$string=md5(date('ymdhis'));
+			$newName=$string.iconv('UTF-8', 'GBK', $clientName);
+            
 			$newFilePath=$file->move(app_path().'/storage/resource',$newName);
 			DB::insert("insert into resources (teacherID,lessonID,catogoryID,
 				resourceName,resourcePath,resourceInfo) values(?,?,?,?,?,?)",
 			[session('userID'),session('lessonID'),$request->resourceCategory,
-			$request->resourceName,$newFilePath,$request->resourceInfo]);
+			$request->resourceName,"http://localhost/JWHelper/app/storage/resource/".$string.$clientName,$request->resourceInfo]);
 			
 			$teacher=session('userID');
 			$lesson=session('lessonID');
