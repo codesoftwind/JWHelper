@@ -84,7 +84,7 @@ class THomeworkController extends Controller {
 		$thomework = DB::table('thomeworks')
 									->join('lessons', 'lessons.lessonID', '=', 'thomeworks.lessonID')
 									->select('thomeworks.thomeworkID', 'thomeworks.thomeworkName', 'lessons.lessonID', 'lessons.lessonName', 'thomeworks.description', 'thomeworks.startTime', 'thomeworks.endTime', 'thomeworks.group')
-									->where('thomeworks.thomeworkID', $thomeworkID)
+									->where('thomeworks.thomeworkID', $thomeworkID) 
 									->get();
         
         //判断是团队作业还是个人作业
