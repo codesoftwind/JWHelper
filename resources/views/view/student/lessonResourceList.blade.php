@@ -18,12 +18,12 @@
         <tbody>
         @foreach($resourcesList as $resource)
             <tr>
-                <th>{{$resource->name}}</th>
-                <th>{{$resource->catogroyName}}</th>
-                <td>{{$resource->teacherName}}</td>
+                <th>{{$resource['name']}}</th>
+                <th>{{$resource['catogoryName']}}</th>
+                <td>{{$resource['teacherName']}}</td>
                 <td></td>
                 <td></td>
-                <td><button class="btn btn-success"><span><a href="{{$resource->path}}"></a></span>下载</button></td>
+                <td><a href="{{$resource['path']}}"><button class="btn btn-success">下载</button></a></td>
             </tr>
         @endforeach
         </tbody>
