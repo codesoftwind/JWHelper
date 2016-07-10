@@ -10,7 +10,7 @@ $(document).ready(function(){
     $('#progress-alert').fadeIn()
     @foreach($attatchments as $url)
     $.get("demo_ajax_load.txt", function(result){
-      $('#alert-info').text($url + "下载完毕，准备下载下一附件")
+      $('#alert-info').text("{{ $url }}" + "下载完毕，准备下载下一附件")
     })
     @endforeach
     $('#progress-alert').fadeOut()
