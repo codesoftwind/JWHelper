@@ -68,6 +68,18 @@ class THomeworkController extends Controller {
 	}
 
 
-	
+
+	/**
+	 * 学生点击作业列表之后显示课程列表
+	 */
+	public function thlessonsList()
+	{
+		if(!Auth::check())
+			return redirect('login');
+
+		$studentID = session('userID');
+
+		
+	}
 
 }
