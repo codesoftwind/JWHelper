@@ -61,6 +61,15 @@ $shomework = $shomework[0];
 		<td>{{ $thomework->thomeworkName}}</td>
 		</tr>
 
+<div class="page-header">
+	<h3>作业信息</h3>
+</div>
+	<table>
+		<tr>
+		<th>课程名称：</th>
+		<td>{{ $thomework->thomeworkName}}</td>
+		</tr>
+
 		<tr>
 		<th>作业详情：</th>
 		<td>{{ $thomework->description}}</td>
