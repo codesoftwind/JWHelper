@@ -12,7 +12,7 @@
                 <th style="color:#55595c;background-color:#eceeef">创建者</th>
                 <th style="color:#55595c;background-color:#eceeef">最后修改时间</th>
                 <th style="color:#55595c;background-color:#eceeef">大小</th>
-                <th style="color:#55595c;background-color:#eceeef"></th>
+                <th style="color:#55595c;background-color:#eceeef">下载</th>
             </tr>
         </thead>
         <tbody>
