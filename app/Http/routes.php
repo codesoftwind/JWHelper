@@ -92,8 +92,8 @@ Route::post('student/uploadShomework','Student\SHomeworkController@uploadShomewo
 Route::post('student/shomework', 'Student\SHomeworkController@shomework');
 Route::post('student/thomeworksList', 'Student\THomeworkController@thomeworksList');
 
-Route::get('student/applyCourse', function () {
-	return view('view.student.applyCourse');
+Route::get('student/applyLesson', function () {
+	return view('view.student.applyLesson');
 });
 
 Route::get('student/lessonResource', function () {
@@ -102,4 +102,8 @@ Route::get('student/lessonResource', function () {
 
 Route::get('student/lessonResourceList', function () {
 	return view('view.student.lessonResourceList');
+});
+
+Route::get('student/lessonList', function () {
+	return view('view.student.inLesson');
 });
