@@ -79,7 +79,16 @@ class THomeworkController extends Controller {
 
 		$studentID = session('userID');
 
-		
+		$lessons = DB::table('slessons')
+						->join('lessons', 'lessons.lessonID', '=', 'slessons.lessonID')
+						->join('teachers', 'teachers.teacherID', '=', 'slessons.teacherID')
+						->select('lessons.lessonID', 'lessons.lessonName', 'teachers.teacherID', 'teachers.teacherName')
+						->where('slessons.studentID', $studentID)
+						->get();
+
+		$result = ['title'=>'所有课程', 'username'=>session('username'), 'role'=>session('role'), 'lessons'=>$lessons];
+
+		return view('view.student.lessonHomework')->with($result);
 	}
 
 }

@@ -98,7 +98,8 @@ Route::post('student/groupForm', 'Student\GroupController@groupForm');
 Route::post('student/groupApplyLesson','Student\GroupLesson@groupApplyLesson');
 Route::post('student/uploadShomework','Student\SHomeworkController@uploadShomework');
 Route::post('student/shomework', 'Student\SHomeworkController@shomework');
-Route::post('student/thomeworksList', 'Student\THomeworkController@thomeworksList');
+Route::get('student/thomeworksList', 'Student\THomeworkController@thomeworksList');
+Route::get('student/thlessonsList', 'Student\THomeworkController@thlessonsList');
 
 Route::get('student/applyLesson', function () {
 		return view('view.student.applyLesson');
