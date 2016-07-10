@@ -79,7 +79,16 @@ class THomeworkController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
-		$thomeworkID = $request->get('thomeworkID');
+		if(Session::has('thomeworkID'))
+		{
+			$thomeworkID = session('thomeworkID');
+		}
+		else
+		{
+			$thomeworkID = $request->get('thomeworkID');
+			session(['thomeworkID'=>$thomeworkID]);
+		}
+		
 
 		$thomework = DB::table('thomeworks')
 									->join('lessons', 'lessons.lessonID', '=', 'thomeworks.lessonID')

@@ -8,6 +8,8 @@ $shomework = $shomework[0];
 @section('headjs')
 <script type="text/javascript">
     $(document).ready(function () {
+    	$('#success-alert').hide()
+    	$('#fail-alert').hide()
         $('#submit-grade').click(function(){
         	$.ajax({
         		type : "POST" ,
@@ -20,18 +22,44 @@ $shomework = $shomework[0];
 				},	
 				success : function(data){
 					if (data.status == 1){
-						alert(data.descrip)
+						$('#success-alert').fadeIn()
+						setTimeout(function(){
+							window.location.href = "http://localhost/JWHelper/public/teacher/thomework"
+						},2000)
 					}
 					else
-						alert(data.descrip)
+						$('#fail-alert').fadeIn()
 				}
         	});
         });
+        $('#return-btn').click(function(){
+        	window.location.href = "http://localhost/JWHelper/public/teacher/thomework"
+        })
     });
 </script>
 @endsection
 
 @section('main_panel')
+<div id="success-alert" class="col-md-12">
+	<div class="alert alert-success alert-dismissible" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  修改成功
+	</div>
+</div>
+<div id="fail-alert" class="col-md-12">
+	<div class="alert alert-danger alert-dismissible" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  修改失败
+	</div>
+</div>
+<div class="page-header">
+	<h3>作业信息</h3>
+</div>
+	<table>
+		<tr>
+		<th>课程名称：</th>
+		<td>{{ $thomework->thomeworkName}}</td>
+		</tr>
 
 <div class="page-header">
 	<h3>作业信息</h3>
@@ -116,7 +144,7 @@ $shomework = $shomework[0];
 
 @endif
     <div class="col-md-2">
-    <button  type="submit" class="btn btn-success">返回</button>
+    <button  type="submit" id="return-btn" class="btn btn-success">返回</button>
     </div>
 </div>
 
