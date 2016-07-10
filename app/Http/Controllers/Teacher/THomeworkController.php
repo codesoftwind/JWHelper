@@ -50,7 +50,7 @@ class THomeworkController extends Controller {
 		$description = $request->get('description');
 		$startTime = $request->get('startTime');
 		$endTime = $request->get('endTime');
-		$group = $request->get('group');
+		$group = (int)$request->get('group');
 
 		$success = DB::table('thomeworks')->insert(
 			array('teacherID'=>$teacherID, 'lessonID'=>$lessonID, 'thomeworkName'=>$thomeworkName, 'description'=>$description,

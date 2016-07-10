@@ -10,26 +10,32 @@
         $('#c-fail-alert').hide()
         $('#f-progress-alert').hide()
         $('#submit-file').click(function(){
-            $('#uploadForm').submitForm({
+            // formData = new FormData()
+            // formData.append('resourceName',$('#resourceName').val())
+            // formData.append('resourceInfo',$('#resourceInfo').val())
+            // formData.append('resourceCategory',$('#resourceCategory').val())
+            // formData.append('resourceFile',$('#resourceFile')[0].files[0])
+            var formData = new FormData($( "#uploadForm" )[0]);
+            alert($('#resourceFile')[0].files[0])
+            $.ajax({
+                type : 'POST',
                 url: "http://localhost/JWHelper/public/teacher/resourceUpload",
-                dataType: "json",
-                callback: function(data){
-                    $('#progress-alert').fadeOut()
-                    endFileUpload();
+                dataType : 'json',
+                data : formData,
+                processData: false,
+                contentType: false,
+                success: function(data){                    
+                    $('#f-progress-alert').fadeOut()
                     if (data.status == 1){
-                        $('#success-alert').fadeIn()
+                        $('#f-success-alert').fadeIn()
                         setTimeout(function(){
                             window.location.href = "http://localhost/JWHelper/public/teacher/resourcesList"
                         },2000)
                     }
                     else
-                        $('#fail-alert').fadeIn()
-                },
-                before: function(){
-                    $('#progress-alert').fadeIn()
-                    startFileUpload();
+                        $('#f-fail-alert').fadeIn()
                 }
-            }).submit();
+            });
         });
         $('#submit-class').click(function(){
             $.ajax({
@@ -95,10 +101,10 @@
     </div>
 </div>
 
-<div class="col-md-2">
+<div class="col-md-1 col-sm-2">
     <button align="right" class="btn btn-success btn-md" data-toggle="modal" data-target="#upload-modal">上传资源</button>
 </div>
-<div class="col-md-2">
+<div class="col-md-1 col-sm-2">
     <button align="right" class="btn btn-warning btn-md" data-toggle="modal" data-target="#newClass-modal">新建分类</button>
 </div>
 
@@ -131,18 +137,17 @@
         </div>
         <form id="uploadForm">
             <label for="resourceName">资源名称</label>
-            <input class="form-control" id="resourceName"/>
+            <input class="form-control" id="resourceName" name="resourceName"/>
             <label for="resourceInfo">资源描述</label>
-            <input class="form-control" id="resourceInfo"/>
+            <input class="form-control" id="resourceInfo" name="resourceInfo"/>
             <label for="resourceCategory">资源分类</label>
-            <select class="form-control" id="resourceCategory"/>
-                <option value="未分类">未分类</option>
+            <select class="form-control" id="resourceCategory" name="resourceCategory"/>
                 @foreach($categories as $category)
-                <option value="{{ $category['catogoryId'] }}">{{ $category['categoryName'] }}</option>
+                <option value="{{ $category->catogoryID }}">{{ $category->catogoryName }}</option>
                 @endforeach
             </select>
             <label for="resourceFile">选择文件</label>
-            <input class="form-control" type="file" id="resourceFile" />
+            <input class="form-control" type="file" id="resourceFile" name="resourceFile" />
         </form>
       </div>
       <div class="modal-footer">

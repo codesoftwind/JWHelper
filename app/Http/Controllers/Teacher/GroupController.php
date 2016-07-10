@@ -103,19 +103,23 @@ class GroupController extends Controller {
 
 		$groupID = $request->get('groupID');
 		//backPage和lessonID用于返回按钮
-		//$backPage = $request->get('backPage');
-		$backPage = 'in';
+		$backPage = $request->get('backPage');
 		$lessonID = session('lessonID');
 
 		$group = DB::table('groups')
+					->select('groupName', 'groupID', 'headID', 'headName')
+					->where('groupID', $groupID)
+					->get();
+
+		$groupMembers = DB::table('groups')
 					->join('sgroups', 'groups.groupID', '=', 'sgroups.groupID')
 					->join('students', 'sgroups.studentID', '=', 'students.studentID')
 					->select('students.studentID', 'students.studentName')
 					->where('groups.groupID', $groupID)
 					->get();
 
-		$result = ['title'=>'团队详情', 'username'=>session('username'), 'role'=>session('role'), 'group'=>$group, 'lessonID'=>$lessonID, 'backPage'=>$backPage]; 
-		
+		$result = ['title'=>'团队详情', 'username'=>session('username'), 'role'=>session('role'), 'group'=>$group, 'groupMembers'=>$groupMembers, 'backPage'=>$backPage]; 
+
 		return view('view.teacher.groupcheck')->with($result);
 	}
 
@@ -128,7 +132,7 @@ class GroupController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
-		$lessonID = $request->get('lessonID');
+		$lessonID = session('lessonID');
 		$teacherID = session('userID');
 		$backPage = $request->get('backPage');
 
@@ -151,7 +155,7 @@ class GroupController extends Controller {
 			return redirect('login');
 
 		$teacherID = session('userID');
-		$lessonID = $request->get('lessonID');
+		$lessonID = session('lessonID');
 		$groupID = $request->get('groupID');
 		$judge = $request->get('judge');
 
