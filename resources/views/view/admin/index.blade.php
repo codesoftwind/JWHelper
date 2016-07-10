@@ -41,3 +41,13 @@
 </div>
 
 @endsection
+
+@section('bodyJS')
+    @parent
+    <script>
+        $(function () {
+            $(".nav-sidebar>li").removeClass('active');
+            $("#index").addClass('active');
+        });
+    </script>
+@endsection
