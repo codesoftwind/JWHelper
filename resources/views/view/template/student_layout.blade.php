@@ -7,7 +7,7 @@
 @section('sidebar')
 	@parent
       <ul class="nav nav-sidebar">
-          <li class="active" id="lessonList"><a href="{{$baseURL.'/lessonsList'}}"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> 课程列表</a></li>
+          <li id="lessonList"><a href="{{$baseURL.'/lessonsList'}}"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> 课程列表</a></li>
       </ul>
       <ul class="nav nav-sidebar">
           <li id="resource"><a href="{{$baseURL.'/lessonResource'}}"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 课程资源</a></li>
@@ -25,6 +25,7 @@
     <script>
         $(function () {
             $("#group").click(function () {
+                $(this).addClass("active");
                 $("#myGroup").toggleClass("displayNone");
                 $("#inGroup").toggleClass("displayNone");
                 $("#outGroup").toggleClass("displayNone");
