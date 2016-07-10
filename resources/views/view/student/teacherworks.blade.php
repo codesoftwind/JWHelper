@@ -10,42 +10,46 @@
     <th>作业名称</th>
     <th>开始时间</th>
     <th>结束时间</th>
-    <th>是否完成</th>
     <th>教师评分</th>
     <th></th>
   </tr>
 
         <?php 
-           //$thomeworks=[["1","大","7.1","1",'','','1'],["2","小","7.5","7.6",'t','','-1']];
-          $thomeworks = $result;
-           $t=strtotime($thomeworks->endTime);
-
-          $time = time();
-          date("y-m-d H:i:s",$time);
+           $thomeworks=[["1","大","7.1","1",'','','1'],["2","小","7.5","7.6",'t','','-1']];
+         
+           
+          $i=-1;
         ?>
-
        @foreach ($thomeworks as $thomework)
+            <?php 
+            $i++;
+            ?>
            <tr> 
-           <td>{{  $thomework->homeworkName }}</td>  
+           <td>{{  $thomework->thomeworkName }}</td>  
            <td>{{  $thomework->startTime }}</td> 
            <td>{{  $thomework->endTime }}</td>
+           
+@if(!empty($shomeworks[$i]))
+    @if ($thomework->grade >= 0 )
+       <td>{{  $thomework->grade }}</td>
+    @else
+       <td>未评分</td>
+    @endif
 
-@if ($thomework->content != ''||$thomework->attachment != '')
-       <td>是</td>
-   @else
-      <td>否</td>
-   @endif
+@else
+    <td>未评分</td>
+@endif
+           <?php 
+           $t=strtotime($thomework->endTime);
+           $time = time();
+           date("y-m-d H:i:s",$time);
+          ?>
 
-@if ($thomework->grade >=0 )
-       <td>{{  $thomework->grade}}</td>
-   @else
-      <td>未评分</td>
-   @endif
 @if ($time > $t)
 <td>
   <div class="btn-group" role="group" aria-label="...">
-  <form action='http://localhost/JWHelper/public/student/shomework', method="post", enctype="multipart/form-data">
-  <input type="hidden" name="shomeworkID", value="{{ $shomework->shomeworkID}}">
+  <form action='http://localhost/JWHelper/public/student/shomeworkView', method="post", enctype="multipart/form-data">
+  <input type="hidden" name="shomeworkID", value="{{ $shomeworks[$i]->shomeworkID}}">
   <button type="submit" class="btn btn-primary" id="submit-change" >查看详情</button>
   </form>
   
@@ -54,8 +58,8 @@
     @else
 <td>
   <div class="btn-group" role="group" aria-label="...">
-  <form action='http://localhost/JWHelper/public/student/shomework', method="post", enctype="multipart/form-data">
-  <input type="hidden" name="shomeworkID", value="{{ $shomework->shomeworkID}}">
+  <form action='http://localhost/JWHelper/public/student/shomeworkEdit', method="post", enctype="multipart/form-data">
+  <input type="hidden" name="shomeworkID", value="{{ $shomeworks[$i]->shomeworkID }}">
   <button type="submit" class="btn btn-primary" id="submit-change" >编辑</button>
   </form>
 </div>
