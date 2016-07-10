@@ -60,8 +60,8 @@ class GroupLesson extends Controller {
 		{
 			$teacherName=DB::select("select * from teachers where teacherID=?",[$data->teacherID])[0]->teacherName;
             $lesson=DB::select("select * from lessons where lessonID =?",[$data->lessonID])[0];
-		    $semester=DB::select("select * from semesters where lessonID =?",[$lesson->semesterID])[0];
-		    array_push($group,['teacerName'=>$teacherName,'lessonID'=>$data->lessonID,'semesterName'=>$semester->semesterYear." ".$semester->basicInfo,'lessonName'=>$lesson->lessonName]);
+		    $semester=DB::select("select * from semesters where semesterID =?",[$lesson->semesterID])[0];
+		    array_push($group,['teacherName'=>$teacherName,'lessonID'=>$data->lessonID,'semester'=>$semester->semesterYear." ".$semester->basicInfo,'lessonName'=>$lesson->lessonName]);
 		}
 		return view('view.student.inLesson',['groups'=>$group,'groupID'=>$groupID,'groupName'=>$groupName,'role'=>session('role'),'username'=>session('username')]);
 	}

@@ -11,7 +11,6 @@
                 <th style="color:#55595c;background-color:#eceeef">课程名称</th>
                 <th style="color:#55595c;background-color:#eceeef">授课教师</th>
                 <th style="color:#55595c;background-color:#eceeef">学期</th>
-                <th style="color:#55595c;background-color:#eceeef">加入时间</th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +20,6 @@
                 <td>{{$lesson['lessonName']}}</td>
                 <td>{{$lesson['teacherName']}}</td>
                 <td>{{$lesson['semester']}}</td>
-                <td>{{$lesson['time']}}</td>
             </tr>
         @endforeach
         </tbody>
