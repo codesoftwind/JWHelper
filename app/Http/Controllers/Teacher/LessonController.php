@@ -20,6 +20,11 @@ class LessonController extends Controller {
 		if(!Auth::check())
 			return redirect('login');
 
+		if (Session::has('lessonID'))
+		{
+			Session::forget('lessonID');
+		}
+
 		$teacherID = Auth::user()->userID;
 		$tmpresult = DB::table('lessons')
 								->join('tlessons', 'tlessons.lessonID', '=', 'lessons.lessonID')
