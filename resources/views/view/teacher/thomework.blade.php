@@ -1,5 +1,24 @@
 @extends('view.template.teacher_layout')
 
+@section('headjs')
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#progress-alert').hide()
+  $('#success-alert').hide()
+  $('#massDownload').click(function(){
+    $('#progress-alert').fadeIn()
+    $.get("demo_ajax_load.txt", function(result){
+      $('#progress-alert').fadeOut()
+      $('#success-alert').fadeIn()
+      setTimeout(function(){
+        $('#success-alert').fadeOut()
+      },2000)
+    })
+  })
+})
+</script>
+@endsection
+
 @section('main_panel')
 <div class="page-header">
   <h3>作业详情</h3>
@@ -14,11 +33,27 @@
   <p>团队作业：是</p>
   @else
   <p>团队作业：否</p>
+</div>
+<div id="progress-alert" class="col-md-12">
+    <div class="alert alert-primary alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      下载中……
+    </div>
+</div>
+<div id="success-alert" class="col-md-12">
+    <div class="alert alert-success alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      下载完成
+    </div>
+</div>
+<div class="col-md-12">
+  <button class="btn btn-info" id="massDownload">批量下载作业附件</button>
+</div>
 <div class="page-header">
-  <h3>学生提交</h3>
+  <h3>提交列表</h3>
 </div>
 <div class="panel panel-primary">
-  <div class="panel-heading">提交列表</div>
+  <div class="panel-heading">团队提交</div>
     <table class="table table-striped">
     	<thead>
        		<th>团队名</th>
@@ -41,55 +76,49 @@
           </td>
           @endif
           <td>
-            <form action='http://localhost/JWHelper/public/teacher/shomework' method="post" enctype="multipart/form-data">
+            <form action='http://localhost/JWHelper/public/teacher/shomework' method="post">
+            <input type="hidden" name="shomeworkID", value="{{ $shomeworkt->shomeworkID}}">
+            <button type="submit" class="btn btn-sm btn-info" id="submit-change" >查看</button>
+            </form>
+          </td>
+        </tr>  
+       @endforeach
+       </tbody>
+    </table>
+</div>   
+
+<div class="panel panel-primary">
+  <div class="panel-heading">个人提交</div>
+    <table class="table table-striped">
+      <thead>
+          <th>学号</th>
+          <th>姓名</th>
+          <th>作业评分</th>
+          <th></th>
+      </thead>
+      <tbody>
+       @foreach ($shomework as $shomeworkt)
+        <tr> 
+          <td>{{  $shomeworkt->studentID }}
+          </td>
+          <td>{{  $shomeworkt->studentName}}
+          </td>
+          @if ($shomeworkt->grade >0)
+          <td>{{  $shomeworkt->grade }}
+          </td>
+          @else
+          <td>
+          </td>
+          @endif
+          <td>
+            <form action='http://localhost/JWHelper/public/teacher/shomework' method="post">
             <input type="hidden" name="shomeworkID", value="{{ $shomeworkt->shomeworkID}}">
             <button type="submit" class="btn btn-primary" id="submit-change" >查看</button>
             </form>
           </td>
         </tr>  
        @endforeach
-       </tbody>
-</table>
-</div>   
-        <h4>提交作业</h4>
-<div class="table-responsive">
-<table class="table table-striped">
-	<tr>
-   		<th>学号</th>
-    	<th>学生名</th>
-    	<th>作业评分</th>
-    	<th></th>
- 	</tr>
-
-        <?php 
-       //$shomeworks = [['grade', 'shomeworkID', '1', '王'],['grade', 'shomeworkID', '2', '李']];
-        ?>
-
-       @foreach ($shomework as $shomeworkt)
-           <tr> 
-           <td>{{  $shomeworkt->studentID }}
-           </td>
-           <td>{{  $shomeworkt->studentName}}
-           </td>
-           @if ($shomeworkt->grade >0)
-      <td>{{  $shomeworkt->grade }}
-           </td>
-          @else
-           <td>
-           </td>
-           @endif
-<td>
-  <div class="btn-group" role="group" aria-label="...">
-  <form action='http://localhost/JWHelper/public/teacher/shomework', method="post", enctype="multipart/form-data">
-  <input type="hidden" name="shomeworkID", value="{{ $shomeworkt->shomeworkID}}">
-  <button type="submit" class="btn btn-primary" id="submit-change" >查看</button>
-  </form>
+    </table>
 </div>
-</td>
-           </tr>  
-       @endforeach
-</table>
-</div>
-   @endif
 
 @endsection
