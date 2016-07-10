@@ -7,7 +7,7 @@
 </div>
 <div class="panel panel-primary">
 	<!-- Default panel contents -->
-	<div class="panel-heading">$title</div>
+	<div class="panel-heading">{{$title}}</div>
 	<table class="table table-striped">
 	 <tr>
 	    <th>团队名称</th>
@@ -24,8 +24,8 @@
 
 			<td>
 			  <div class="btn-group" role="group" aria-label="...">
-				  <form action="http://localhost/JWHelper/public/teacher/thomework" method="post" enctype="multipart/form-data">
-				  <input type="hidden" name="thomeworkID" value="{{ $thomework->thomeworkID }}">
+				  <form action="http://localhost/JWHelper/public/teacher/group" method="post" enctype="multipart/form-data">
+				  <input type="hidden" name="thomeworkID" value="{{ $group->groupID }}">
 				  <button type="submit" class="btn btn-sm btn-primary" >查看详情</button>
 				  </form> 
 				</div>
