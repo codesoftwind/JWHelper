@@ -17,18 +17,16 @@
                 <th style="color:#55595c;background-color:#eceeef">课程编号</th>
                 <th style="color:#55595c;background-color:#eceeef">课程名称</th>
                 <th style="color:#55595c;background-color:#eceeef">授课教师</th>
-                <th style="color:#55595c;background-color:#eceeef">学期</th>
                 <th style="color:#55595c;background-color:#eceeef"></th>
             </tr>
         </thead>
         <tbody>
-        @foreach($lessonList as $lesson)
+        @foreach($lessons as $lesson)
             <tr>
-                <th class="scope">{{$lesson['lessonID']}}</th>
-                <td>{{$lesson['lessonName']}}</td>
-                <td>{{$lesson['teacherName']}}</td>
-                <td>{{$lesson['semester']}}</td>
-                <td><button class="btn btn-success lessonResource" data-lesson-id="{{$lesson['lessonID']}}">课程作业</button></td>
+                <th class="scope">{{$lesson->lessonID}}</th>
+                <td>{{$lesson->lessonName}}</td>
+                <td>{{$lesson->teacherName}}</td>
+                <td><button class="btn btn-success lessonHomework" data-lesson-id="{{$lesson->lessonID}}" data-teacher-id="{{$lesson->teacherID}}">课程作业</button></td>
             </tr>
         @endforeach
         </tbody>
@@ -43,9 +41,11 @@
             // 更改sidebar的样式, 使当前页面显示为active
             $("#homework").addClass("active");
 
+            //To do
             $(".lessonResource").click(function () {
                 var lessonID = $(this).data('lessonId');
-                location.href = baseURL + '/resourcesList?lessonID=' + lessonID;
+                var teacherID = $(this).data('teacherId');
+                location.href = baseURL + '/thomeworksList?lessonID=' + lessonID + '&teacherID=' + teacherID;
             });
         });
     </script>
