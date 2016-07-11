@@ -93,3 +93,14 @@
 </div>
 
 @endsection
+
+@section('bodyJS')
+    @parent
+    <script>
+        $(function () {
+            var baseURL = 'http://localhost/JWHelper/public/student';
+            // 更改sidebar的样式, 使当前页面显示为active
+            $("#homework").addClass("active");
+        });
+    </script>
+@endsection

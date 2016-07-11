@@ -54,8 +54,8 @@ class THomeworkController extends Controller {
 		$endTime = $request->get('endTime');
 		$group = (int)$request->get('group');
 
-		$startTime = date("Y-m-d H:i:s", strtotime($startDate+' '+$startTime));
-		$endTime = date("Y-m-d H:i:s", strtotime($endDate+' '+$endTime));
+		$startTime = date("Y-m-d H:i:s", strtotime($startDate.' '.$startTime));
+		$endTime = date("Y-m-d H:i:s", strtotime($endDate.' '.$endTime));
 
 		$success = DB::table('thomeworks')
 					->insert(array('teacherID'=>$teacherID, 'lessonID'=>$lessonID, 'thomeworkName'=>$thomeworkName, 'description'=>$description, 
