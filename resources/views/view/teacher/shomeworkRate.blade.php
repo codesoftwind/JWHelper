@@ -23,9 +23,7 @@ $shomework = $shomework[0];
 				success : function(data){
 					if (data.status == 1){
 						$('#success-alert').fadeIn()
-						setTimeout(function(){
-							window.location.href = "http://localhost/JWHelper/public/teacher/thomework"
-						},2000)
+					
 					}
 					else
 						$('#fail-alert').fadeIn()
