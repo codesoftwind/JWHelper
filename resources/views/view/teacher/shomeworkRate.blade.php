@@ -80,7 +80,7 @@ $shomework = $shomework[0];
 
 		<tr>
 		<th>作业详情：</th>
-		<td>{{ $thomework->description}}</td>
+		<td>{{ $thomework->description }}</td>
 		</tr>
 
 		@if($group == true)
@@ -114,9 +114,7 @@ $shomework = $shomework[0];
 	<h3>学生作业内容</h3>
 </div>
 <div style="width:80%" class="well">
-	<p>
-		{{ $shomework->content}}
-	</p>
+		{!! $shomework->content !!}
 </div>
 <div class="page-header">
 	<h3>学生作业附件</h3>
