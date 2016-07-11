@@ -39,3 +39,13 @@
 </table>
 </div>
 @endsection
+
+@section('bodyJS')
+    @parent
+    <script>
+        $(function () {
+            // 更改sidebar的样式, 使当前页面显示为active
+            $("#index").addClass("active");
+        });
+    </script>
+@endsection

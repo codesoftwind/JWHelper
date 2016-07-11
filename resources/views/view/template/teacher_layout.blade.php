@@ -7,7 +7,7 @@
 @section('sidebar')
 	@parent
     <ul class="nav nav-sidebar">
-      <li class="active" id="index"><a href="http://localhost/JWHelper/public/teacher/index"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 课程列表</a></li>
+      <li id="index"><a href="http://localhost/JWHelper/public/teacher/index"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 课程列表</a></li>
     </ul>
     @if(Session::has('lessonID'))
       <ul class="nav nav-sidebar">
@@ -27,6 +27,7 @@
     <script>
         $(function () {
             $("#group").click(function () {
+                $("#group").addClass('active');
                 $("#groupsInList").toggleClass("displayNone");
                 $("#groupsIOList").toggleClass("displayNone");
                 $("#groupsOutList").toggleClass("displayNone");
