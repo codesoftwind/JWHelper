@@ -55,7 +55,7 @@
                 </form>
 </form> 
 @else
-<form >
+
     <h3>作业信息</h3>
     <dl class='dl-horizontal'>
         <dt>作业名称：</dt>
@@ -79,7 +79,7 @@
                     <div id="editor">
                         <textarea name="content" id="Xeditor" >
                             @if(isset($homework[0]->content))
-                            <p>{{ $homework[0]->content }}</p>
+                            {{ $homework[0]->content }}
                             @endif
                         </textarea>
                         
@@ -119,7 +119,7 @@
                     @endif
                     <button type="submit" class="btn btn-primary" id="createTeam">确认提交</button>
                 </form>
-</form>
+
 @endif
 
 @endsection

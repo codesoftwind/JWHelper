@@ -58,8 +58,9 @@ class SHomeworkController extends Controller {
  		$studentID=session('userID');
  		$thomeworkID=$request->thomeworkID;
  		$res=DB::select("select * from thomeworks where thomeworkID=?",[$thomeworkID])[0];
-        $semesterID=$res->semesterID;
+       
         $group=$res->group;
+        
         $lessonID=$res->lessonID;
         $teacherID=$res->teacherID;
         $isContent=0;
@@ -83,8 +84,8 @@ class SHomeworkController extends Controller {
         		{
 
         			DB::insert("insert into shomeworks 
-        			(thomeworkID,group,groupID,studentID,lessonID,semesterID,content) values(?,?,?,?,?,?,?)",
-        			[$thomeworkID,$group,$groupID,$studentID,$lessonID,$semesterID,$request->content]);
+        			(thomeworkID,group,groupID,studentID,lessonID,content) values(?,?,?,?,?,?)",
+        			[$thomeworkID,$group,$groupID,$studentID,$lessonID,$request->content]);
         		}
         		else
         		{
@@ -106,8 +107,8 @@ class SHomeworkController extends Controller {
                     $filePath="http://localhost/JWHelper/app/storage/homework/".$string.$clientName;
 					$newFilePath=$file->move(app_path().'/storage/homework',$newName);
         			DB::insert("insert into shomeworks 
-        			(thomeworkID,group,groupID,studentID,lessonID,semesterID,attachment,attachmentName) values(?,?,?,?,?,?,?,?)",
-        			[$thomeworkID,$group,$groupID,$studentID,$lessonID,$semesterID,$filePath,$clientName]);
+        			(thomeworkID,group,groupID,studentID,lessonID,attachment,attachmentName) values(?,?,?,?,?,?,?)",
+        			[$thomeworkID,$group,$groupID,$studentID,$lessonID,$filePath,$clientName]);
         		}
         		else
         		{
@@ -134,9 +135,10 @@ class SHomeworkController extends Controller {
         			      [$thomeworkID,$studentID]);
         		if(count($pan)==0)
         		{
-        			DB::insert("insert into shomeworks 
-        			(thomeworkID,group,studentID,lessonID,semesterID,content) values(?,?,?,?,?,?,?)",
-        			[$thomeworkID,$group,$studentID,$lessonID,$semesterID,$request->content]);
+
+        			DB::insert("insert into shomeworks (thomeworkID,group,studentID,lessonID,content) values(?,?,?,?,?)",
+        			[$thomeworkID,$group,$studentID,$lessonID,$request->content]);
+                    return "yes";
         		}
         		else
         		{
@@ -158,8 +160,8 @@ class SHomeworkController extends Controller {
                     $filePath="http://localhost/JWHelper/app/storage/homework/".$string.$clientName;
 					$newFilePath=$file->move(app_path().'/storage/homework',$newName);
         			DB::insert("insert into shomeworks 
-        			(thomeworkID,group,studentID,lessonID,semesterID,attachment,attachmentName) values(?,?,?,?,?,?,?,?)",
-        			[$thomeworkID,$group,$studentID,$lessonID,$semesterID,$filePath,$clientName]);
+        			(thomeworkID,group,studentID,lessonID,attachment,attachmentName) values(?,?,?,?,?,?)",
+        			[$thomeworkID,$group,$studentID,$lessonID,$filePath,$clientName]);
         		}
         		else
         		{
