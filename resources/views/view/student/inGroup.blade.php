@@ -29,14 +29,9 @@
 @section('bodyJS')
     @parent
     <script>
-        // 更改sidebar的样式, 使当前页面显示为active
-        $("#inGroup").addClass("active");
-
         $(function () {
-            // To do
-            $(".exit").click(function () {
-
-            });
+            // 更改sidebar的样式, 使当前页面显示为active
+            $("#inGroup").addClass("active");
         });
     </script>
 @endsection
