@@ -10,7 +10,6 @@
             <th style="color:#55595c;background-color:#eceeef">团队负责人</th>
             <th style="color:#55595c;background-color:#eceeef">团队人数上限</th>
             <th style="color:#55595c;background-color:#eceeef">团队现有人数</th>
-            <th style="color:#55595c;background-color:#eceeef">操作</th>
         </tr>
         </thead>
         <tbody>
@@ -20,7 +19,6 @@
                 <th>{{$group->headName}}</th>
                 <th>{{$group->maxPeople}}</th>
                 <th>{{$group->occupied}}</th>
-                <th><button class="btn btn-danger exit">退出团队</button></th>
             </tr>
         @endforeach
         </tbody>
@@ -31,14 +29,9 @@
 @section('bodyJS')
     @parent
     <script>
-        // 更改sidebar的样式, 使当前页面显示为active
-        $("#inGroup").addClass("active");
-
         $(function () {
-            // To do
-            $(".exit").click(function () {
-
-            });
+            // 更改sidebar的样式, 使当前页面显示为active
+            $("#inGroup").addClass("active");
         });
     </script>
 @endsection

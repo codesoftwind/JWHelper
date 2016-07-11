@@ -30,7 +30,7 @@
     background-color: #428bca;
 }
 
-#myGroup, #inGroup, #outGroup {
+#myGroup, #inGroup, #outGroup, #groupsInList, #groupsIOList, #groupsOutList {
     text-align: center;
     font-size: 0.95em;
 }
@@ -41,4 +41,8 @@
 
 .table > tbody > tr > td, .table > tbody > tr > th {
     vertical-align: middle;
+}
+
+.table > tbody > tr {
+    height: 50px;
 }

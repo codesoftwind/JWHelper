@@ -10,8 +10,6 @@
     <th>学号</th>
     <th>姓名</th>
     <th>学院</th>
-    <th></th>
-    <th></th>
   </tr>
 
   			<?php 
@@ -25,17 +23,7 @@
       <td>{{  $student->studentID }} </td>
 
            <td>{{ $student->studentName }}</td>   
-           <td>{{ $student->department }}</td>    
-<td>
-  <div class="btn-group" role="group" aria-label="...">
-  <button type="button" class="btn btn-primary" >修改</button>
-</div>
-</td>
-<td>
-  <div class="btn-group" role="group" aria-label="...">
-  <button type="button" class="btn btn-default" >删除</button>
-</div>
- </td>
+           <td>{{ $student->department }}</td>
   </tr>  
        @endforeach
 

@@ -121,3 +121,13 @@ $group = $group[0];
 </table>
 
 @endsection
+
+@section('bodyJS')
+    @parent
+    <script>
+        $(function () {
+            // 更改sidebar的样式, 使当前页面显示为active
+            $("#group").click();
+        });
+    </script>
+@endsection
