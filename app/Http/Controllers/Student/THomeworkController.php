@@ -23,14 +23,68 @@ class THomeworkController extends Controller {
 		$teacherID = $request->get('teacherID');
 		$lessonID = $request->get('lessonID');
 		$studentID = session('userID');
-
-		$thomeworks = DB::table('thomeworks')
+        $have=DB::select("select * from sgroups where studentID =?",[$studentID]);
+        $haveJoin=array();
+        foreach($have as $ha)
+        {
+        	array_push($haveJoin, $ha->groupID);
+        }
+        
+        $groupApply=DB::table('tsgroups')
+                    ->whereIn('groupID',$haveJoin)
+                    ->where('teacherID','=',$teacherID)
+                    ->where('lessonID','=',$lessonID)
+                    ->get();
+        $groupID=-1;
+        if(count($groupApply)!=0)
+        {
+        	$groupID=$groupApply[0]->groupID;
+        } 
+        $groupHomework=array();
+        $sgroupHomework=array();
+       
+        if($groupID!=-1)
+        {
+        	$groupHomework=DB::table('thomeworks')
 						->select('thomeworkID', 'thomeworkName', 'startTime', 'endTime', 'group')
 						->where('teacherID', $teacherID)
 						->where('lessonID', $lessonID)
+						->where('group','=',1)
+						
 						->get();
+			foreach ($groupHomework as $gr) {
+				    $temp= DB::table('shomeworks')
+			               ->select('shomeworks.shomeworkID','thomeworkID', 'shomeworks.grade', 'shomeworks.content', 'shomeworks.attachment')
+			               ->where('thomeworkID','=',$gr->thomeworkID)
+			               ->where('groupID','=',$groupID)
+			               ->get();
+				     array_push($sgroupHomework, $temp);
+			}
+        }           
+		
+		$singleHomework=DB::table('thomeworks')
+						->select('thomeworkID', 'thomeworkName', 'startTime', 'endTime', 'group')
+						->where('teacherID', $teacherID)
+						->where('lessonID', $lessonID)
+						->where('group','=',0)
+						->get();
+        $ssingleHomework=array();
+        foreach($singleHomework as $si)
+        {
+        	$temp2= DB::table('shomeworks')
+			               ->select('shomeworks.shomeworkID', 'thomeworkID','shomeworks.grade', 'shomeworks.content', 'shomeworks.attachment')
+			               ->where('thomeworkID','=',$si->thomeworkID)
+			               ->where('studentID','=',session('userID'))
+			               ->get();
+			 array_push($ssingleHomework, $temp2);
+        }
+		/*$thomeworks = DB::table('thomeworks')
+						->select('thomeworkID', 'thomeworkName', 'startTime', 'endTime', 'group')
+						->where('teacherID', $teacherID)
+						->where('lessonID', $lessonID)
+						->get();*/
 
-		$shomeworks = array();
+		/*$shomeworks = array();
 
 		foreach ($thomeworks as $thomework) 
 		{
@@ -60,12 +114,14 @@ class THomeworkController extends Controller {
 
 				array_push($shomeworks, $tmp);
 			}
-		}
+		}*/
 
 
-
-		$result = ['title'=>'作业列表', 'username'=>session('username'), 'role'=>session('role'), 'thomeworks'=>$thomeworks, 'shomeworks'=>$shomeworks];
-
+      
+		$result = ['title'=>'作业列表', 'username'=>session('username'), 'role'=>session('role')
+		, 'groupHomework'=>$groupHomework,'sgroupHomework'=>$sgroupHomework,
+		 'singleHomework'=>$singleHomework,'ssingleHomework'=>$ssingleHomework];
+    
 		return view('view.student.teacherworks')->with($result);
 	}
 

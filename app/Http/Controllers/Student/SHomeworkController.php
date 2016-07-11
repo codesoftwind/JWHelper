@@ -52,31 +52,36 @@ class SHomeworkController extends Controller {
  	}
  	public function uploadShomework(Request $request)
  	{
+
  		if(!Auth::check())
  			return redirect('login');
- 		$studentID=$request->studentID;
+ 		$studentID=session('userID');
  		$thomeworkID=$request->thomeworkID;
  		$res=DB::select("select * from thomeworks where thomeworkID=?",[$thomeworkID])[0];
         $semesterID=$res->semesterID;
         $group=$res->group;
         $lessonID=$res->lessonID;
+        $teacherID=$res->teacherID;
         $isContent=0;
         $isFile=0;
-        if (!isset($request->content)&&!empty($request->content)) {
+        if ($request->content!="") {
         	$isContent=1;
         }
-        if($request->hasFile('filename'))
+        
+        if($request->hasFile('choose'))
         	$isFile=1;
 
         if($group==1)
-        {
+        { 
         	$groupID=$request->groupID;
+            return $groupID;
         	if($isContent==1)
         	{
         		$pan=DB::select("select * from shomeworks where thomeworkID=? and $groupID=?",
         			      [$thomeworkID,$groupID]);
         		if(count($pan)==0)
         		{
+
         			DB::insert("insert into shomeworks 
         			(thomeworkID,group,groupID,studentID,lessonID,semesterID,content) values(?,?,?,?,?,?,?)",
         			[$thomeworkID,$group,$groupID,$studentID,$lessonID,$semesterID,$request->content]);
@@ -93,7 +98,7 @@ class SHomeworkController extends Controller {
         			      [$thomeworkID,$groupID]);
         		if(count($pan)==0)
         		{
-        			$file = $request->file('filename');
+        			$file = $request->file('choose');
 					$clientName=$file->getClientOriginalName();
 					$extension=$file->getClientOriginalExtension();
 					$string=md5(date('ymdhis'));
@@ -106,7 +111,7 @@ class SHomeworkController extends Controller {
         		}
         		else
         		{
-        			$file = $request->file('filename');
+        			$file = $request->file('choose');
 					$clientName=$file->getClientOriginalName();
 					$extension=$file->getClientOriginalExtension();
 					$string=md5(date('ymdhis'));
@@ -145,7 +150,7 @@ class SHomeworkController extends Controller {
         			      [$thomeworkID,$studentID]);
         		if(count($pan)==0)
         		{
-        			$file = $request->file('filename');
+        			$file = $request->file('choose');
 					$clientName=$file->getClientOriginalName();
 					$extension=$file->getClientOriginalExtension();
 					$string=md5(date('ymdhis'));
@@ -158,7 +163,7 @@ class SHomeworkController extends Controller {
         		}
         		else
         		{
-        			$file = $request->file('filename');
+        			$file = $request->file('choose');
 					$clientName=$file->getClientOriginalName();
 					$extension=$file->getClientOriginalExtension();
 					$string=md5(date('ymdhis'));
@@ -173,8 +178,10 @@ class SHomeworkController extends Controller {
         	}
 
         }
+        return "yes";
+        return redirect('student/thomeworksList')->with(['teacherID'=>$teacherID,'lessonID'=>$lessonID]);
+
     }
 
-    return view('')
-
+    
 }

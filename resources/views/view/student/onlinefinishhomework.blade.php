@@ -55,7 +55,7 @@
                 </form>
 </form> 
 @else
-<form>
+<form >
     <h3>作业信息</h3>
     <dl class='dl-horizontal'>
         <dt>作业名称：</dt>
@@ -113,6 +113,10 @@
                         ?>
                         </p>
                     </div>
+                    <input type="hidden" name="thomeworkID" value="{{$homework[0]->thomeworkID}}">
+                    @if(isset($homework[0]->groupID))
+                    <input type="hidden" name="groupID" value="{{ $homework[0]->groupID}}">
+                    @endif
                     <button type="submit" class="btn btn-primary" id="createTeam">确认提交</button>
                 </form>
 </form>
