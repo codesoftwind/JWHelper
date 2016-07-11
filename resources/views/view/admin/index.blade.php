@@ -9,8 +9,6 @@
  <tr>
     <th>课程</th>
     <th>教师</th>
-    <th></th>
-    <th></th>
   </tr>
 
         <?php 
@@ -21,17 +19,7 @@
            <tr> <td>{{  $lesson->lessonName }}
            </td>
 
-           <td>{{  $lesson->teacherName }}</td>      
-<td>
-  <div class="btn-group" role="group" aria-label="...">
-  <button type="button" class="btn btn-primary" >修改</button>
-</div>
-</td>
-<td>
-  <div class="btn-group" role="group" aria-label="...">
-  <button type="button" class="btn btn-default" >删除</button>
-</div>
-</td>
+           <td>{{  $lesson->teacherName }}</td>
            </tr>  
        @endforeach
 
