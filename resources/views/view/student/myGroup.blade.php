@@ -13,7 +13,6 @@
             <th style="color:#55595c;background-color:#eceeef">审核(申请人数)</th>
             <th style="color:#55595c;background-color:#eceeef"></th>
             <th style="color:#55595c;background-color:#eceeef"></th>
-            <th style="color:#55595c;background-color:#eceeef"></th>
         </tr>
         </thead>
         <tbody>
@@ -26,7 +25,6 @@
                 <th><button class="btn btn-primary check" data-group-id="{{$group['group']->groupID}}">审核<span> ( {{$group['applyCount']}} ) </span></button></th>
                 <th><button class="btn btn-success apply-lesson" data-group-id="{{$group['group']->groupID}}">申请课程</button></th>
                 <th><button class="btn btn-primary lesson-list" data-group-id="{{$group['group']->groupID}}">已选课程</button></th>
-                <th><button class="btn btn-danger exit">退出团队</button></th>
             </tr>
         @endforeach
         </tbody>
@@ -56,10 +54,6 @@
                 window.location.href = baseURL + '/groupLesson?groupID=' + groupID;
             });
 
-            //To do 退出团队
-            $(".exit").click(function () {
-
-            });
         });
     </script>
 @endsection
