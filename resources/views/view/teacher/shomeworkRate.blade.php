@@ -30,7 +30,6 @@ $shomework = $shomework[0];
 									label: '关闭',
 									action: function (dialogItself) {
 										dialogItself.close();
-										location.reload();
 									}
 								}
 							]
@@ -60,14 +59,6 @@ $shomework = $shomework[0];
 @endsection
 
 @section('main_panel')
-	<div class="page-header">
-	<h3>作业信息</h3>
-</div>
-	<table>
-		<tr>
-		<th>课程名称：</th>
-		<td>{{ $thomework->thomeworkName}}</td>
-		</tr>
 
 <div class="page-header">
 	<h3>作业信息</h3>
