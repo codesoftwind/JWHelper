@@ -21,12 +21,34 @@ $shomework = $shomework[0];
 					comment : $('#comment').val()
 				},	
 				success : function(data){
-					if (data.status == 1){
-						$('#success-alert').fadeIn()
-					
+					if (data['status'] == 1) {
+						BootstrapDialog.show({
+							title: '评分成功',
+							type: BootstrapDialog.TYPE_SUCCESS,
+							buttons: [
+								{
+									label: '关闭',
+									action: function (dialogItself) {
+										dialogItself.close();
+										location.reload();
+									}
+								}
+							]
+						});
+					} else {
+						BootstrapDialog.show({
+							title: '评分失败',
+							type: BootstrapDialog.TYPE_WARNING,
+							buttons: [
+								{
+									label: '关闭',
+									action: function (dialogItself) {
+										dialogItself.close();
+									}
+								}
+							]
+						});
 					}
-					else
-						$('#fail-alert').fadeIn()
 				}
         	});
         });
@@ -38,19 +60,7 @@ $shomework = $shomework[0];
 @endsection
 
 @section('main_panel')
-<div id="success-alert" class="col-md-12">
-	<div class="alert alert-success alert-dismissible" role="alert">
-	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	  修改成功
-	</div>
-</div>
-<div id="fail-alert" class="col-md-12">
-	<div class="alert alert-danger alert-dismissible" role="alert">
-	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	  修改失败
-	</div>
-</div>
-<div class="page-header">
+	<div class="page-header">
 	<h3>作业信息</h3>
 </div>
 	<table>
