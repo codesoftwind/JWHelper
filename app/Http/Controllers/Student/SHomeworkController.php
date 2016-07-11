@@ -60,12 +60,13 @@ class SHomeworkController extends Controller {
  		$res=DB::select("select * from thomeworks where thomeworkID=?",[$thomeworkID])[0];
        
         $group=$res->group;
-        
+
         $lessonID=$res->lessonID;
         $teacherID=$res->teacherID;
         $isContent=0;
+       
         $isFile=0;
-        if ($request->content!="") {
+        if ($request->filecontent!="") {
         	$isContent=1;
         }
         
@@ -78,24 +79,24 @@ class SHomeworkController extends Controller {
             return $groupID;
         	if($isContent==1)
         	{
-        		$pan=DB::select("select * from shomeworks where thomeworkID=? and $groupID=?",
+        		$pan=DB::select("select * from shomeworks where thomeworkID=? and groupID=?",
         			      [$thomeworkID,$groupID]);
         		if(count($pan)==0)
         		{
 
         			DB::insert("insert into shomeworks 
         			(thomeworkID,group,groupID,studentID,lessonID,content) values(?,?,?,?,?,?)",
-        			[$thomeworkID,$group,$groupID,$studentID,$lessonID,$request->content]);
+        			[$thomeworkID,$group,$groupID,$studentID,$lessonID,$request->filecontent]);
         		}
         		else
         		{
-        			DB::update("update set content =? where thomeworkID=? and $groupID=?",
-        			[$request->content,$thomeworkID,$groupID]);
+        			DB::update("update set content =? where thomeworkID=? and groupID=?",
+        			[$request->filecontent,$thomeworkID,$groupID]);
         		}
         	}
         	if($isFile==1)
         	{
-        		$pan=DB::select("select * from shomeworks where thomeworkID=? and $groupID=?",
+        		$pan=DB::select("select * from shomeworks where thomeworkID=? and groupID=?",
         			      [$thomeworkID,$groupID]);
         		if(count($pan)==0)
         		{
@@ -119,9 +120,9 @@ class SHomeworkController extends Controller {
 					$newName=$string.iconv('UTF-8', 'GBK', $clientName);
                     $filePath="http://localhost/JWHelper/app/storage/homework/".$string.$clientName;
 					$newFilePath=$file->move(app_path().'/storage/homework',$newName);
-        			DB::update("update set attachment =? where thomeworkID=? and $groupID=?",
+        			DB::update("update set attachment =? where thomeworkID=? and groupID=?",
         			[$filePath,$thomeworkID,$groupID]);
-        			DB::update("update set attachmentName =? where thomeworkID=? and $groupID=?",
+        			DB::update("update set attachmentName =? where thomeworkID=? and groupID=?",
         			[$clientName,$thomeworkID,$groupID]);
         		}
         	}
@@ -131,24 +132,24 @@ class SHomeworkController extends Controller {
         {
         	if($isContent==1)
         	{
-        		$pan=DB::select("select * from shomeworks where thomeworkID=? and $studentID=?",
+        		$pan=DB::select("select * from shomeworks where thomeworkID=? and studentID=?",
         			      [$thomeworkID,$studentID]);
         		if(count($pan)==0)
         		{
 
         			DB::insert("insert into shomeworks (thomeworkID,group,studentID,lessonID,content) values(?,?,?,?,?)",
-        			[$thomeworkID,$group,$studentID,$lessonID,$request->content]);
-                    return "yes";
+        			[$thomeworkID,$group,$studentID,$lessonID,$request->filecontent]);
+                    return "fsdf";
         		}
         		else
         		{
-        			DB::update("update set content =? where thomeworkID=? and $studentID=?",
-        			[$request->content,$thomeworkID,$studentID]);
+        			DB::update("update set content =? where thomeworkID=? and studentID=?",
+        			[$request->filecontent,$thomeworkID,$studentID]);
         		}
         	}
         	if($isFile==1)
         	{
-        		$pan=DB::select("select * from shomeworks where thomeworkID=? and $studentID=?",
+        		$pan=DB::select("select * from shomeworks where thomeworkID=? and studentID=?",
         			      [$thomeworkID,$studentID]);
         		if(count($pan)==0)
         		{
@@ -172,9 +173,9 @@ class SHomeworkController extends Controller {
 					$newName=$string.iconv('UTF-8', 'GBK', $clientName);
                     $filePath="http://localhost/JWHelper/app/storage/homework/".$string.$clientName;
 					$newFilePath=$file->move(app_path().'/storage/homework',$newName);
-        			DB::update("update set attachment =? where thomeworkID=? and $studentID=?",
+        			DB::update("update set attachment =? where thomeworkID=? and studentID=?",
         			[$filePath,$thomeworkID,$studentID]);
-        			DB::update("update set attachmentName =? where thomeworkID=? and $studentID=?",
+        			DB::update("update set attachmentName =? where thomeworkID=? and studentID=?",
         			[$clientName,$thomeworkID,$studentID]);
         		}
         	}

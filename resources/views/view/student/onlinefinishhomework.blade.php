@@ -29,7 +29,7 @@
     <h3>学生作业内容</h3>
      <form action="http://localhost/JWHelper/public/student/uploadShomework" name="myform" method="post" enctype="multipart/form-data">
                     <div id="editor">
-                        <textarea name="content" id="Xeditor" >
+                        <textarea name="filecontent" id="Xeditor" >
                         </textarea>
                         
                          <script type="text/javascript">
@@ -77,7 +77,7 @@
     <h3>学生作业内容</h3>
      <form action="http://localhost/JWHelper/public/student/uploadShomework" name="myform" method="post" enctype="multipart/form-data">
                     <div id="editor">
-                        <textarea name="content" id="Xeditor" >
+                        <textarea name="filecontent" id="Xeditor" >
                             @if(isset($homework[0]->content))
                             {{ $homework[0]->content }}
                             @endif
