@@ -114,9 +114,9 @@
                         </p>
                     </div>
                     <input type="hidden" name="thomeworkID" value="{{$homework[0]->thomeworkID}}">
-                    @if(isset($homework[0]->groupID))
-                    <input type="hidden" name="groupID" value="{{ $homework[0]->groupID}}">
-                    @endif
+                   
+                    <input type="hidden" name="groupID" value="{{ $groupID}}">
+                
                     <button type="submit" class="btn btn-primary" id="createTeam">确认提交</button>
                 </form>
 

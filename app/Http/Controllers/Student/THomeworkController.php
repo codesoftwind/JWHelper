@@ -19,9 +19,10 @@ class THomeworkController extends Controller {
 	{
 		if(!Auth::check())
 			return redirect('login');
-
-		$teacherID = $request->get('teacherID');
+        
+		$teacherID = $request->teacherID;
 		$lessonID = $request->get('lessonID');
+		
 		$studentID = session('userID');
         $have=DB::select("select * from sgroups where studentID =?",[$studentID]);
         $haveJoin=array();
@@ -119,9 +120,10 @@ class THomeworkController extends Controller {
 
       
 		$result = ['title'=>'作业列表', 'username'=>session('username'), 'role'=>session('role')
+		,'groupID'=>$groupID
 		, 'groupHomework'=>$groupHomework,'sgroupHomework'=>$sgroupHomework,
 		 'singleHomework'=>$singleHomework,'ssingleHomework'=>$ssingleHomework];
-    
+      
 		return view('view.student.teacherworks')->with($result);
 	}
 
